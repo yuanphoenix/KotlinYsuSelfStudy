@@ -1,9 +1,16 @@
+package com.example.ysuselfstudy.ui.classschedule
+
+/**
+ * @author  Ahyer
+ * @date  2020/4/9 15:56
+ * @version 1.0
+ */
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ysuselfstudy.R
+
+import com.example.ysuselfstudy.databinding.ListItemAreaBinding
 
 /**
  * @author  Ahyer
@@ -31,12 +38,14 @@ abstract class ExpandAdapte<T, V>(
     }
 
 
-    inner class ParentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val parent: TextView = view.findViewById(R.id.my_test)
+    inner class ParentViewHolder(var binding: ListItemAreaBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        //可以在这里输入父类的点击事件
     }
 
-    inner class ChildViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val child: TextView = view.findViewById(R.id.my_test)
+    inner class ChildViewHolder(var binding: ListItemAreaBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        //可以在这里输入子类的点击事件
     }
 
     fun getItem(position: Int): Any? {
@@ -110,19 +119,15 @@ abstract class ExpandAdapte<T, V>(
         when (viewType) {
             GROUP -> {
                 holder1 = ParentViewHolder(
-                    LayoutInflater.from(parent.context).inflate(
-                        R.layout.test,
-                        parent,
-                        false
+                    ListItemAreaBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
                     )
                 )
             }
             CHILD -> {
                 holder1 = ChildViewHolder(
-                    LayoutInflater.from(parent.context).inflate(
-                        R.layout.test,
-                        parent,
-                        false
+                    ListItemAreaBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
                     )
                 )
             }
@@ -166,7 +171,7 @@ abstract class ExpandAdapte<T, V>(
             }
 
             if (holder is ExpandAdapte<*, *>.ChildViewHolder) {
-                myListener.OnChildClickListenr(holder.child.text.toString())
+                myListener.OnChildClickListenr(holder.binding.itemArea.text.toString())
             }
 
         }

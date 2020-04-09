@@ -1,11 +1,10 @@
-package com.ahyer.recyclerviewexpandable
+package com.example.ysuselfstudy.ui.classschedule
 
-import ExpandAdapte
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ysuselfstudy.R
+
 
 /**
  * @author  Ahyer
@@ -21,7 +20,7 @@ class UltimateAdapter(
     override fun bindView(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ExpandAdapte<*, *>.ParentViewHolder) {
             var test: kotlin.String = getItem(position) as kotlin.String
-            holder.parent.setText(test)
+            holder.binding.itemArea.text = test
         }
         setmyClickListener(object : OnItemClickListener {
             override fun OnParentClickListener(paent: String) {
@@ -30,7 +29,7 @@ class UltimateAdapter(
 
             override fun OnChildClickListenr(child: String) {
                 val msg = bundleOf("amount" to child)
-                navController.navigate(R.id.roomDetailFragment,msg)
+                navController.navigate(R.id.roomDetailFragment, msg)
             }
         })
 
@@ -38,7 +37,7 @@ class UltimateAdapter(
 
         if (holder is ExpandAdapte<*, *>.ChildViewHolder) {
             var test: kotlin.String = getItem(position) as kotlin.String
-            holder.child.setText(test)
+            holder.binding.itemArea.text = test
         }
     }
 

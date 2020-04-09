@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.example.ysuselfstudy.ui.emptyroom.RoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,12 +28,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/biying_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/standradpicture"
                 android:scaleType="fitCenter"
+                app:imageFromUrl="@{viewmodel.hello}"
                 app:srcCompat="@drawable/ic_error" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -54,20 +58,29 @@
             app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
             <ImageView
-                android:paddingLeft="10dp"
-                android:id="@+id/imageView5"
+                android:id="@+id/clock_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:paddingLeft="10dp"
                 app:srcCompat="@drawable/ic_clock" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/time_choose"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="TextView" />
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
