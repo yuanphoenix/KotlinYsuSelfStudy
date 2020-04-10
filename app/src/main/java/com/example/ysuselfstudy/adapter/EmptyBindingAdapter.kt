@@ -1,10 +1,12 @@
 package com.example.ysuselfstudy.adapter
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import java.util.*
 
 /**
  * @author  Ahyer
@@ -21,3 +23,14 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
             .into(view);
     }
 }
+
+//@BindingAdapter("time")
+//fun bindTextSetTime(view: TextView,src:String)
+//{
+//    val calendar = Calendar.getInstance()
+//    val hours = calendar[Calendar.HOUR_OF_DAY]
+//    val minutes = calendar[Calendar.MINUTE]
+//    val temp ="${hours}:${minutes}-${hours}:${minutes}"
+//        //String.format("%02d:%02d-%02d:%02d", hours, minutes, hours, minutes)
+//    view.setText(temp)
+//}

@@ -17,9 +17,8 @@ import kotlin.math.log
  * @date  2020/4/9 11:49
  * @version 1.0
  */
-class TimePopWindow(var con: Context) :
-    BasePopupWindow(con) {
-    private lateinit var listener: OnCertainClickListener
+class TimePopWindow(var fragment: RoomFragment) :
+    BasePopupWindow(fragment) {
 
     init {
         var certifyBtn: Button = findViewById(R.id.certify_btn)
@@ -29,18 +28,12 @@ class TimePopWindow(var con: Context) :
         bindEvent(beginTime, endTime)
 
         certifyBtn.setOnClickListener {
-            listener.clickCertain()
+            fragment.viewModel.time.value =
+                "${beginTime.myHour}:${beginTime.myMinute}-${endTime.myHour}:${endTime.myMinute}"
             this.onBackPressed()
         }
     }
 
-    interface OnCertainClickListener {
-        fun clickCertain()
-    }
-
-    fun setOnCertainClickListener(listen: OnCertainClickListener) {
-        listener = listen
-    }
 
     private fun bindEvent(beginTime: MyTimePicker, endTime: MyTimePicker) {
 

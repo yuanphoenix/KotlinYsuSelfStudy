@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.databinding.RoomFragmentBinding
 import com.example.ysuselfstudy.ui.classschedule.ExpandAdapte
 import com.example.ysuselfstudy.ui.classschedule.UltimateAdapter
+import com.example.ysuselfstudy.viewmodelfactory.MyViewModelFactory
 import kotlinx.android.synthetic.main.room_fragment.*
 import java.util.ArrayList
 
@@ -25,7 +27,7 @@ class RoomFragment : Fragment() {
         fun newInstance() = RoomFragment()
     }
 
-    private lateinit var viewModel: RoomViewModel
+    lateinit var viewModel: RoomViewModel
     private lateinit var roomDataBing: RoomFragmentBinding
     private lateinit var timePopWindow: TimePopWindow
     override fun onCreateView(
@@ -35,7 +37,8 @@ class RoomFragment : Fragment() {
         // RoomFragmentBinding.inflate(layoutInflater)
         var navController = findNavController()
         //初始化ViewModel，里面有本Fragment的所有data
-        viewModel =  ViewModelProvider(requireActivity()).get(RoomViewModel::class.java)
+        //viewModel =  ViewModelProvider(requireActivity()).get(RoomViewModel::class.java)
+        viewModel=ViewModelProvider(this,MyViewModelFactory()).get(RoomViewModel::class.java)
         roomDataBing = DataBindingUtil.inflate(inflater, R.layout.room_fragment, container, false)
         roomDataBing.viewmodel = viewModel
 
@@ -43,7 +46,7 @@ class RoomFragment : Fragment() {
         var layout = LinearLayoutManager(roomDataBing.root.context)
         roomDataBing.myRecycler.adapter = adapter
         roomDataBing.myRecycler.layoutManager = layout
-        timePopWindow = TimePopWindow(roomDataBing.root.context)
+        timePopWindow = TimePopWindow(this)
 
         return roomDataBing.root
     }
@@ -56,10 +59,9 @@ class RoomFragment : Fragment() {
             timePopWindow.showPopupWindow()
         }
 
-       timePopWindow.setOnCertainClickListener(object :TimePopWindow.OnCertainClickListener{
-           override fun clickCertain() {
-               roomDataBing.timeChoose.setText("好了好了")
-           }
-       })
+        //观察textview的数据变化
+        viewModel.time.observe(requireActivity(), Observer { ti->
+            roomDataBing.timeChoose.text = ti.toString()
+        })
     }
 }
