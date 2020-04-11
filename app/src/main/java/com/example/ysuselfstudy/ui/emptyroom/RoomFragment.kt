@@ -48,7 +48,17 @@ class RoomFragment : Fragment() {
         roomDataBing.myRecycler.layoutManager = layout
         timePopWindow = TimePopWindow(this)
 
+        roomDataBing.swipeRefresh.setColorSchemeColors(resources.getColor(R.color.colorPrimary))
+        roomDataBing.swipeRefresh.setOnRefreshListener {
+            refreshRoom("getState")
+        }
+
         return roomDataBing.root
+    }
+
+    fun refreshRoom(query: String) {
+        viewModel.getRoom(query)
+        roomDataBing.swipeRefresh.isRefreshing=true;
     }
 
 
@@ -62,6 +72,10 @@ class RoomFragment : Fragment() {
         //观察textview的数据变化
         viewModel.time.observe(requireActivity(), Observer { ti->
             roomDataBing.timeChoose.text = ti.toString()
+        })
+
+        viewModel.emptyRoomLiveData.observe(requireActivity(), Observer {result->
+            roomDataBing.swipeRefresh.isRefreshing=false
         })
     }
 }

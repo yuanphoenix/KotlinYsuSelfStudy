@@ -3,10 +3,18 @@ package com.example.ysuselfstudy.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.ysuselfstudy.ui.classschedule.ClassScheduleFragment
+import com.example.ysuselfstudy.ui.emptyroom.RoomFragment
+import com.example.ysuselfstudy.ui.userinfo.UserInfoFragment
 
-class ViewPagerAdapter(var fragments: List<Fragment>,var fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
-    
-    override fun getItem(position: Int): Fragment = fragments[position]
+class ViewPagerAdapter(var fragment: Fragment) : FragmentStateAdapter(fragment) {
+    private val fragments =
+        listOf<Fragment>(RoomFragment(), ClassScheduleFragment(), UserInfoFragment())
 
-    override fun getCount(): Int = fragments.size
+    override fun getItemCount(): Int = 3
+    override fun createFragment(position: Int): Fragment =
+        fragments.get(position)
+
+
 }

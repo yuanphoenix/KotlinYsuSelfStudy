@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.adapter.ViewPagerAdapter
@@ -18,8 +20,8 @@ import com.example.ysuselfstudy.ui.userinfo.UserInfoFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainFragment : Fragment() {
-    lateinit var viewPager: ViewPager
-    lateinit var viewPagerAdapter: FragmentPagerAdapter
+    lateinit var viewPager: ViewPager2
+    lateinit var viewPagerAdapter: FragmentStateAdapter
     lateinit var bottomNav: BottomNavigationView
 
     companion object {
@@ -37,12 +39,9 @@ class MainFragment : Fragment() {
 
         var view: View = inflater.inflate(R.layout.main_fragment, container, false)
 
-        val fragments =
-            listOf<Fragment>(RoomFragment(), ClassScheduleFragment(), UserInfoFragment())
-
         viewPager = view.findViewById(R.id.viewpager)
         bottomNav = view.findViewById(R.id.bottom_nav)
-        viewPagerAdapter = ViewPagerAdapter(fragments, childFragmentManager)
+        viewPagerAdapter = ViewPagerAdapter(this)
         viewPager.adapter = viewPagerAdapter
 
         bottomNav.setOnNavigationItemSelectedListener() {
@@ -58,7 +57,7 @@ class MainFragment : Fragment() {
             return@setOnNavigationItemSelectedListener false
         }
 
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
             }
 

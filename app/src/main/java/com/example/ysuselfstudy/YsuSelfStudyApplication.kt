@@ -3,6 +3,7 @@ package com.example.ysuselfstudy
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import org.litepal.LitePal
 
 class YsuSelfStudyApplication :Application()
 {
@@ -14,5 +15,6 @@ class YsuSelfStudyApplication :Application()
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        LitePal.initialize(context)
     }
 }

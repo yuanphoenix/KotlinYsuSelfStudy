@@ -10,77 +10,84 @@
             type="com.example.ysuselfstudy.ui.emptyroom.RoomViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.emptyroom.RoomFragment">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toTopOf="@id/line1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/biying_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/standradpicture"
-                android:scaleType="fitCenter"
-                app:imageFromUrl="@{viewmodel.hello}"
-                app:srcCompat="@drawable/ic_error" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.40" />
-
-        <LinearLayout
-            android:id="@+id/line1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView">
-
-            <ImageView
-                android:id="@+id/clock_image"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                app:srcCompat="@drawable/ic_clock" />
-
-            <TextView
-                android:id="@+id/time_choose"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="TextView" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/my_recycler"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            android:layout_height="match_parent"
+            tools:context=".ui.emptyroom.RoomFragment">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toTopOf="@id/line1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/biying_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/standradpicture"
+                    android:scaleType="fitCenter"
+                    app:imageFromUrl="@{viewmodel.hello}"
+                    app:srcCompat="@drawable/ic_error" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.40" />
+
+            <LinearLayout
+                android:id="@+id/line1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+                <ImageView
+                    android:id="@+id/clock_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    app:srcCompat="@drawable/ic_clock" />
+
+                <TextView
+                    android:id="@+id/time_choose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TextView" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/my_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>

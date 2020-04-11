@@ -40,12 +40,10 @@ abstract class ExpandAdapte<T, V>(
 
     inner class ParentViewHolder(var binding: ListItemAreaBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        //可以在这里输入父类的点击事件
     }
 
     inner class ChildViewHolder(var binding: ListItemAreaBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        //可以在这里输入子类的点击事件
     }
 
     fun getItem(position: Int): Any? {
@@ -160,7 +158,6 @@ abstract class ExpandAdapte<T, V>(
             //父类点击事件
 
             if (holder is ExpandAdapte<*, *>.ParentViewHolder) {
-
                 var unit = getUnit(holder.adapterPosition)
                 unit!!.folded = !unit.folded
                 if (unit.folded) {

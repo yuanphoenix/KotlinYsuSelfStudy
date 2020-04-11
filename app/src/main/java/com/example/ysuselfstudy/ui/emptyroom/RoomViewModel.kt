@@ -1,12 +1,15 @@
 package com.example.ysuselfstudy.ui.emptyroom
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.data.EmptyRoom
+import com.example.ysuselfstudy.logic.Repository
 import com.example.ysuselfstudy.ui.classschedule.ExpandAdapte
 import java.util.ArrayList
 
-class RoomViewModel(var time:MutableLiveData<String>) : ViewModel() {
+class RoomViewModel(var time: MutableLiveData<String>) : ViewModel() {
 
     var hello =
         "https://cn.bing.com/th?id=OHR.UnicornoftheSea_ZH-CN2949385175_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"
@@ -17,5 +20,20 @@ class RoomViewModel(var time:MutableLiveData<String>) : ViewModel() {
         ExpandAdapte.UnitData("西校区", listOf("西区第一教学楼", "西区第二教学楼", "西区第三教学楼", "西区第五教学楼", "里仁教学楼"))
 
     val dirs = mutableListOf(uini1, uini2)
+
+    private val getRoomNetAddtion = MutableLiveData<String>()
+
+    val emptyRoom = ArrayList<EmptyRoom>()
+
+    //这才是主角
+    val emptyRoomLiveData = Transformations.switchMap(getRoomNetAddtion) { query ->
+        Repository.getRoom(query)
+    }
+
+
+    fun getRoom(query: String) {
+        getRoomNetAddtion.value = query
+    }
+
 
 }
