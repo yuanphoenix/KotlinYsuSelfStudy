@@ -12,4 +12,5 @@
     <string name="certain">确定</string>
     <string name="please_password">请输入密码</string>
     <string name="please_num">请输入学号</string>
+    <string name="login">登录界面</string>
 </resources>

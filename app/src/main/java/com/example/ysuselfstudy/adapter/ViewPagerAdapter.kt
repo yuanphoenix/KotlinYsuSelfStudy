@@ -12,9 +12,7 @@ class ViewPagerAdapter(var fragment: Fragment) : FragmentStateAdapter(fragment) 
     private val fragments =
         listOf<Fragment>(RoomFragment(), ClassScheduleFragment(), UserInfoFragment())
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = fragments.size
     override fun createFragment(position: Int): Fragment =
         fragments.get(position)
-
-
 }

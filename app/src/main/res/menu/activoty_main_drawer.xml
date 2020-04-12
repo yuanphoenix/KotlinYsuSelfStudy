@@ -8,7 +8,7 @@
             android:id="@+id/exam"
             android:title="@string/exam_time"/>
         <item
-            android:id="@+id/class_schedule"
-            android:title="@string/class_schedule"/>
+            android:id="@+id/loginFragment"
+            android:title="@string/login" />
     </group>
 </menu>

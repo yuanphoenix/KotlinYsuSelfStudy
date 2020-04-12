@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.room_fragment.*
 import java.util.ArrayList
 
 class RoomFragment : Fragment() {
-
+private val TAG ="RoomFragment"
     companion object {
         fun newInstance() = RoomFragment()
     }
@@ -47,7 +47,6 @@ class RoomFragment : Fragment() {
         roomDataBing.myRecycler.adapter = adapter
         roomDataBing.myRecycler.layoutManager = layout
         timePopWindow = TimePopWindow(this)
-
         roomDataBing.swipeRefresh.setColorSchemeColors(resources.getColor(R.color.colorPrimary))
         roomDataBing.swipeRefresh.setOnRefreshListener {
             refreshRoom("getState")

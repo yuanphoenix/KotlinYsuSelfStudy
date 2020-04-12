@@ -7,7 +7,7 @@ import org.litepal.crud.LitePalSupport
  * @date  2020/4/10 17:30
  * @version 1.0
  */
-class EmptyRoom(
+data class EmptyRoom(
     var room: String,
     var location: String,
     var xiaoqu: String,

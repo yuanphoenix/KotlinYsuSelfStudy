@@ -10,14 +10,14 @@
         android:name="com.example.ysuselfstudy.ui.first.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" />
-    <fragment
-        android:id="@+id/class_schedule"
-        android:name="com.example.ysuselfstudy.ui.classschedule.ClassScheduleFragment"
-        android:label="class_schedule_fragment"
-        tools:layout="@layout/class_schedule_fragment" />
+
     <fragment
         android:id="@+id/roomDetailFragment"
         android:name="com.example.ysuselfstudy.ui.emptyroom.RoomDetailFragment"
         android:label="room_detail_fragment"
         tools:layout="@layout/room_detail_fragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.ysuselfstudy.ui.login.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>

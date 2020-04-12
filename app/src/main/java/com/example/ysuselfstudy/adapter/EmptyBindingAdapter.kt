@@ -13,6 +13,7 @@ import java.util.*
  * @author  Ahyer
  * @date  2020/4/9 14:53
  * @version 1.0
+ * 这是一个顶层方法文件
  */
 
 @BindingAdapter("imageFromUrl")
