@@ -7,10 +7,27 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.classschedule.ClassScheduleFragment">
+        android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/class_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.classschedule.ClassScheduleFragment">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/class_login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/login"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    </FrameLayout>
+
 </layout>

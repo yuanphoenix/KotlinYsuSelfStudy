@@ -10,7 +10,7 @@
             type="com.example.ysuselfstudy.ui.emptyroom.RoomViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <com.example.ysuselfstudy.ui.MySwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -88,6 +88,6 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.example.ysuselfstudy.ui.MySwipeRefreshLayout>
 
 </layout>

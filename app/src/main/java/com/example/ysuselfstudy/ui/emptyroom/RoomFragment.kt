@@ -1,7 +1,6 @@
 package com.example.ysuselfstudy.ui.emptyroom
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.ysuselfstudy.R
-import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.databinding.RoomFragmentBinding
-import com.example.ysuselfstudy.ui.classschedule.ExpandAdapte
-import com.example.ysuselfstudy.ui.classschedule.UltimateAdapter
+import com.example.ysuselfstudy.ui.TimePopWindow
+import com.example.ysuselfstudy.adapter.UltimateAdapter
 import com.example.ysuselfstudy.viewmodelfactory.MyViewModelFactory
-import kotlinx.android.synthetic.main.room_fragment.*
-import java.util.ArrayList
 
 class RoomFragment : Fragment() {
 private val TAG ="RoomFragment"
@@ -37,12 +33,14 @@ private val TAG ="RoomFragment"
         // RoomFragmentBinding.inflate(layoutInflater)
         var navController = findNavController()
         //初始化ViewModel，里面有本Fragment的所有data
-        //viewModel =  ViewModelProvider(requireActivity()).get(RoomViewModel::class.java)
         viewModel=ViewModelProvider(this,MyViewModelFactory()).get(RoomViewModel::class.java)
         roomDataBing = DataBindingUtil.inflate(inflater, R.layout.room_fragment, container, false)
         roomDataBing.viewmodel = viewModel
 
-        var adapter = UltimateAdapter(viewModel.dirs, navController)
+        var adapter = UltimateAdapter(
+            viewModel.dirs,
+            navController
+        )
         var layout = LinearLayoutManager(roomDataBing.root.context)
         roomDataBing.myRecycler.adapter = adapter
         roomDataBing.myRecycler.layoutManager = layout
@@ -51,6 +49,7 @@ private val TAG ="RoomFragment"
         roomDataBing.swipeRefresh.setOnRefreshListener {
             refreshRoom("getState")
         }
+        roomDataBing.swipeRefresh
 
         return roomDataBing.root
     }
@@ -58,6 +57,8 @@ private val TAG ="RoomFragment"
     fun refreshRoom(query: String) {
         viewModel.getRoom(query)
         roomDataBing.swipeRefresh.isRefreshing=true;
+
+
     }
 
 

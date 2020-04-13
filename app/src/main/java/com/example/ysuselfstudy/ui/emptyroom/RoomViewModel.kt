@@ -3,10 +3,9 @@ package com.example.ysuselfstudy.ui.emptyroom
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.data.EmptyRoom
 import com.example.ysuselfstudy.logic.Repository
-import com.example.ysuselfstudy.ui.classschedule.ExpandAdapte
+import com.example.ysuselfstudy.adapter.ExpandAdapte
 import java.util.ArrayList
 
 class RoomViewModel(var time: MutableLiveData<String>) : ViewModel() {

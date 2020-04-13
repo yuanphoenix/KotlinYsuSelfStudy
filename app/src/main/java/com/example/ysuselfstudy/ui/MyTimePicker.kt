@@ -1,4 +1,4 @@
-package com.example.ysuselfstudy.ui.emptyroom
+package com.example.ysuselfstudy.ui
 
 import android.content.Context
 import android.os.Build

@@ -1,16 +1,12 @@
-package com.example.ysuselfstudy.ui.emptyroom
+package com.example.ysuselfstudy.ui
 
-import android.content.Context
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.TimePicker.OnTimeChangedListener
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.ui.emptyroom.RoomFragment
 import razerdp.basepopup.BasePopupWindow
-import kotlin.math.log
 
 /**
  * @author  Ahyer

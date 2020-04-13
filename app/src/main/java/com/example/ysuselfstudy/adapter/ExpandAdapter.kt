@@ -1,4 +1,4 @@
-package com.example.ysuselfstudy.ui.classschedule
+package com.example.ysuselfstudy.adapter
 
 /**
  * @author  Ahyer

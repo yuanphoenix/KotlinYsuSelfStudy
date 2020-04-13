@@ -9,7 +9,8 @@
         android:id="@+id/mainFragment"
         android:name="com.example.ysuselfstudy.ui.first.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment">
+    </fragment>
 
     <fragment
         android:id="@+id/roomDetailFragment"

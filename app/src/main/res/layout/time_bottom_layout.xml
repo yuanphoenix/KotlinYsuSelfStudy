@@ -11,14 +11,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.example.ysuselfstudy.ui.emptyroom.MyTimePicker
+        <com.example.ysuselfstudy.ui.MyTimePicker
             android:id="@+id/begin_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:timePickerMode="spinner" />
 
-        <com.example.ysuselfstudy.ui.emptyroom.MyTimePicker
+        <com.example.ysuselfstudy.ui.MyTimePicker
             android:id="@+id/end_ime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

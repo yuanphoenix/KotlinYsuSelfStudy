@@ -1,4 +1,4 @@
-package com.example.ysuselfstudy.ui.classschedule
+package com.example.ysuselfstudy.adapter
 
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
@@ -13,7 +13,7 @@ import com.example.ysuselfstudy.R
  */
 
 class UltimateAdapter(
-    var data: List<ExpandAdapte.UnitData<String, String>>,
+    var data: List<UnitData<String, String>>,
     var navController: NavController
 ) : ExpandAdapte<String, String>(data) {
 
@@ -22,7 +22,8 @@ class UltimateAdapter(
             var test: kotlin.String = getItem(position) as kotlin.String
             holder.binding.itemArea.text = test
         }
-        setmyClickListener(object : OnItemClickListener {
+        setmyClickListener(object :
+            OnItemClickListener {
             override fun OnParentClickListener(paent: String) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }

@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.lifecycle.liveData
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
+import com.example.ysuselfstudy.network.ServiceCreator
 import kotlinx.coroutines.Dispatchers
+import okhttp3.HttpUrl
 import org.litepal.LitePal
 import java.lang.Exception
 
@@ -49,8 +51,11 @@ object Repository {
         val code_byteArray = OfficeNetWork.getCode()
         //识别验证码
         val code = OfficeNetWork.postCode(code_byteArray)
+        Log.d(TAG, "getLoginState: "+code);
         //发送登录请求
         val result = OfficeNetWork.login(num, password, code)
+        Log.d(TAG, "getLoginState: "+num+","+password);
+        Log.d(TAG, "getLoginState: " + result);
         emit(result)
 
     }
