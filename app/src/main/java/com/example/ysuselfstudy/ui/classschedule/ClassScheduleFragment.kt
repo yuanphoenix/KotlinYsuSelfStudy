@@ -9,23 +9,28 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.adapter.CourseAdapter
+import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.databinding.ClassScheduleFragmentBinding
 
 class ClassScheduleFragment : Fragment() {
     companion object {
         fun newInstance() = ClassScheduleFragment()
-        private val TAG = "ClassScheduleFragment"
+
     }
 
+    private val TAG = "ClassScheduleFragment"
     private lateinit var mainViewModel: MainViewModel
     private lateinit var viewModel: ClassScheduleViewModel
     private lateinit var binding: ClassScheduleFragmentBinding
     private lateinit var navController: NavController
+    private lateinit var adapter: CourseAdapter
+    private var mData = ArrayList<Course>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +42,11 @@ class ClassScheduleFragment : Fragment() {
         binding.classLoginBtn.setOnClickListener {
             navController.navigate(R.id.loginFragment)
         }
+        var layoutManager = StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL)
+        binding.schedule.layoutManager = layoutManager
+        adapter = CourseAdapter(mData)
+        binding.schedule.adapter = adapter
+
 
         return binding.root
     }
@@ -62,11 +72,17 @@ class ClassScheduleFragment : Fragment() {
                 }
             })
 
+        viewModel.nowWeekCourse.observe(this.viewLifecycleOwner, Observer { result ->
+            mData.clear()
+            mData.addAll(result)
+            adapter.notifyDataSetChanged()
+        })
+
 
     }
 
     private fun showUi() {
-        Log.d(TAG, "showUi: 登录成功");
+        viewModel.getCourse()
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.ysuselfstudy.logic
 
 import android.util.Log
 import androidx.lifecycle.liveData
+import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
 import com.example.ysuselfstudy.network.ServiceCreator
@@ -27,7 +28,7 @@ object Repository {
         //在这里应该写判返回值空逻辑
         var result = try {
             val room = EmptyRoomNetWork.searchRoom(query)
-            LitePal.saveAll(room)
+            Dao.saveRoom(room)
             Result.success(room) //复制给了result
         } catch (e: Exception) {
             Log.d(TAG, e.toString())
@@ -35,11 +36,19 @@ object Repository {
         emit(result)
     }
 
+
     /**
      *返回本周的课程
      */
-    fun getTimeStable() {
-
+    fun getTimeStable() = liveData(Dispatchers.IO) {
+        var result = ArrayList<Course>()
+        if (Dao.isCourseEmpty()) {
+            Dao.deleteAllCourse()
+            val documnet = OfficeNetWork.getCourse()
+            CourseAnalysis.analysisCourse(documnet)
+        }
+        result = Dao.getWeekClass()
+        emit(result)
     }
 
     /**
@@ -51,11 +60,9 @@ object Repository {
         val code_byteArray = OfficeNetWork.getCode()
         //识别验证码
         val code = OfficeNetWork.postCode(code_byteArray)
-        Log.d(TAG, "getLoginState: "+code);
         //发送登录请求
         val result = OfficeNetWork.login(num, password, code)
-        Log.d(TAG, "getLoginState: "+num+","+password);
-        Log.d(TAG, "getLoginState: " + result);
+        //这里已经知道了登录的结果，如果为 true ，那么获取一些GBKName等信息。
         emit(result)
 
     }
@@ -74,4 +81,5 @@ object Repository {
     fun getGrade() {
 
     }
+
 }

@@ -1,10 +1,10 @@
 package com.example.ysuselfstudy.network
 
 import android.util.Log
-import android.widget.Toast
-import com.example.ysuselfstudy.data.Exam
+import com.example.ysuselfstudy.logic.Dao
 import okhttp3.*
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import java.io.IOException
 import java.util.*
 import kotlin.coroutines.resume
@@ -41,8 +41,6 @@ object OfficeNetWork {
      */
     suspend fun login(nums: String, password: String, code: String): Boolean {
         return suspendCoroutine { continuation ->
-
-
             val requestBody = FormBody.Builder()
                 .add("__VIEWSTATE", "dDwxNTMxMDk5Mzc0Ozs+cgOhsy/GUNsWPAGh+Vu0SCcW5Hw=")
                 .add("txtUserName", nums)
@@ -75,9 +73,42 @@ object OfficeNetWork {
                         for (cookie in loadForRequest) {
                             COOKIE_MAP[cookie.name()] = cookie.value()
                         }
+                        //获取首页信息，例如实验课以及GBK内码格式的姓名。
+                        val document =
+                            Jsoup.connect(response.request().url().toString())
+                                .cookies(COOKIE_MAP)
+                                .get()
+
+                        val elements = document.select("a[href]")
+//                        for (i in elements.indices) {
+//                            val temp = elements[i].attr("href")
+//                            if (temp.contains("StuE")) {
+//                                AllString.LAB_URL = temp
+//                                Log.d(
+//                                    com.example.ysuselfstudy.ui.LoginOfficeActivity.TAG,
+//                                    "onResponse: " + AllString.LAB_URL
+//                                ) //解析出实验室地址
+//                                break
+//                            }
+//                        }
+                        //获取学生姓名
+                        try {
+                            val stuname = document.select("span[id=xhxm]")
+                            var name = stuname[0].text()//李强同学
+                            //截取姓名
+                            name = name.substring(0, name.length - 2)//李强
+                            val sb = StringBuilder()
+                            val bytes =
+                                name.toByteArray(charset("GBK")) //将姓名转为GBK内码格式
+                            for (b in bytes) {
+                                sb.append("%" + Integer.toHexString((b.toInt() and 0xff)).toUpperCase())
+                            }
+                            Dao.saveStu(nums, password, sb.toString())
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
 
                         continuation.resume(true)
-
                     }
                 }
 
@@ -101,37 +132,7 @@ object OfficeNetWork {
         }
     }
 
-  /* suspend fun getExam(): List<Exam> {
-         return suspendCoroutine { continuation ->
-             val connection = Jsoup.connect(exam)
-                 .header("Cookie", AllString.Cookie)
-                 .header("Host", AllString.YSU_URL)
-                 .referrer(referer)
-                 .cookies(COOKIE_MAP)
-                 .data("xh", xuehao)
-                 .data("xm", AllString.GBKNAME)
-                 .data("gnmkdm", "N121604") //.data("__EVENTTARGET", "xnd")
-                 .post()
 
-             //如果还未评价。这是一个优化点
-             //如果还未评价。这是一个优化点
-             val aab = connection.body().text()
-             //  AllString.log("探测点" + aab);
-
-             //  AllString.log("探测点" + aab);
-             if (aab.length == 0) {
-                 runOnUiThread(Runnable {
-                     Toast.makeText(this@ExamActivity, "请登录教务系统进行教学评价", Toast.LENGTH_LONG).show()
-                     com.example.ysuselfstudy.ui.ExamActivity.have = true
-                 })
-             }
-             //获取了所有爬取的信息。
-             //获取了所有爬取的信息。
-             val elements = connection.select("td")
-         }
-     }
-
- */
     /**
      * 向自己服务器验证
      */
@@ -148,6 +149,28 @@ object OfficeNetWork {
             continuation.resume(temp)
         }
     }
+
+    suspend fun getCourse(): Document {
+        return suspendCoroutine { continuation ->
+            val user = Dao.getStu()
+            val url =
+                "http://202.206.243.62/xskbcx.aspx?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121603"
+            val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            val document = Jsoup.connect(url)
+                .cookies(COOKIE_MAP)
+                .referrer(referrer)
+                .data("xh", user.number)
+                .data("xm", user.gbkName)
+                .data("gnmkdm", "N121603")
+                .post()
+            continuation.resume(document)
+
+        }
+
+
+    }
+
 }
+
 
 

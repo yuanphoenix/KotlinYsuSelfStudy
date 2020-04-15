@@ -8,10 +8,10 @@ import org.litepal.crud.LitePalSupport
  * @version 1.0
  */
 data class User(
-    var gbkName: String="",
     var number: String,
-    var eduPassword: String="",
-    var libraryPassword: String="",
-    var todaySchoolPassword: String=""
+    var eduPassword: String = "",
+    var gbkName: String = "",
+    var libraryPassword: String = "",
+    var todaySchoolPassword: String = ""
 ) : LitePalSupport() {
 }

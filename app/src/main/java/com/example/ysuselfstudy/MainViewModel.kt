@@ -28,7 +28,7 @@ class MainViewModel : ViewModel() {
 
     private val condition = MutableLiveData<User>()
 
-  var  state = Transformations.switchMap(condition) { input: User? ->
+    var state = Transformations.switchMap(condition) { input: User? ->
         Repository.getLoginState(input!!.number, input.eduPassword)
     }
 
@@ -36,19 +36,9 @@ class MainViewModel : ViewModel() {
         condition.value = user
     }
 
-
-
-
     fun authenticate(username: String, password: String) {
-        getLogin(User(number = username,eduPassword = password))
-
-
+        getLogin(User(number = username, eduPassword = password))
     }
 
-    private fun passwordIsValidForUsername(username: String, password: String): Boolean {
-        Log.d(TAG, "passwordIsValidForUsername: " + username);
-        Log.d(TAG, "passwordIsValidForUsername: " + password);
-        return false
-    }
 
 }

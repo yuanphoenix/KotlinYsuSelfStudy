@@ -31,7 +31,6 @@ class LoginFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: LoginFragmentBinding
-
     private lateinit var navController: NavController
 
 
@@ -52,9 +51,7 @@ class LoginFragment : Fragment() {
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         binding.btnLogin.setOnClickListener {
             mainViewModel.authenticate(
-                binding.userNumber.text.toString(),
-                binding.officePassword.text.toString()
-
+                binding.userNumber.text.toString(), binding.officePassword.text.toString()
             )
         }
 
@@ -69,7 +66,6 @@ class LoginFragment : Fragment() {
         })
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            Log.d(TAG, "onViewCreated: 返回");
             mainViewModel.refuseAuthentication()
             navController.popBackStack()
 
@@ -80,7 +76,6 @@ class LoginFragment : Fragment() {
             Observer { authenticationState ->
                 when (authenticationState) {
                     MainViewModel.AuthenticationState.AUTHENTICATED -> {
-                        Log.d(TAG, "onViewCreated: 登陆成功");
                         navController.popBackStack()
                     }
                     MainViewModel.AuthenticationState.INVALID_AUTHENTICATION -> showErrorMessage()
