@@ -4,13 +4,12 @@ package com.example.ysuselfstudy.logic
 import android.util.Log
 import androidx.lifecycle.liveData
 import com.example.ysuselfstudy.data.Course
+import com.example.ysuselfstudy.data.Exam
+import com.example.ysuselfstudy.data.Information
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
-import com.example.ysuselfstudy.network.ServiceCreator
 import kotlinx.coroutines.Dispatchers
-import okhttp3.HttpUrl
-import org.litepal.LitePal
-import java.lang.Exception
+import org.jsoup.select.Elements
 
 /**
  * @author  Ahyer
@@ -55,13 +54,18 @@ object Repository {
      */
 
     fun getLoginState(num: String, password: String) = liveData(Dispatchers.IO) {
-        //获取验证码图片
-        val code_byteArray = OfficeNetWork.getCode()
-        //识别验证码
-        val code = OfficeNetWork.postCode(code_byteArray)
-        //发送登录请求
-        val result = OfficeNetWork.login(num, password, code)
-        //这里已经知道了登录的结果，如果为 true ，那么获取一些GBKName等信息。
+        var result = false;
+        try {
+            //获取验证码图片
+            val code_byteArray = OfficeNetWork.getCode()
+            //识别验证码
+            val code = OfficeNetWork.postCode(code_byteArray)
+            //发送登录请求
+            result = OfficeNetWork.login(num, password, code)
+            //这里已经知道了登录的结果，如果为 true ，那么获取一些GBKName等信息。
+        } catch (e: Exception) {
+            result = false
+        }
         emit(result)
 
     }
@@ -69,7 +73,34 @@ object Repository {
     /**
      *返回考试信息
      */
-    fun getExam() {
+    fun getExam() = liveData(Dispatchers.IO) {
+        val document = OfficeNetWork.getExam()
+        val examList = ArrayList<Exam>()
+        if (document.body().text().length == 0) emit(examList)
+
+        //获取了所有爬取的信息。
+        val elements: Elements = document.select("td")
+
+
+        val size = elements.size
+
+        var i = 11
+        while (i < size) {
+            val time = elements[i].text()
+            if (time != "") {
+                val examName = elements[i - 2].text()
+                val location = elements[i + 1].text()
+                val number = elements[i + 3].text()
+                val examBean = Exam(examName, time, location, number)
+                examList.add(examBean)
+            } else {
+                //出考试时间的一定在最前面，一旦没有发现考试时间，那么就停止。
+                break
+            }
+            i += 8
+        }
+
+        emit(examList)
 
     }
 
@@ -80,5 +111,15 @@ object Repository {
     fun getGrade() {
 
     }
+
+    fun getInformation() = liveData(Dispatchers.IO) {
+        try {
+            var list = OfficeNetWork.getInformation() ?: null
+            emit(list)
+        } catch (e: Exception) {
+            emit(null)
+        }
+    }
+
 
 }

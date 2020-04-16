@@ -64,6 +64,7 @@
                 <TextView
                     android:id="@+id/time_choose"
                     android:layout_width="0dp"
+                    android:textSize="@dimen/sp20"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center" />
@@ -71,6 +72,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/my_recycler"
+                android:padding="@dimen/dp10"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"

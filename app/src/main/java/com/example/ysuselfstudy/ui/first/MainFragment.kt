@@ -2,29 +2,21 @@ package com.example.ysuselfstudy.ui.first
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.ysuselfstudy.MainViewModel
 
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.adapter.ViewPagerAdapter
-import com.example.ysuselfstudy.ui.classschedule.ClassScheduleFragment
-import com.example.ysuselfstudy.ui.emptyroom.RoomFragment
-import com.example.ysuselfstudy.ui.userinfo.UserInfoFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
     lateinit var viewPager: ViewPager2

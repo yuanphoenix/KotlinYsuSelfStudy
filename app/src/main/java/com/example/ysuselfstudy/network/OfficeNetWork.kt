@@ -1,14 +1,18 @@
 package com.example.ysuselfstudy.network
 
 import android.util.Log
+import com.example.ysuselfstudy.data.Information
 import com.example.ysuselfstudy.logic.Dao
 import okhttp3.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.select.Elements
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+
 
 /**
  * @author  Ahyer
@@ -155,7 +159,53 @@ object OfficeNetWork {
 
         }
 
+    }
 
+    /**
+     * 解析获取考试的界面
+     */
+    suspend fun getExam(): Document {
+        return suspendCoroutine { continuation ->
+            val user = Dao.getStu()
+            val exam =
+                "http://202.206.243.62/xskscx.aspx?xh=${user.number} &xm=${user.gbkName} &gnmkdm=N121604"
+            val referer =
+                "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            val document = Jsoup.connect(exam)
+                .cookies(COOKIE_MAP)
+                .header("Host", "202.206.243.62")
+                .referrer(referer)
+                .data("xh", user.number)
+                .data("xm", user.gbkName)
+                .data("gnmkdm", "N121604")
+                .post()
+            continuation.resume(document)
+        }
+
+
+    }
+
+    suspend fun getInformation(): ArrayList<Information>? {
+        return suspendCoroutine { continuation ->
+            val infoList = ArrayList<Information>()
+            val document =
+                Jsoup.connect("https://jwc.ysu.edu.cn/tzgg1.htm")
+                    .get()
+            val alignLefts: Elements = document.getElementsByClass("alignLeft")
+            val a: Elements = alignLefts.select("a")
+            val alignLRights = document.getElementsByClass("alignRight")
+            for (i in a.indices) {
+                var href = a[i].attr("href")
+                val title = a[i].attr("title")
+                val time = alignLRights[i].text()
+                if (!href.contains("https")) {
+                    href = "https://jwc.ysu.edu.cn/$href"
+                }
+                infoList.add(Information(title, href, time))
+            }
+            continuation.resume(infoList)
+
+        }
     }
 
 }

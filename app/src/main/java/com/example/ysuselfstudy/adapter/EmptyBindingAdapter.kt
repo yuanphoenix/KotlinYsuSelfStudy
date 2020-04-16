@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.logic.getWeek
 import java.util.*
 
 /**

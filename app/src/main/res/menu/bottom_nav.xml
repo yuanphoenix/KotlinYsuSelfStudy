@@ -6,6 +6,7 @@
     <item
         android:id="@+id/class_schedule"
         android:title="@string/class_schedule" />
-    <item android:id="@+id/user_info"
-        android:title="@string/user"/>
+    <item
+        android:id="@+id/user_info"
+        android:title="@string/inform" />
 </menu>

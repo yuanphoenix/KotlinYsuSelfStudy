@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?><!--准备着在这里添加三个嵌套的Fragment-->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.first.MainFragment">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
         android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_nav" />
 
-</FrameLayout>
+</LinearLayout>

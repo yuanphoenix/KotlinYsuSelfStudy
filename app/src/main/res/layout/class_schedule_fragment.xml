@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.example.ysuselfstudy.ui.classschedule.ClassScheduleViewModel" />
     </data>
 
     <FrameLayout
@@ -29,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="8周" />
+                    android:text="@{viewmodel.week}" />
 
                 <TextView
                     android:id="@+id/week1"

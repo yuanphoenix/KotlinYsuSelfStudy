@@ -58,10 +58,12 @@ class ClassScheduleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ClassScheduleViewModel::class.java)//本地的ViewModel
 
+        binding.viewmodel = viewModel
+
         binding.nodeRecy.layoutManager = LinearLayoutManager(YsuSelfStudyApplication.context)
         binding.nodeRecy.adapter = WeekAdapter(viewModel.timeNode)
 
-
+        //相连滚动
         val scrollListeners =
             arrayOfNulls<RecyclerView.OnScrollListener>(2)
         scrollListeners[0] = object : RecyclerView.OnScrollListener() {
@@ -82,8 +84,6 @@ class ClassScheduleFragment : Fragment() {
         }
         binding.schedule.addOnScrollListener(scrollListeners[0]!!)
         binding.nodeRecy.addOnScrollListener(scrollListeners[1]!!)
-
-
 
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)

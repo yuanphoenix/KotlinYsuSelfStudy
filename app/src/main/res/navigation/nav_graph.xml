@@ -8,17 +8,16 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.ysuselfstudy.ui.first.MainFragment"
-        android:label="main_fragment"
-        tools:layout="@layout/main_fragment">
-    </fragment>
+        android:label="@string/name"
+        tools:layout="@layout/main_fragment" />
 
     <fragment
         android:id="@+id/roomDetailFragment"
         android:name="com.example.ysuselfstudy.ui.emptyroom.RoomDetailFragment"
-        android:label="room_detail_fragment"
+        android:label="@string/empty_room"
         tools:layout="@layout/room_detail_fragment" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.ysuselfstudy.ui.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="@string/login" />
 </navigation>

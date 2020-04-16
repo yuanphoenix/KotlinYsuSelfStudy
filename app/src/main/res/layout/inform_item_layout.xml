@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/info_title"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:backgroundTint="@color/white"
+        android:padding="@dimen/dp10"
+        tools:text="这还是个标题啊" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/time_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:textAppearance="?android:attr/textAppearance"
+        android:textColor="@color/gray"
+        app:icon="@mipmap/ic_clock_btn"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/dp10"
+        app:iconSize="15dp"
+        app:iconTint="@color/gray"
+        tools:text="时间地点" />
+
+
+</LinearLayout>

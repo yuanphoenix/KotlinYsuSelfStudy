@@ -112,7 +112,6 @@ object Dao {
             }
         }
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             list.removeIf { t: Course -> t.delete == true }
             return list

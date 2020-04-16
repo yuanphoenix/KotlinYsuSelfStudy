@@ -25,8 +25,6 @@ class RoomDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         detailFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.room_detail_fragment, container, false)
 

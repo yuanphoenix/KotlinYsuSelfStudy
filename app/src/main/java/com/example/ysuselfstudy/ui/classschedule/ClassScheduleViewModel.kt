@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.logic.Dao
 import com.example.ysuselfstudy.logic.Repository
+import com.example.ysuselfstudy.logic.getWeek
 
 class ClassScheduleViewModel : ViewModel() {
     val timeNode = ArrayList<String>()
+    lateinit var week: String
 
     init {
         timeNode.add("1")
@@ -23,6 +25,7 @@ class ClassScheduleViewModel : ViewModel() {
         timeNode.add("10")
         timeNode.add("11")
         timeNode.add("12")
+        week="${getWeek()}周"
     }
 
     private val course = MutableLiveData<Course>()

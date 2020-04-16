@@ -2,7 +2,6 @@
     <string name="app_name">KotlinYsuSelfStudy</string>
     <string name="exam_score">考试成绩</string>
     <string name="exam_time">考试时间</string>
-    <string name="empty_room">空教室</string>
     <string name="class_schedule">课程表</string>
     <string name="user">个人信息</string>
 
@@ -20,4 +19,7 @@
     <string name="Friday">周五</string>
     <string name="Saturday">周六</string>
     <string name="Sunday">周日</string>
+    <string name="name">燕习</string>
+    <string name="empty_room">空教室</string>
+    <string name="inform">通知公告</string>
 </resources>
