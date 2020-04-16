@@ -43,7 +43,6 @@ object Repository {
     fun getTimeStable() = liveData(Dispatchers.IO) {
         var result = ArrayList<Course>()
         if (Dao.isCourseEmpty()) {
-            Dao.deleteAllCourse()
             val documnet = OfficeNetWork.getCourse()
             CourseAnalysis.analysisCourse(documnet)
         }

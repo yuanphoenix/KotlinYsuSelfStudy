@@ -79,18 +79,6 @@ object OfficeNetWork {
                                 .cookies(COOKIE_MAP)
                                 .get()
 
-                        val elements = document.select("a[href]")
-//                        for (i in elements.indices) {
-//                            val temp = elements[i].attr("href")
-//                            if (temp.contains("StuE")) {
-//                                AllString.LAB_URL = temp
-//                                Log.d(
-//                                    com.example.ysuselfstudy.ui.LoginOfficeActivity.TAG,
-//                                    "onResponse: " + AllString.LAB_URL
-//                                ) //解析出实验室地址
-//                                break
-//                            }
-//                        }
                         //获取学生姓名
                         try {
                             val stuname = document.select("span[id=xhxm]")

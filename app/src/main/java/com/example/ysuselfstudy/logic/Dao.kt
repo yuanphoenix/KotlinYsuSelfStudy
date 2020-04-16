@@ -12,8 +12,6 @@ import org.litepal.LitePal
  * @version 1.0
  */
 object Dao {
-
-
     /**
      * 保存学生的个人信息
      */
@@ -35,16 +33,14 @@ object Dao {
     /**
      * 删除当天所有的空教室
      */
-    fun deleteRoom() {
-        LitePal.deleteAllAsync(EmptyRoom::class.java)
-    }
+    fun deleteRoom() = LitePal.deleteAllAsync(EmptyRoom::class.java)
+
 
     /**
      * 获取教室
      */
-    fun saveRoom(list: List<EmptyRoom>) {
-        LitePal.saveAll(list)
-    }
+    fun saveRoom(list: List<EmptyRoom>) = LitePal.saveAll(list)
+
 
     /**
      * 获取符合条件的教室
@@ -56,16 +52,14 @@ object Dao {
     /**
      * 保存本学期所有的课程
      */
-    fun saveAllCourse(list: List<Course>) {
-        LitePal.saveAll(list)
-    }
+    fun saveAllCourse(list: List<Course>) = LitePal.saveAll(list)
+
 
     /**
      * 删除本学期所有的课
      */
-    fun deleteAllCourse() {
-        LitePal.deleteAll(Course::class.java)
-    }
+    fun deleteAllCourse() = LitePal.deleteAll(Course::class.java)
+
 
     /**
      * 查看课程表的数据库是否为空
@@ -100,7 +94,8 @@ object Dao {
         for (course in weekList) {
             var temp = 1
             while (temp <= course.continued) {
-                list[(course.beginNode - 1) * 7 + course.dayOfWeek - 1 + (temp-1) * 7] = course.clone()
+                list[(course.beginNode - 1) * 7 + course.dayOfWeek - 1 + (temp - 1) * 7] =
+                    course.clone()
                 temp++
             }
         }
@@ -118,10 +113,10 @@ object Dao {
         }
 
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            list.removeIf { t: Course -> t.delete == true }
-//            return list
-//        } else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            list.removeIf { t: Course -> t.delete == true }
+            return list
+        } else {
             var result = ArrayList<Course>()
             for (course in list) {
                 if (!course.delete) {
@@ -131,8 +126,8 @@ object Dao {
             return result
 
 
+        }
+
 
     }
-
-
 }

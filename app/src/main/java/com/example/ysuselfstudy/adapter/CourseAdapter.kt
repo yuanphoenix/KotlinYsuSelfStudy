@@ -28,6 +28,7 @@ class CourseAdapter(val mData: List<Course>) : RecyclerView.Adapter<RecyclerView
             ViewGroup.LayoutParams.MATCH_PARENT,
             viewType * 200
         )
+
         val courseViewHolder = CourseViewHolder(binding)
         return courseViewHolder
     }

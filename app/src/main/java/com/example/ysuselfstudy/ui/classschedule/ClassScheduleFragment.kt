@@ -1,7 +1,6 @@
 package com.example.ysuselfstudy.ui.classschedule
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,17 +10,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.adapter.CourseAdapter
+import com.example.ysuselfstudy.adapter.WeekAdapter
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.databinding.ClassScheduleFragmentBinding
+
 
 class ClassScheduleFragment : Fragment() {
     companion object {
         fun newInstance() = ClassScheduleFragment()
-
     }
 
     private val TAG = "ClassScheduleFragment"
@@ -54,19 +57,48 @@ class ClassScheduleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ClassScheduleViewModel::class.java)//本地的ViewModel
+
+        binding.nodeRecy.layoutManager = LinearLayoutManager(YsuSelfStudyApplication.context)
+        binding.nodeRecy.adapter = WeekAdapter(viewModel.timeNode)
+
+
+        val scrollListeners =
+            arrayOfNulls<RecyclerView.OnScrollListener>(2)
+        scrollListeners[0] = object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                binding.nodeRecy.removeOnScrollListener(scrollListeners[1]!!)
+                binding.nodeRecy.scrollBy(dx, dy)
+                binding.nodeRecy.addOnScrollListener(scrollListeners[1]!!)
+            }
+        }
+        scrollListeners[1] = object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                binding.schedule.removeOnScrollListener(scrollListeners[0]!!)
+                binding.schedule.scrollBy(dx, dy)
+                binding.schedule.addOnScrollListener(scrollListeners[0]!!)
+            }
+        }
+        binding.schedule.addOnScrollListener(scrollListeners[0]!!)
+        binding.nodeRecy.addOnScrollListener(scrollListeners[1]!!)
+
+
+
+
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        mainViewModel.authenticationState.observe(
-            this.viewLifecycleOwner,
+        mainViewModel.state.observe(
+            viewLifecycleOwner,
             Observer { authenticationState ->
 
                 when (authenticationState) {
-                    MainViewModel.AuthenticationState.UNAUTHENTICATED -> {
+                    false -> {
                         binding.classLoginBtn.visibility = View.VISIBLE
-                        binding.classConstraintLayout.visibility = View.GONE
+                        binding.classLinearLayout.visibility = View.GONE
                     }
-                    MainViewModel.AuthenticationState.AUTHENTICATED -> {
+                    true -> {
                         binding.classLoginBtn.visibility = View.GONE
-                        binding.classConstraintLayout.visibility = View.VISIBLE
+                        binding.classLinearLayout.visibility = View.VISIBLE
                         showUi()
                     }
                 }

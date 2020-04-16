@@ -32,6 +32,7 @@ class MainViewModel : ViewModel() {
         Repository.getLoginState(input!!.number, input.eduPassword)
     }
 
+
     fun getLogin(user: User) {
         condition.value = user
     }

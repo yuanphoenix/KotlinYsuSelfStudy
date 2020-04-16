@@ -9,8 +9,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.example.ysuselfstudy.data.User
+import com.example.ysuselfstudy.logic.Repository
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
+import org.litepal.LitePal
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
@@ -35,6 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         //初始化全局ViewModel
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        if (LitePal.count(User::class.java) > 0) {
+            val user = LitePal.findFirst(User::class.java)
+            viewModel.getLogin(user)
+        }
 
     }
 

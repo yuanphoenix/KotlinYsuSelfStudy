@@ -21,6 +21,7 @@ import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.User
 import com.example.ysuselfstudy.databinding.LoginFragmentBinding
 import com.google.android.material.snackbar.Snackbar
+import org.litepal.LitePal
 
 class LoginFragment : Fragment() {
     private val TAG = "LoginFragment"
@@ -39,10 +40,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.login_fragment, container, false)
-
-
         navController = findNavController()
-
         return binding.root
     }
 
@@ -57,11 +55,9 @@ class LoginFragment : Fragment() {
 
         mainViewModel.state.observe(viewLifecycleOwner, Observer {
             if (it) {
-                mainViewModel.authenticationState.value =
-                    MainViewModel.AuthenticationState.AUTHENTICATED
+                navController.popBackStack()
             } else {
-                mainViewModel.authenticationState.value =
-                    MainViewModel.AuthenticationState.INVALID_AUTHENTICATION
+                showErrorMessage()
             }
         })
 
@@ -71,16 +67,12 @@ class LoginFragment : Fragment() {
 
         }
 
-        mainViewModel.authenticationState.observe(
-            viewLifecycleOwner,
-            Observer { authenticationState ->
-                when (authenticationState) {
-                    MainViewModel.AuthenticationState.AUTHENTICATED -> {
-                        navController.popBackStack()
-                    }
-                    MainViewModel.AuthenticationState.INVALID_AUTHENTICATION -> showErrorMessage()
-                }
-            })
+
+        if (LitePal.count(User::class.java) > 0) {
+            val user = LitePal.findFirst(User::class.java)
+            binding.userNumber.setText(user.number)
+            binding.officePassword.setText(user.eduPassword)
+        }
     }
 
 

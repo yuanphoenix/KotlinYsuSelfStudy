@@ -13,8 +13,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.ysuselfstudy.MainViewModel
 
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.data.User
 import com.example.ysuselfstudy.databinding.UserInfoFragmentBinding
+import com.example.ysuselfstudy.logic.Dao
 import kotlinx.android.synthetic.main.main_fragment.*
+import org.litepal.LitePal
 
 class UserInfoFragment : Fragment() {
     companion object {
@@ -41,16 +44,16 @@ class UserInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        mainViewModel.authenticationState.observe(
+        mainViewModel.state.observe(
             viewLifecycleOwner,
             Observer { authenticationState ->
 
                 when (authenticationState) {
-                    MainViewModel.AuthenticationState.UNAUTHENTICATED -> {
+                    false -> {
                         binding.btnLogin.visibility = View.VISIBLE
                         binding.userConstrainLayout.visibility = View.GONE
                     }
-                    MainViewModel.AuthenticationState.AUTHENTICATED -> {
+                    true -> {
                         binding.btnLogin.visibility = View.GONE
                         binding.userConstrainLayout.visibility = View.VISIBLE
                     }
@@ -61,6 +64,7 @@ class UserInfoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserInfoViewModel::class.java)
+
     }
 
 }
