@@ -15,8 +15,8 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
     constructor(context: Context, attes: AttributeSet) : super(context, attes) {}
     constructor(context: Context) : super(context)
 
-
     private var startX = 0
+    private var beginScrolll = false
     private var startY: Int = 0
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         when (ev.action) {
@@ -31,14 +31,17 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
                 val disX = Math.abs(endX - startX)
                 val disY: Int = Math.abs(endY - startY)
                 if (disX > disY) {
-                    parent.requestDisallowInterceptTouchEvent(false)
+                    if (!beginScrolll)
+                        parent.requestDisallowInterceptTouchEvent(false)
                 } else {
+                    beginScrolll = true
                     parent.requestDisallowInterceptTouchEvent(true)
                 }
             }
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> parent.requestDisallowInterceptTouchEvent(
-                false
-            )
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                parent.requestDisallowInterceptTouchEvent(false)
+                beginScrolll=false
+            }
         }
         return super.dispatchTouchEvent(ev)
     }

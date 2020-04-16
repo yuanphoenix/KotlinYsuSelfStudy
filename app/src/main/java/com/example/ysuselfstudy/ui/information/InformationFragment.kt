@@ -1,4 +1,4 @@
-package com.example.ysuselfstudy.ui.userinfo
+package com.example.ysuselfstudy.ui.information
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +13,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ysuselfstudy.MainViewModel
 
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.YsuSelfStudyApplication
@@ -38,9 +37,14 @@ class InformationFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.inform_fragment, container, false)
         navController = findNavController()
-        adapter = InformationAdapter(mData)
+        adapter = InformationAdapter(mData, navController)
         binding.infoRecy.adapter = adapter
-        binding.infoRecy.addItemDecoration(DividerItemDecoration(YsuSelfStudyApplication.context, DividerItemDecoration.VERTICAL))
+        binding.infoRecy.addItemDecoration(
+            DividerItemDecoration(
+                YsuSelfStudyApplication.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         binding.infoRecy.layoutManager = LinearLayoutManager(YsuSelfStudyApplication.context)
         return binding.root
     }

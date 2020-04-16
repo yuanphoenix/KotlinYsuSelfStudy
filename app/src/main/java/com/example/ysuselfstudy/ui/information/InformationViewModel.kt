@@ -1,7 +1,6 @@
-package com.example.ysuselfstudy.ui.userinfo
+package com.example.ysuselfstudy.ui.information
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.ysuselfstudy.logic.Repository

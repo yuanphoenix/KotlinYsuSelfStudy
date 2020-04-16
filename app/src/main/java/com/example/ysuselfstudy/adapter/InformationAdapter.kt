@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.YsuSelfStudyApplication
@@ -17,7 +19,7 @@ import com.google.android.material.button.MaterialButton
  * @date  2020/4/16 14:50
  * @version 1.0
  */
-class InformationAdapter(val mData: ArrayList<Information>) :
+class InformationAdapter(val mData: ArrayList<Information>, var navController: NavController) :
     RecyclerView.Adapter<InformationAdapter.ViewHolder>() {
 
 
@@ -44,8 +46,8 @@ class InformationAdapter(val mData: ArrayList<Information>) :
         holder.textView.text = mData[position].title
         holder.btn.text = mData[position].time
         holder.itemView.setOnClickListener {
-            Toast.makeText(YsuSelfStudyApplication.context, mData[position].url, Toast.LENGTH_SHORT)
-                .show()
+            val msg = bundleOf("amount" to mData[position].url)
+            navController.navigate(R.id.informationDetailFragment, msg)
         }
     }
 

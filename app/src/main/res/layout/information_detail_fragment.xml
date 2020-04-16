@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.information.InformationFragment">
+        tools:context="com.example.ysuselfstudy.ui.information.InformationDetailFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/info_recy"
+        <TextView
+            android:id="@+id/html_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:text="Hello" />
+    </androidx.core.widget.NestedScrollView>
+
+
 </layout>

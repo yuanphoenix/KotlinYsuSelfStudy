@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.ysuselfstudy.ui.classschedule.ClassScheduleFragment
 import com.example.ysuselfstudy.ui.emptyroom.RoomFragment
-import com.example.ysuselfstudy.ui.userinfo.InformationFragment
+import com.example.ysuselfstudy.ui.information.InformationFragment
 
 class ViewPagerAdapter(var fragment: Fragment) : FragmentStateAdapter(fragment) {
     private val fragments =

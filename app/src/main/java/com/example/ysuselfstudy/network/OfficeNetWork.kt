@@ -6,6 +6,7 @@ import com.example.ysuselfstudy.logic.Dao
 import okhttp3.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import java.io.IOException
 import java.util.*
@@ -205,6 +206,18 @@ object OfficeNetWork {
             }
             continuation.resume(infoList)
 
+        }
+    }
+
+    /**
+     * 返回详细的通告的html
+     */
+    suspend fun getDetailInformation(url: String): String {
+        return suspendCoroutine { continuation ->
+            var document = Jsoup.connect(url).get()
+            val m2_f = document.getElementsByClass("m2_f")
+            val div: Element = m2_f.select("div")[1]
+            continuation.resume(div.html())
         }
     }
 

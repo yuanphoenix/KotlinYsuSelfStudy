@@ -112,10 +112,25 @@ object Repository {
 
     }
 
+    /**
+     * 返回公告列表
+     */
     fun getInformation() = liveData(Dispatchers.IO) {
         try {
             var list = OfficeNetWork.getInformation() ?: null
             emit(list)
+        } catch (e: Exception) {
+            emit(null)
+        }
+    }
+
+    /**
+     * 返回公告详情
+     */
+    fun getDetailInformation(url:String) = liveData(Dispatchers.IO){
+        try {
+            var html = OfficeNetWork.getDetailInformation(url)
+            emit(html)
         } catch (e: Exception) {
             emit(null)
         }

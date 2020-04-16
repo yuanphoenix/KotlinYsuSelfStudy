@@ -22,4 +22,5 @@
     <string name="name">燕习</string>
     <string name="empty_room">空教室</string>
     <string name="inform">通知公告</string>
+    <string name="detail_inform">通知详情</string>
 </resources>

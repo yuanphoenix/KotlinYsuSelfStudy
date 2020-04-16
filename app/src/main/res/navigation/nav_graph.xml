@@ -20,4 +20,8 @@
         android:id="@+id/loginFragment"
         android:name="com.example.ysuselfstudy.ui.login.LoginFragment"
         android:label="@string/login" />
+    <fragment
+        android:id="@+id/informationDetailFragment"
+        android:name="com.example.ysuselfstudy.ui.information.InformationDetailFragment"
+        android:label="@string/detail_inform" />
 </navigation>

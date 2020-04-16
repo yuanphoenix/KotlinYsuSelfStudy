@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?><!--这是底部弹出框的布局-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/circle_corner"
     android:layout_alignParentBottom="true"
+    android:background="@drawable/circle_corner"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,13 +28,15 @@
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/certify_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#FFFFFF"
         android:stateListAnimator="@null"
+        android:textAppearance="?android:attr/textAppearance"
         android:text="@string/certain"
-        android:textSize="@dimen/sp15" />
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp15"
+        app:backgroundTint="@color/white" />
 </LinearLayout>
