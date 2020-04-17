@@ -87,6 +87,7 @@ class ClassScheduleFragment : Fragment() {
 
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
         mainViewModel.state.observe(
             viewLifecycleOwner,
             Observer { authenticationState ->

@@ -1,9 +1,11 @@
 package com.example.ysuselfstudy
 
-import android.util.Log
 import androidx.lifecycle.*
+import com.example.ysuselfstudy.data.QQ
 import com.example.ysuselfstudy.data.User
+import com.example.ysuselfstudy.logic.Dao
 import com.example.ysuselfstudy.logic.Repository
+import org.litepal.LitePal
 
 class MainViewModel : ViewModel() {
     private val TAG = "MainViewModel"
@@ -42,4 +44,11 @@ class MainViewModel : ViewModel() {
     }
 
 
+    val headSculpture: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+
+    fun keepQQLogin() {
+        if (Dao.keepQQLogin()) {
+            headSculpture.value = LitePal.findFirst(QQ::class.java).image
+        }
+    }
 }

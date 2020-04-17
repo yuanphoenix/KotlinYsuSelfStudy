@@ -1,8 +1,10 @@
 package com.example.ysuselfstudy.logic
 
 import android.os.Build
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.data.EmptyRoom
+import com.example.ysuselfstudy.data.QQ
 import com.example.ysuselfstudy.data.User
 import org.litepal.LitePal
 
@@ -66,6 +68,21 @@ object Dao {
      */
     fun isCourseEmpty(): Boolean = LitePal.count(Course::class.java) == 0
 
+
+    fun keepQQLogin(): Boolean {
+        if (LitePal.count(QQ::class.java) != 0) {
+            val qqUser = LitePal.findFirst(QQ::class.java)
+            YsuSelfStudyApplication.tencent.setAccessToken(qqUser.accessToken, qqUser.expires)
+            YsuSelfStudyApplication.tencent.openId = qqUser.openID
+            return true
+        }
+        return false
+    }
+
+    fun deleteQQ(){
+        LitePal.deleteAll(QQ::class.java)
+    }
+
     /**
      * 返回本周的课程
      */
@@ -123,7 +140,6 @@ object Dao {
                 }
             }
             return result
-
 
         }
 

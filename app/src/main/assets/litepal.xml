@@ -33,8 +33,9 @@
     -->
     <list>
         <mapping class="com.example.ysuselfstudy.data.User" />
-        <mapping class="com.example.ysuselfstudy.data.Course"/>
-        <mapping class="com.example.ysuselfstudy.data.Exam"/>
+        <mapping class="com.example.ysuselfstudy.data.Course" />
+        <mapping class="com.example.ysuselfstudy.data.Exam" />
+        <mapping class="com.example.ysuselfstudy.data.QQ" />
         <mapping class="com.example.ysuselfstudy.data.EmptyRoom" />
     </list>
 
