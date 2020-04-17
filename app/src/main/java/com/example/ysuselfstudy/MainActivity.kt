@@ -11,6 +11,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.setPadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -20,6 +21,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ysuselfstudy.databinding.NavHeaderBinding
 import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.tencent.tauth.Tencent
 import java.util.*
@@ -34,13 +36,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
+        val decorView = window.decorView
 
         var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.fitsSystemWindows = false
         window.statusBarColor = Color.TRANSPARENT
-        var te: CoordinatorLayout = findViewById(R.id.titlebar)
-        te.setPadding(0, 80, 0, 0)
+        var te: AppBarLayout = findViewById(R.id.titlebar)
+        te.setPadding(0, 60, 0, 0)
         var navigation: NavigationView = findViewById(R.id.nav_view)
 
         var navController = findNavController(R.id.nav_host_fragment)
