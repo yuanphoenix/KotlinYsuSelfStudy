@@ -1,15 +1,17 @@
 package com.example.ysuselfstudy.ui.emptyroom
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.ysuselfstudy.data.EmptyRoom
 import com.example.ysuselfstudy.logic.Repository
 import com.example.ysuselfstudy.adapter.ExpandAdapte
+import com.example.ysuselfstudy.logic.Dao
 import java.util.ArrayList
 
 class RoomViewModel(var time: MutableLiveData<String>) : ViewModel() {
-
+private val TAG ="RoomViewModel"
     var hello =
         "https://cn.bing.com/th?id=OHR.UnicornoftheSea_ZH-CN2949385175_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"
 
@@ -29,6 +31,9 @@ class RoomViewModel(var time: MutableLiveData<String>) : ViewModel() {
         Repository.getRoom(query)
     }
 
+    fun getConditionRoom(condition: String) {
+        var temp = Dao.getRoom("${time.value},${condition}")
+    }
 
     fun getRoom(query: String) {
         getRoomNetAddtion.value = query

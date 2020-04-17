@@ -1,10 +1,12 @@
 package com.example.ysuselfstudy
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -20,6 +22,7 @@ import com.example.ysuselfstudy.databinding.NavHeaderBinding
 import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener
 import com.google.android.material.navigation.NavigationView
 import com.tencent.tauth.Tencent
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
@@ -60,6 +63,16 @@ class MainActivity : AppCompatActivity() {
 
         //少了这一句，就不会更新侧边栏了。
         navBinding.lifecycleOwner = this
+
+
+        val calendar = Calendar.getInstance()
+        val data = calendar[Calendar.DATE]
+        val storeDate = getSharedPreferences("date", Context.MODE_PRIVATE)
+        val old = storeDate.getInt("num", 0)
+        if (old != data) viewModel.deleteRoom()
+        val editor = getSharedPreferences("date", Context.MODE_PRIVATE).edit()
+        editor.putInt("num", data)
+        editor.apply()
 
         baseUiListener.setOnSuccessListener(object : BaseUiListener.OnSuccessListener {
             override fun changeImageView() {

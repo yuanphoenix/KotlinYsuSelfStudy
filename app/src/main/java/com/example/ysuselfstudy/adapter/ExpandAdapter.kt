@@ -124,9 +124,7 @@ abstract class ExpandAdapte<T, V>(
             }
             CHILD -> {
                 holder1 = ChildViewHolder(
-                    ListItemAreaBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
+                    ListItemAreaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 )
             }
             else ->

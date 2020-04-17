@@ -1,12 +1,14 @@
 package com.example.ysuselfstudy.logic
 
 import android.os.Build
+import android.util.Log
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.data.EmptyRoom
 import com.example.ysuselfstudy.data.QQ
 import com.example.ysuselfstudy.data.User
 import org.litepal.LitePal
+import org.litepal.LitePal.findBySQL
 
 /**
  * @author  Ahyer
@@ -14,6 +16,7 @@ import org.litepal.LitePal
  * @version 1.0
  */
 object Dao {
+    private val TAG = "Dao"
     /**
      * 保存学生的个人信息
      */
@@ -47,8 +50,35 @@ object Dao {
     /**
      * 获取符合条件的教室
      */
-    fun getRoom(conditon: String) {
+    fun getRoom(conditon: String): ArrayList<EmptyRoom> {
+        Log.d(TAG, "getRoom: " + conditon);
+        val split = conditon.split(",")
+        //前面为时间，后面为地址
+        var time = RoomAnalysis.obj(split[0])//切割时间，找的是起始和终点
 
+        //SQL语句的动态显式。
+        var sql =
+            " select room,nums,location from EmptyRoom where location = '${split[1].trim()}' and time=${time[0]} "
+
+        var i: Int = time[0] + 2
+        while (i <= time[1]) {
+            sql += "intersect select room,nums,location from EmptyRoom where location = '${split[1].trim()}' and time=${i} "
+            i += 2
+        }
+
+        val cc = findBySQL(sql)
+        var roomList = ArrayList<EmptyRoom>()
+        if (cc.moveToFirst()) {
+            do {
+                val name = cc.getString(cc.getColumnIndex("room"))
+                val numbers = cc.getString(cc.getColumnIndex("nums"))
+                val location = cc.getString(cc.getColumnIndex("location"))
+                val ee = EmptyRoom(room = name, nums = numbers, location = location)
+                roomList.add(ee)
+            } while (cc.moveToNext())
+        }
+        cc.close()
+        return roomList
     }
 
     /**
@@ -68,6 +98,8 @@ object Dao {
      */
     fun isCourseEmpty(): Boolean = LitePal.count(Course::class.java) == 0
 
+    fun isRoomEmpty(): Boolean = LitePal.count(EmptyRoom::class.java) == 0
+
 
     fun keepQQLogin(): Boolean {
         if (LitePal.count(QQ::class.java) != 0) {
@@ -79,7 +111,7 @@ object Dao {
         return false
     }
 
-    fun deleteQQ(){
+    fun deleteQQ() {
         LitePal.deleteAll(QQ::class.java)
     }
 

@@ -20,6 +20,7 @@ class UltimateAdapter(
     override fun bindView(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ExpandAdapte<*, *>.ParentViewHolder) {
             var test: kotlin.String = getItem(position) as kotlin.String
+            holder.binding.itemArea.setTextSize(22F)
             holder.binding.itemArea.text = test
         }
         setmyClickListener(object :
@@ -38,7 +39,7 @@ class UltimateAdapter(
 
         if (holder is ExpandAdapte<*, *>.ChildViewHolder) {
             var test: kotlin.String = getItem(position) as kotlin.String
-            holder.binding.itemArea.text = test
+            holder.binding.itemArea.text = "    " + test
         }
     }
 

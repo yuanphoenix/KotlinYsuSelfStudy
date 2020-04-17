@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +34,7 @@ private val TAG ="RoomFragment"
         // RoomFragmentBinding.inflate(layoutInflater)
         var navController = findNavController()
         //初始化ViewModel，里面有本Fragment的所有data
-        viewModel=ViewModelProvider(this,MyViewModelFactory()).get(RoomViewModel::class.java)
+        viewModel=ViewModelProvider(requireActivity(),MyViewModelFactory()).get(RoomViewModel::class.java)
         roomDataBing = DataBindingUtil.inflate(inflater, R.layout.room_fragment, container, false)
         roomDataBing.viewmodel = viewModel
 
@@ -55,10 +56,9 @@ private val TAG ="RoomFragment"
     }
 
     fun refreshRoom(query: String) {
-        viewModel.getRoom(query)
+
         roomDataBing.swipeRefresh.isRefreshing=true;
-
-
+        viewModel.getRoom(query)
     }
 
 

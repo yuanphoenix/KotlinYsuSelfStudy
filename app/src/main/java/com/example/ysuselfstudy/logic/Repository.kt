@@ -24,7 +24,11 @@ object Repository {
      * 返回当天的空教室
      */
     fun getRoom(query: String) = liveData(Dispatchers.IO) {
-        //在这里应该写判返回值空逻辑
+        if (!Dao.isRoomEmpty()) {
+            emit(null)
+            return@liveData
+        }
+
         var result = try {
             val room = EmptyRoomNetWork.searchRoom(query)
             Dao.saveRoom(room)
@@ -127,7 +131,7 @@ object Repository {
     /**
      * 返回公告详情
      */
-    fun getDetailInformation(url:String) = liveData(Dispatchers.IO){
+    fun getDetailInformation(url: String) = liveData(Dispatchers.IO) {
         try {
             var html = OfficeNetWork.getDetailInformation(url)
             emit(html)

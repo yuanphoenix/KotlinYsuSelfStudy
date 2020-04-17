@@ -13,12 +13,14 @@ import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.databinding.RoomDetailFragmentBinding
 
 class RoomDetailFragment : Fragment() {
+    private val TAG = "RoomDetailFragment"
 
     companion object {
         fun newInstance() = RoomDetailFragment()
     }
 
-    private lateinit var viewModel: RoomDetailViewModel
+    private lateinit var viewModel: RoomViewModel
+    private lateinit var amount: String
     private lateinit var detailFragmentBinding: RoomDetailFragmentBinding
 
     override fun onCreateView(
@@ -28,7 +30,7 @@ class RoomDetailFragment : Fragment() {
         detailFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.room_detail_fragment, container, false)
 
-        var amount: String? = arguments?.getString("amount")
+        amount = arguments?.getString("amount")!!
 
         detailFragmentBinding.textView3.setText(amount)
         return detailFragmentBinding.root
@@ -37,8 +39,10 @@ class RoomDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RoomDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(requireActivity()).get(RoomViewModel::class.java)
+
+        viewModel.getConditionRoom(amount)
+
     }
 
 }

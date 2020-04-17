@@ -25,7 +25,7 @@ class TimePopWindow(var fragment: RoomFragment) :
 
         certifyBtn.setOnClickListener {
             fragment.viewModel.time.value =
-                "${beginTime.myHour}:${beginTime.myMinute}-${endTime.myHour}:${endTime.myMinute}"
+                String.format("%02d:%02d-%02d:%02d", beginTime.myHour, beginTime.myMinute, endTime.myHour, endTime.myMinute)
             this.onBackPressed()
         }
     }
@@ -44,9 +44,10 @@ class TimePopWindow(var fragment: RoomFragment) :
 
         })
         endTime.setOnTimeChangedListener(OnTimeChangedListener { view, hourOfDay, minute ->
-            if (endTime.myHour < beginTime.myHour) endTime.myHour =
-                beginTime.myHour else if (endTime.myHour === beginTime.myHour) if (endTime.myMinute <= beginTime.myMinute) endTime.myMinute
-            beginTime.myMinute + 1
+            if (endTime.myHour < beginTime.myHour) endTime.myHour = beginTime.myHour
+            else if (endTime.myHour === beginTime.myHour)
+                if (endTime.myMinute <= beginTime.myMinute) endTime.myMinute =
+                    beginTime.myMinute + 1
 
         })
     }

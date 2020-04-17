@@ -43,7 +43,7 @@ class MainViewModel : ViewModel() {
         getLogin(User(number = username, eduPassword = password))
     }
 
-
+fun deleteRoom()=Dao.deleteRoom()
     val headSculpture: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     fun keepQQLogin() {

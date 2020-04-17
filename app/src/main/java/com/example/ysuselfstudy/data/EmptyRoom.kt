@@ -10,8 +10,8 @@ import org.litepal.crud.LitePalSupport
 data class EmptyRoom(
     var room: String,
     var location: String,
-    var xiaoqu: String,
+    var xiaoqu: String = "",
     var nums: String,
-    var time: String
+    var time: String = ""
 ) : LitePalSupport() {
 }
