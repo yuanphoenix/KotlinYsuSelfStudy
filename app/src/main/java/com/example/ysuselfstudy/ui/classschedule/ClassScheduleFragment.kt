@@ -97,7 +97,6 @@ class ClassScheduleFragment : Fragment() {
                     when (authenticationState) {
                         false -> {
                             binding.classLoginBtn.visibility = View.VISIBLE
-                            binding.classLinearLayout.visibility = View.GONE
                         }
                         true -> {
                             showUi()

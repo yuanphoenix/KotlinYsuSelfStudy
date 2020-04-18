@@ -1,6 +1,7 @@
 package com.example.ysuselfstudy.logic
 
 import android.util.Log
+import org.jsoup.nodes.Element
 import java.util.*
 
 /**
@@ -32,3 +33,4 @@ fun log(out: String) {
         }
     } else Log.i("msg", out)
 }
+

@@ -1,8 +1,10 @@
 package com.example.ysuselfstudy.logic
 
 import android.graphics.Color
+import android.util.Log
 import com.example.ysuselfstudy.data.Course
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.TextNode
 import java.util.*
 
 /**
@@ -13,9 +15,10 @@ import java.util.*
 
 
 object CourseAnalysis {
-
+    private val TAG = "CourseAnalysis"
     private val time = HashMap<String, Int>()
     private val colorList = ArrayList<Int>()
+
     init {
         initHash()
     }
@@ -25,29 +28,30 @@ object CourseAnalysis {
      *
      * @param parse
      */
-    fun analysisCourse(parse: Document?):Boolean {
+    fun analysisCourse(parse: Document?): Boolean {
         if (parse == null) return false
 
-        val temp: MutableList<Array<String>> =
+        val temp: MutableList<Array<TextNode>> =
             ArrayList()
         val select = parse.select("td:contains(第)")
+
         for (e in select) {
-            val s = e.text().split(" ").toTypedArray()
-            temp.add(s)
+            val textNodes = e.textNodes()
+            temp.add(textNodes.toTypedArray())
         }
         var position = 0
         temp.removeAt(0)
         val courseList: MutableList<Course> = ArrayList<Course>()
         for (i in temp.indices) {
-            if (time.containsKey(temp[i][0])) position =
-                time[temp[i][0]]!!
+            if (time.containsKey(temp[i][0].text())) position =
+                time[temp[i][0].text()]!!
             val course = Course()
             var j = 0
             var swicthInt = 0
             while (j < temp[i].size && temp[i].size >= 4) {
-                var store = temp[i][j]
+                var store = temp[i][j].text()
                 when (swicthInt % 5) {
-                    0 -> if (isCourseTime(temp[i][j])) { //课程设计时间
+                    0 -> if (isCourseTime(temp[i][j].text())) { //课程设计时间
                         timeSpacialAnalsis(course, store)
                         swicthInt += 3
                     } else {
