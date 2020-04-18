@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,10 +16,7 @@ import androidx.core.view.setPadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.example.ysuselfstudy.databinding.NavHeaderBinding
 import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener
 import com.google.android.material.appbar.AppBarLayout
@@ -65,6 +63,16 @@ class MainActivity : AppCompatActivity() {
 
         //少了这一句，就不会更新侧边栏了。
         navBinding.lifecycleOwner = this
+
+
+        //控制侧边栏滑动，根据导航的目的地不同来进行操作
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id != R.id.mainFragment) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            }
+        }
 
 
         val calendar = Calendar.getInstance()

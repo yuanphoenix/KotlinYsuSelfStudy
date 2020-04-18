@@ -10,7 +10,7 @@ import org.litepal.LitePal
 class MainViewModel : ViewModel() {
     private val TAG = "MainViewModel"
 
-    enum class AuthenticationState {
+        enum class AuthenticationState {
         UNAUTHENTICATED,        // Initial state, the user needs to authenticate
         AUTHENTICATED,        // The user has authenticated successfully
         INVALID_AUTHENTICATION,  // Authentication failed

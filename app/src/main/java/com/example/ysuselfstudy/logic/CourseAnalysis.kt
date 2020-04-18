@@ -35,6 +35,7 @@ object CourseAnalysis {
             ArrayList()
         val select = parse.select("td:contains(第)")
 
+
         for (e in select) {
             val textNodes = e.textNodes()
             temp.add(textNodes.toTypedArray())

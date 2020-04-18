@@ -24,4 +24,8 @@
         android:id="@+id/informationDetailFragment"
         android:name="com.example.ysuselfstudy.ui.information.InformationDetailFragment"
         android:label="@string/detail_inform" />
+    <fragment
+        android:id="@+id/gradeFragment"
+        android:name="com.example.ysuselfstudy.ui.grade.GradeFragment"
+        android:label="@string/grade" />
 </navigation>

@@ -5,7 +5,8 @@
             android:id="@+id/exam"
             android:title="@string/exam_time" />
         <item
-            android:id="@+id/score"
+            android:id="@+id/gradeFragment"
             android:title="@string/exam_score" />
+
     </group>
 </menu>

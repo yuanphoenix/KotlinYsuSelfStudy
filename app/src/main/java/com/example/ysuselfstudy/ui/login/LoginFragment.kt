@@ -1,27 +1,26 @@
 package com.example.ysuselfstudy.ui.login
 
-import androidx.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.ysuselfstudy.MainViewModel
-
 import com.example.ysuselfstudy.R
-import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.User
 import com.example.ysuselfstudy.databinding.LoginFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import org.litepal.LitePal
+
 
 class LoginFragment : Fragment() {
     private val TAG = "LoginFragment"
@@ -48,13 +47,17 @@ class LoginFragment : Fragment() {
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         binding.btnLogin.setOnClickListener {
+            hideInput()
             mainViewModel.authenticate(
                 binding.userNumber.text.toString(), binding.officePassword.text.toString()
+
             )
         }
 
         mainViewModel.state.observe(viewLifecycleOwner, Observer {
             if (it) {
+                mainViewModel.authenticationState.value =
+                    MainViewModel.AuthenticationState.AUTHENTICATED
                 navController.popBackStack()
             } else {
                 showErrorMessage()
@@ -68,7 +71,6 @@ class LoginFragment : Fragment() {
         }
 
 
-
         //登录界面自动填充
         if (LitePal.count(User::class.java) > 0) {
             val user = LitePal.findFirst(User::class.java)
@@ -80,6 +82,17 @@ class LoginFragment : Fragment() {
 
     private fun showErrorMessage() {
         Snackbar.make(this.view!!, "登陆失败", Snackbar.LENGTH_SHORT).show()
+    }
+
+    protected fun hideInput() {
+
+
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val v: View = activity!!.window.peekDecorView()
+        if (null != v) {
+            imm!!.hideSoftInputFromWindow(v.windowToken, 0)
+        }
     }
 }
 
