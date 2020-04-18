@@ -42,6 +42,8 @@ object Repository {
 
     /**
      *返回本周的课程
+     *如果本地有数据，那么就加载本地数据
+     * 否则联网获得数据
      */
     fun getTimeStable() = liveData(Dispatchers.IO) {
         var result = ArrayList<Course>()

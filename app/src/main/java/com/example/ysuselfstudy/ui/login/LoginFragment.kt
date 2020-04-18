@@ -68,6 +68,8 @@ class LoginFragment : Fragment() {
         }
 
 
+
+        //登录界面自动填充
         if (LitePal.count(User::class.java) > 0) {
             val user = LitePal.findFirst(User::class.java)
             binding.userNumber.setText(user.number)

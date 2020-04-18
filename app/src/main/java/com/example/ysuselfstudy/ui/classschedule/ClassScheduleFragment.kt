@@ -20,6 +20,7 @@ import com.example.ysuselfstudy.adapter.CourseAdapter
 import com.example.ysuselfstudy.adapter.WeekAdapter
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.databinding.ClassScheduleFragmentBinding
+import com.example.ysuselfstudy.logic.Dao
 
 
 class ClassScheduleFragment : Fragment() {
@@ -57,8 +58,8 @@ class ClassScheduleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ClassScheduleViewModel::class.java)//本地的ViewModel
-
         binding.viewmodel = viewModel
+        binding.lifecycleOwner=this
 
         binding.nodeRecy.layoutManager = LinearLayoutManager(YsuSelfStudyApplication.context)
         binding.nodeRecy.adapter = WeekAdapter(viewModel.timeNode)
@@ -88,33 +89,38 @@ class ClassScheduleFragment : Fragment() {
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
-        mainViewModel.state.observe(
-            viewLifecycleOwner,
-            Observer { authenticationState ->
+        if (Dao.isCourseEmpty()) {
+            mainViewModel.state.observe(
+                viewLifecycleOwner,
+                Observer { authenticationState ->
 
-                when (authenticationState) {
-                    false -> {
-                        binding.classLoginBtn.visibility = View.VISIBLE
-                        binding.classLinearLayout.visibility = View.GONE
+                    when (authenticationState) {
+                        false -> {
+                            binding.classLoginBtn.visibility = View.VISIBLE
+                            binding.classLinearLayout.visibility = View.GONE
+                        }
+                        true -> {
+                            showUi()
+                        }
                     }
-                    true -> {
-                        binding.classLoginBtn.visibility = View.GONE
-                        binding.classLinearLayout.visibility = View.VISIBLE
-                        showUi()
-                    }
-                }
-            })
+                })
+        } else {
+            showUi()
+        }
 
+
+        //观察课程的返回情况。
         viewModel.nowWeekCourse.observe(this.viewLifecycleOwner, Observer { result ->
             mData.clear()
-            mData.addAll(result)
-            adapter.notifyDataSetChanged()
+           mData.addAll(result)
+           adapter.notifyDataSetChanged()
         })
 
 
     }
 
     private fun showUi() {
+        binding.classLoginBtn.visibility = View.GONE
         viewModel.getCourse()
     }
 

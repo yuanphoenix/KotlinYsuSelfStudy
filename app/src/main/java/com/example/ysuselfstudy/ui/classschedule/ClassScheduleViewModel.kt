@@ -25,7 +25,7 @@ class ClassScheduleViewModel : ViewModel() {
         timeNode.add("10")
         timeNode.add("11")
         timeNode.add("12")
-        week="${getWeek()}周"
+        week = "${getWeek()}周"
     }
 
     private val course = MutableLiveData<Course>()
@@ -35,7 +35,8 @@ class ClassScheduleViewModel : ViewModel() {
     }
 
     fun getCourse() {
-        course.value = course.value
+        if (nowWeekCourse.value == null)
+            course.value = course.value
     }
 
 

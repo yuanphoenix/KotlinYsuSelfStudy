@@ -43,6 +43,7 @@ class MainFragment : Fragment() {
         bottomNav = view.findViewById(R.id.bottom_nav)
         viewPagerAdapter = ViewPagerAdapter(this)
         viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 1
         navController = findNavController()
         toolbar = activity!!.findViewById(R.id.toolbar)
 
