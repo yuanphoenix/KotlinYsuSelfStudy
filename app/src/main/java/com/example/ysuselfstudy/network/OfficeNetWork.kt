@@ -94,7 +94,9 @@ object OfficeNetWork {
                             val bytes =
                                 name.toByteArray(charset("GBK")) //将姓名转为GBK内码格式
                             for (b in bytes) {
-                                sb.append("%" + Integer.toHexString((b.toInt() and 0xff)).toUpperCase())
+                                sb.append(
+                                    "%" + Integer.toHexString((b.toInt() and 0xff)).toUpperCase()
+                                )
                             }
                             Dao.saveStu(nums, password, sb.toString())
                         } catch (e: Exception) {
@@ -152,9 +154,6 @@ object OfficeNetWork {
             val document = Jsoup.connect(url)
                 .cookies(COOKIE_MAP)
                 .referrer(referrer)
-                .data("xh", user.number)
-                .data("xm", user.gbkName)
-                .data("gnmkdm", "N121603")
                 .post()
             continuation.resume(document)
 
@@ -186,6 +185,9 @@ object OfficeNetWork {
 
     }
 
+    /**
+     * 获取通知
+     */
     suspend fun getInformation(): ArrayList<Information>? {
         return suspendCoroutine { continuation ->
             val infoList = ArrayList<Information>()
@@ -218,6 +220,21 @@ object OfficeNetWork {
             val m2_f = document.getElementsByClass("m2_f")
             val div: Element = m2_f.select("div")[1]
             continuation.resume(div.html())
+        }
+    }
+
+    suspend fun getGrade(): Document {
+        return suspendCoroutine { continuation ->
+            val user = Dao.getStu()
+            var url =
+                "http://202.206.243.62/mycjcx/xscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121632"
+            val referer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            var document =
+                Jsoup.connect(url)
+                    .cookies(COOKIE_MAP)
+                    .referrer(referer)
+                    .post()
+            continuation.resume(document)
         }
     }
 

@@ -20,6 +20,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.grade.GradeFragment">
 
+
         <LinearLayout
             android:id="@+id/grade_linear_layout"
             android:layout_width="match_parent"
@@ -27,7 +28,27 @@
             android:orientation="vertical"
             android:visibility="@{viewmodel.authenticationState==authen.AUTHENTICATED ?View.VISIBLE:View.GONE}">
 
+            <TextView
+                android:id="@+id/current_semester"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/sp20" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/grade_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/class_login_btn"

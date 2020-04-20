@@ -24,4 +24,6 @@
     <string name="inform">通知公告</string>
     <string name="detail_inform">通知详情</string>
     <string name="grade">成绩</string>
+    <string name="degree">学位课</string>
+    <string name="resit">补考</string>
 </resources>

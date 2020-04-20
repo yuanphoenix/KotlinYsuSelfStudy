@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.liveData
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.data.Exam
-import com.example.ysuselfstudy.data.Information
+import com.example.ysuselfstudy.data.Grade
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
 import kotlinx.coroutines.Dispatchers
@@ -82,12 +82,10 @@ object Repository {
     fun getExam() = liveData(Dispatchers.IO) {
         val document = OfficeNetWork.getExam()
         val examList = ArrayList<Exam>()
-        if (document.body().text().length == 0) emit(examList)
+        if (document.body().text().length == 0) emit(null)
 
         //获取了所有爬取的信息。
         val elements: Elements = document.select("td")
-
-
         val size = elements.size
 
         var i = 11
@@ -113,9 +111,35 @@ object Repository {
     /**
      * 返回成绩信息
      */
-
-    fun getGrade() {
-
+    fun getGrade() = liveData(Dispatchers.IO) {
+        var document = OfficeNetWork.getGrade()
+        var elements = document.select("table[width=950] tr[bgcolor=#D0E8FF] td")
+        var gradeList = ArrayList<Grade>()
+        var i = elements.size - 15
+        var tempMsg = ""
+        while (i >= 0) {
+            val date = elements.get(i).text()
+            val semester = elements.get(i + 1).text()
+            val project = elements.get(i + 3).text()
+            val credit = elements.get(i + 7).text()
+            val grade = elements.get(i + 9).text()
+            val resit = elements.get(i + 10).text()
+            val degree = elements.get(i + 14).text()
+            var temp = Grade(project, date, semester, credit, grade, resit = false, degree = false)
+            if (!resit.equals("")) {
+                temp.grade = resit
+                temp.resit = true
+            }
+            if (!degree.equals("")) temp.degree = true
+            if (!tempMsg.equals(semester)) {
+                gradeList.add(Grade(date = date, semester = semester))
+                tempMsg = semester
+            }
+            gradeList.add(temp)
+            i -= 15
+        }
+        gradeList.removeAt(0)
+        emit(gradeList)
     }
 
     /**
