@@ -72,6 +72,7 @@ object CourseAnalysis {
                         course.position = store
                         course.continued = 2
                         val course1 = Course(course)
+                        course1.color = colorList[course1.courseName.length % 6]
                         courseList.add(course1)
                     }
                 }
@@ -162,12 +163,12 @@ object CourseAnalysis {
         time["周5"] = 5
         time["周6"] = 6
         time["周7"] = 7
-        colorList.add(Color.parseColor("#52CC33"))
-        colorList.add(Color.parseColor("#7444BB"))
-        colorList.add(Color.parseColor("#5577AA"))
-        colorList.add(Color.parseColor("#EEC211"))
-        colorList.add(Color.parseColor("#EEC211"))
-        colorList.add(Color.parseColor("#00ccff"))
+        colorList.add(Color.parseColor("#fb9b75"))
+        colorList.add(Color.parseColor("#fcbd49"))
+        colorList.add(Color.parseColor("#ca78e6"))
+        colorList.add(Color.parseColor("#53e799"))
+        colorList.add(Color.parseColor("#a8e22b"))
+        colorList.add(Color.parseColor("#fb98d1"))
     }
 
 }

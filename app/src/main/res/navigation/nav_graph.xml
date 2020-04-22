@@ -28,4 +28,8 @@
         android:id="@+id/gradeFragment"
         android:name="com.example.ysuselfstudy.ui.grade.GradeFragment"
         android:label="@string/grade" />
+    <fragment
+        android:id="@+id/mySettingsFragment"
+        android:name="com.example.ysuselfstudy.ui.setting.MySettingsFragment"
+        android:label="@string/setting" />
 </navigation>

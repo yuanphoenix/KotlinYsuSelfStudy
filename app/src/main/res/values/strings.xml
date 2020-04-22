@@ -26,4 +26,5 @@
     <string name="grade">成绩</string>
     <string name="degree">学位课</string>
     <string name="resit">补考</string>
+    <string name="setting">设置</string>
 </resources>

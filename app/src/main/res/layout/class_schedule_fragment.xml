@@ -14,7 +14,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_pikaqiu">
 
         <LinearLayout
             android:id="@+id/class_linear_layout"
@@ -106,13 +107,15 @@
                     android:id="@+id/node_recy"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:scrollbars="none" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/schedule"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="21" />
+                    android:layout_weight="21"
+                    android:scrollbars="none" />
             </LinearLayout>
 
         </LinearLayout>

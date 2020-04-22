@@ -40,6 +40,11 @@ class CourseAdapter(val mData: List<Course>) : RecyclerView.Adapter<RecyclerView
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as CourseViewHolder
+        if (!mData[position].courseName.equals("")) {
+
+            holder.binding.courseText.setBackgroundColor(mData[position].color)
+            holder.binding.courseText.background.alpha = 200
+        }
         holder.binding.courseText.setText(mData[position].courseName + "\n" + mData[position].position)
     }
 

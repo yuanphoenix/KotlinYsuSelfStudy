@@ -7,6 +7,9 @@
         <item
             android:id="@+id/gradeFragment"
             android:title="@string/exam_score" />
+        <item
+            android:id="@+id/mySettingsFragment"
+            android:title="@string/setting" />
 
     </group>
 </menu>
