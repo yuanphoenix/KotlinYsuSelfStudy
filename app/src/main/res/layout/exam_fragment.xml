@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.ysuselfstudy.ui.exam.ExamFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/exam_recy"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <data>
 
-    <WebView
-        android:id="@+id/see_judge"
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.example.ysuselfstudy.MainViewModel" />
+
+        <variable
+            name="authen"
+            type="com.example.ysuselfstudy.MainViewModel.AuthenticationState" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-</FrameLayout>
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/grade_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{viewmodel.authenticationState==authen.AUTHENTICATED ?View.VISIBLE:View.GONE}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exam_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/class_login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/login"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="@{viewmodel.authenticationState==authen.UNAUTHENTICATED ?View.VISIBLE:View.GONE}" />
+
+    </FrameLayout>
+</layout>

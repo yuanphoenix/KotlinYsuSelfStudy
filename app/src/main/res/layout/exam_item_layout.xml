@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bean"
+            type="com.example.ysuselfstudy.data.Exam" />
+    </data>
+     <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <!--考试名称-->
+                <TextView
+                    android:id="@+id/exam_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{"科目"+bean.name}'
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/sp19"
+                    tools:text="设计考试" />
+                <!--考试时间-->
+                <TextView
+                    android:id="@+id/exam_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{"时间"+bean.time}'
+                    android:textColor="#8BC34A"
+                    android:textSize="@dimen/sp19"
+                    tools:text="2020年十月" />
+                <!--考试地点-->
+                <TextView
+                    android:id="@+id/exam_positon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{"地点"+bean.local}'
+                    android:textColor="#00BCD4"
+                    android:textSize="@dimen/sp19"
+                    tools:text="西区第五教学楼" />
+                <!--座位号-->
+                <TextView
+                    android:id="@+id/exam_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{"座位号"+bean.number}'
+                    android:textColor="#9C27B0"
+                    android:textSize="@dimen/sp19"
+                    tools:text="20" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+</layout>
