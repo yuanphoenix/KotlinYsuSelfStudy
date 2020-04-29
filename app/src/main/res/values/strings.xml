@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">KotlinYsuSelfStudy</string>
     <string name="exam_score">考试成绩</string>
-    <string name="exam_time">考试时间</string>
     <string name="class_schedule">课程表</string>
     <string name="user">个人信息</string>
 
@@ -27,4 +26,11 @@
     <string name="degree">学位课</string>
     <string name="resit">补考</string>
     <string name="setting">设置</string>
+    <string name="exam_time">考试时间</string>
+    <string name="exam_project">科目:</string>
+    <string name="exam_item_time">时间：</string>
+
+    <string name="exam_location">地点:</string>
+    <string name="exam_num">座位号:</string>
+
 </resources>

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/exam"
+            android:id="@+id/examFragment"
             android:title="@string/exam_time" />
         <item
             android:id="@+id/gradeFragment"

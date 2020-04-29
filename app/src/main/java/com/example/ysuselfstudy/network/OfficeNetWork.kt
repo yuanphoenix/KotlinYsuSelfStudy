@@ -162,22 +162,35 @@ object OfficeNetWork {
     }
 
     /**
+     * 获取考试成绩
+     */
+    suspend fun getGrade(): Document {
+        return suspendCoroutine { continuation ->
+            val user = Dao.getStu()
+            var url =
+                "http://202.206.243.62/mycjcx/xscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121632"
+            val referer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            var document =
+                Jsoup.connect(url)
+                    .cookies(COOKIE_MAP)
+                    .referrer(referer)
+                    .post()
+            continuation.resume(document)
+        }
+    }
+
+    /**
      * 解析获取考试的界面
      */
     suspend fun getExam(): Document {
         return suspendCoroutine { continuation ->
             val user = Dao.getStu()
-            val exam =
-                "http://202.206.243.62/xskscx.aspx?xh=${user.number} &xm=${user.gbkName} &gnmkdm=N121604"
-            val referer =
-                "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
-            val document = Jsoup.connect(exam)
+            val url =
+                "http://202.206.243.62/xskscx.aspx?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121604"
+            val referer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            val document = Jsoup.connect(url)
                 .cookies(COOKIE_MAP)
-                .header("Host", "202.206.243.62")
                 .referrer(referer)
-                .data("xh", user.number)
-                .data("xm", user.gbkName)
-                .data("gnmkdm", "N121604")
                 .post()
             continuation.resume(document)
         }
@@ -223,20 +236,7 @@ object OfficeNetWork {
         }
     }
 
-    suspend fun getGrade(): Document {
-        return suspendCoroutine { continuation ->
-            val user = Dao.getStu()
-            var url =
-                "http://202.206.243.62/mycjcx/xscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121632"
-            val referer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
-            var document =
-                Jsoup.connect(url)
-                    .cookies(COOKIE_MAP)
-                    .referrer(referer)
-                    .post()
-            continuation.resume(document)
-        }
-    }
+
 
 }
 

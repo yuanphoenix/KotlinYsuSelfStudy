@@ -78,7 +78,6 @@ class GradeFragment : Fragment() {
             binding.progressBar.hide()
             mData.addAll(it)
             adapter.notifyDataSetChanged()
-
         })
 
         binding.gradeRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {

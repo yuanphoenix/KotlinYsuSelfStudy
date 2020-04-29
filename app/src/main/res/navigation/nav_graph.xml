@@ -32,4 +32,8 @@
         android:id="@+id/mySettingsFragment"
         android:name="com.example.ysuselfstudy.ui.setting.MySettingsFragment"
         android:label="@string/setting" />
+    <fragment
+        android:id="@+id/examFragment"
+        android:name="com.example.ysuselfstudy.ui.exam.ExamFragment"
+        android:label="@string/exam_time" />
 </navigation>
