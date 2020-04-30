@@ -88,6 +88,7 @@ object OfficeNetWork {
                         try {
                             val stuname = document.select("span[id=xhxm]")
                             var name = stuname[0].text()//李强同学
+                            Log.d(TAG, "name: " + name);
                             //截取姓名
                             name = name.substring(0, name.length - 2)//李强
                             val sb = StringBuilder()
@@ -101,6 +102,7 @@ object OfficeNetWork {
                             Dao.saveStu(nums, password, sb.toString())
                         } catch (e: Exception) {
                             e.printStackTrace()
+                            continuation.resume(false)
                         }
 
                         continuation.resume(true)
@@ -235,7 +237,6 @@ object OfficeNetWork {
             continuation.resume(div.html())
         }
     }
-
 
 
 }

@@ -37,14 +37,11 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
 
 @BindingAdapter("imageCircle")
 fun bindImageCircle(view: ImageView, imageUrl: String?) {
-
-    if (!imageUrl.isNullOrEmpty()) {
-        Glide.with(view.context)
-            .load(imageUrl)
-            .apply(bitmapTransform(CircleCrop()))
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(view);
-    }
+    Glide.with(view.context)
+        .load(if (imageUrl.isNullOrEmpty()) R.mipmap.ic_qq else imageUrl)
+        .apply(bitmapTransform(CircleCrop()))
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(view);
 }
 
 

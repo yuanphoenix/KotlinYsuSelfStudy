@@ -3,13 +3,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/examFragment"
+            android:icon="@mipmap/ic_exam"
             android:title="@string/exam_time" />
         <item
             android:id="@+id/gradeFragment"
+            android:icon="@mipmap/ic_grade"
             android:title="@string/exam_score" />
         <item
             android:id="@+id/mySettingsFragment"
+            android:icon="@mipmap/ic_setting"
             android:title="@string/setting" />
-
     </group>
 </menu>

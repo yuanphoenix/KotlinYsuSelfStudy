@@ -6,14 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
+import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.YsuSelfStudyApplication
+import com.example.ysuselfstudy.logic.Dao
 
 /**
  * A simple [Fragment] subclass.
  */
 class MySettingsFragment : PreferenceFragmentCompat() {
+    lateinit var mainViewModel: MainViewModel
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_setting, rootKey)
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
+        val logout: Preference? = findPreference("logout")
+        logout?.setOnPreferenceClickListener {
+            mainViewModel.logoutQQ()
+            true
+        }
     }
 }

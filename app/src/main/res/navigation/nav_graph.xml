@@ -36,4 +36,5 @@
         android:id="@+id/examFragment"
         android:name="com.example.ysuselfstudy.ui.exam.ExamFragment"
         android:label="@string/exam_time" />
+
 </navigation>

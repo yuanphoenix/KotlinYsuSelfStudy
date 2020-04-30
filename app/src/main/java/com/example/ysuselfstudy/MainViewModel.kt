@@ -10,7 +10,7 @@ import org.litepal.LitePal
 class MainViewModel : ViewModel() {
     private val TAG = "MainViewModel"
 
-        enum class AuthenticationState {
+    enum class AuthenticationState {
         UNAUTHENTICATED,        // Initial state, the user needs to authenticate
         AUTHENTICATED,        // The user has authenticated successfully
         INVALID_AUTHENTICATION,  // Authentication failed
@@ -43,12 +43,19 @@ class MainViewModel : ViewModel() {
         getLogin(User(number = username, eduPassword = password))
     }
 
-fun deleteRoom()=Dao.deleteRoom()
+    fun deleteRoom() = Dao.deleteRoom()
+
     val headSculpture: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     fun keepQQLogin() {
         if (Dao.keepQQLogin()) {
             headSculpture.value = LitePal.findFirst(QQ::class.java).image
         }
+    }
+
+    fun logoutQQ() {
+        Dao.deleteQQ()
+        YsuSelfStudyApplication.tencent.logout(YsuSelfStudyApplication.context)
+        headSculpture.value = null
     }
 }

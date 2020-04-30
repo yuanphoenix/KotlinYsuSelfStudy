@@ -3,16 +3,15 @@ package com.example.ysuselfstudy
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.util.Log
-import android.view.MenuItem
+
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.setPadding
+
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        val decorView = window.decorView
 
         var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.fitsSystemWindows = false
@@ -72,8 +70,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
-        }
 
+        }
 
         val calendar = Calendar.getInstance()
         val data = calendar[Calendar.DATE]
