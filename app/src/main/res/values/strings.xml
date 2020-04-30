@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KotlinYsuSelfStudy</string>
+    <string name="app_name">燕习</string>
     <string name="exam_score">考试成绩</string>
     <string name="class_schedule">课程表</string>
     <string name="user">个人信息</string>
@@ -33,5 +33,6 @@
     <string name="exam_location">地点:</string>
     <string name="exam_num">座位号:</string>
     <string name="vent">兔小巢</string>
+    <string name="tip">初次使用务必输入正确\n登陆失败可能是因为验证码不对，再试一次</string>
 
 </resources>

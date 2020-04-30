@@ -36,7 +36,7 @@ android {
         applicationId "com.example.ysuselfstudy"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 15
+        versionCode 16
         versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -57,7 +57,8 @@ android {
 dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
     implementation 'androidx.preference:preference:1.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.github.bumptech.glide:glide:4.11.0'

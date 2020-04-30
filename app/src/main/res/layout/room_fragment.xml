@@ -24,9 +24,12 @@
                 android:id="@+id/materialCardView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
                 app:layout_constraintBottom_toTopOf="@id/line1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +52,7 @@
                 android:id="@+id/line1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,17 +68,17 @@
                 <TextView
                     android:id="@+id/time_choose"
                     android:layout_width="0dp"
-                    android:textSize="@dimen/sp20"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/sp20" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/my_recycler"
-                android:padding="@dimen/dp10"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

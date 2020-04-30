@@ -32,7 +32,7 @@ class RoomDetailFragment : Fragment() {
 
         amount = arguments?.getString("amount")!!
 
-        detailFragmentBinding.textView3.setText(amount)
+        detailFragmentBinding.textView3.setText("还没开学呢")
         return detailFragmentBinding.root
 
     }
