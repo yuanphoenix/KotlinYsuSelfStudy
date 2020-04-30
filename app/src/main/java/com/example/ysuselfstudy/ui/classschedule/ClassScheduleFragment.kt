@@ -42,6 +42,13 @@ class ClassScheduleFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.class_schedule_fragment, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         navController = findNavController()
         binding.classLoginBtn.setOnClickListener {
             navController.navigate(R.id.loginFragment)
@@ -52,14 +59,9 @@ class ClassScheduleFragment : Fragment() {
         binding.schedule.adapter = adapter
 
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ClassScheduleViewModel::class.java)//本地的ViewModel
         binding.viewmodel = viewModel
-        binding.lifecycleOwner=this
+        binding.lifecycleOwner = this
 
         binding.nodeRecy.layoutManager = LinearLayoutManager(YsuSelfStudyApplication.context)
         binding.nodeRecy.adapter = WeekAdapter(viewModel.timeNode)
@@ -111,8 +113,8 @@ class ClassScheduleFragment : Fragment() {
         //观察课程的返回情况。
         viewModel.nowWeekCourse.observe(this.viewLifecycleOwner, Observer { result ->
             mData.clear()
-           mData.addAll(result)
-           adapter.notifyDataSetChanged()
+            mData.addAll(result)
+            adapter.notifyDataSetChanged()
         })
 
 
@@ -122,5 +124,7 @@ class ClassScheduleFragment : Fragment() {
         binding.classLoginBtn.visibility = View.GONE
         viewModel.getCourse()
     }
+
+
 
 }
