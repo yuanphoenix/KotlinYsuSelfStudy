@@ -12,4 +12,8 @@
             android:action="android.intent.action.VIEW"
             android:data="https://support.qq.com/products/115180" />
     </Preference>
+    <Preference
+        app:key="share"
+        app:summary="把燕习分享给小伙伴"
+        app:title="分享" />
 </PreferenceScreen>

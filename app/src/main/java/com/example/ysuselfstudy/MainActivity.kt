@@ -5,11 +5,9 @@ import android.content.Intent
 import android.graphics.Color
 
 import android.os.Bundle
-import android.util.Log
 
 
 import android.view.View
-import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -80,7 +78,8 @@ class MainActivity : AppCompatActivity() {
         val data = calendar[Calendar.DATE]
         val storeDate = getSharedPreferences("date", Context.MODE_PRIVATE)
         val old = storeDate.getInt("num", 0)
-        if (old != data) viewModel.deleteRoom()
+        if (old != data) viewModel.deleteYseterday()
+
         val editor = getSharedPreferences("date", Context.MODE_PRIVATE).edit()
         editor.putInt("num", data)
         editor.apply()

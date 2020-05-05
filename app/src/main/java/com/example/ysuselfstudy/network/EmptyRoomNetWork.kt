@@ -4,12 +4,15 @@ import android.util.Log
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
+import com.example.ysuselfstudy.data.BiyingPic
 import com.example.ysuselfstudy.data.EmptyRoom
 import com.example.ysuselfstudy.data.UploadRoomMsg
 import com.example.ysuselfstudy.logic.Dao
 import com.example.ysuselfstudy.logic.getDate
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.jsoup.Jsoup
+import org.jsoup.select.Elements
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -74,6 +77,33 @@ object EmptyRoomNetWork {
 
             })
         }
+    }
+
+    /**
+     * 返回必应首页
+     */
+    suspend fun SearchForBiYing(): String {
+        return suspendCoroutine { continuation ->
+            var element: Elements? = null
+            var url: String = "https://cn.bing.com/"
+            try {
+                val document = Jsoup.connect(url).get()
+                element = document.select("link[id=bgLink]")
+
+                var temp = element.attr("href")
+
+                val sub = temp.indexOf("&") //找到第一次出现的地方
+                temp = temp.substring(0, sub)
+                url += temp
+            } catch (e: Exception) {
+                continuation.resumeWithException(e)
+            }
+
+            val biyingPic = BiyingPic(url)
+            biyingPic.save()
+            continuation.resume(url)
+        }
+
     }
 
 }

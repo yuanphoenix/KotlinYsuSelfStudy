@@ -1,11 +1,13 @@
 package com.example.ysuselfstudy.logic.qqlogin
 
+import android.app.Activity
+import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.ViewModelProvider
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.QQ
 import com.tencent.connect.UserInfo
 import com.tencent.connect.auth.QQToken
+import com.tencent.connect.share.QQShare
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.UiError
 import org.json.JSONObject
@@ -76,5 +78,28 @@ class BaseUiListener : IUiListener {
     fun setOnSuccessListener(listener: OnSuccessListener) {
         this.onSuccessListener = listener
     }
+
+    /**
+     * APP 分享
+     *
+     * @param context
+     */
+    fun onClickAppShare(context: Activity?) {
+        val params = Bundle()
+        params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT)
+        params.putString(QQShare.SHARE_TO_QQ_TITLE, "燕习")
+        params.putString(QQShare.SHARE_TO_QQ_SUMMARY, "燕大助手，查考试，查成绩，查教室,超级方便!")
+        params.putString(
+            QQShare.SHARE_TO_QQ_TARGET_URL,
+            "https://sj.qq.com/myapp/detail.htm?apkName=com.example.ysuselfstudy"
+        )
+        params.putString(
+            QQShare.SHARE_TO_QQ_IMAGE_URL,
+            "https://pp.myapp.com/ma_icon/0/icon_53284916_1559117854/96"
+        )
+        params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "燕习")
+        YsuSelfStudyApplication.tencent.shareToQQ(context, params, BaseUiListener())
+    }
+
 
 }

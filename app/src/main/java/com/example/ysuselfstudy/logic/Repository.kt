@@ -2,8 +2,6 @@ package com.example.ysuselfstudy.logic
 
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.data.Exam
@@ -23,14 +21,14 @@ object Repository {
     private val TAG = "Repository"
 
     /**
-     * 返回当天的空教室
+     * 返回当天的空教室，已被废弃
      */
+    @Deprecated("Api已换")
     fun getRoom(query: String) = liveData(Dispatchers.IO) {
         if (!Dao.isRoomEmpty()) {
             emit(null)
             return@liveData
         }
-
         var result = try {
             val room = EmptyRoomNetWork.searchRoom(query)
             Dao.saveRoom(room)
@@ -41,14 +39,30 @@ object Repository {
         emit(result)
     }
 
+    /**
+     * 测试空教室
+     */
+    fun getEmptyRoom() = liveData(Dispatchers.IO) {
+        if (!Dao.isRoomEmpty()) {
+            emit(null)
+            return@liveData
+        }
+        emit(EmptyRoomNetWork.getEmptyRoom())
+
+    }
+
 
     /**
      *返回本周的课程
      *如果本地有数据，那么就加载本地数据
      * 否则联网获得数据
      */
-    fun getTimeStable() = liveData(Dispatchers.IO) {
+    fun getTimeStable(login: Boolean?) = liveData(Dispatchers.IO) {
         var result = ArrayList<Course>()
+        if (login != null && !login) {
+            emit(null)
+            return@liveData
+        }
         if (Dao.isCourseEmpty()) {
             val documnet = OfficeNetWork.getCourse()
             CourseAnalysis.analysisCourse(documnet)
@@ -179,17 +193,15 @@ object Repository {
         emit(temp)
     }
 
+
     /**
-     * 测试空教室
+     * 返回必应首页
      */
-    fun getEmptyRoom() = liveData(Dispatchers.IO) {
-        if (!Dao.isRoomEmpty()) {
-            emit(null)
-            return@liveData
-        }
-        emit(EmptyRoomNetWork.getEmptyRoom())
-
+    fun getBiying() = liveData(Dispatchers.IO) {
+        if (Dao.isBiying())
+            emit(EmptyRoomNetWork.SearchForBiYing())
+        else
+            emit(Dao.getBiying())
     }
-
 
 }

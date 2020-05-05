@@ -37,6 +37,7 @@
         <mapping class="com.example.ysuselfstudy.data.Exam" />
         <mapping class="com.example.ysuselfstudy.data.QQ" />
         <mapping class="com.example.ysuselfstudy.data.EmptyRoom" />
+        <mapping class="com.example.ysuselfstudy.data.BiyingPic" />
     </list>
 
     <!--

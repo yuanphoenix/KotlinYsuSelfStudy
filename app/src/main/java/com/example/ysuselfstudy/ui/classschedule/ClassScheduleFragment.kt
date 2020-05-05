@@ -58,7 +58,7 @@ class ClassScheduleFragment : Fragment() {
 
 
 
-        viewModel = ViewModelProvider(this).get(ClassScheduleViewModel::class.java)//本地的ViewModel
+        viewModel = ViewModelProvider(requireActivity()).get(ClassScheduleViewModel::class.java)//本地的ViewModel
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
@@ -111,16 +111,19 @@ class ClassScheduleFragment : Fragment() {
 
         //观察课程的返回情况。
         viewModel.nowWeekCourse.observe(this.viewLifecycleOwner, Observer { result ->
-            mData.clear()
-            mData.addAll(result)
-            adapter.notifyDataSetChanged()
+            if (!result.isNullOrEmpty())
+            {
+                mData.clear()
+                mData.addAll(result)
+                adapter.notifyDataSetChanged()
+            }
         })
 
 
     }
 
     private fun showUi() {
-        binding.classLoginBtn.visibility = View.GONE
+        binding.classLoginBtn.visibility=View.GONE
         viewModel.getCourse()
     }
 

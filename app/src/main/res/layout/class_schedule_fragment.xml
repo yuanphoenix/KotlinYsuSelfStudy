@@ -126,9 +126,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/login"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="@{viewmodel.nowWeekCourse!=null ? View.GONE :View.VISIBLE}" />
     </FrameLayout>
 
 </layout>

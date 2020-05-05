@@ -3,10 +3,7 @@ package com.example.ysuselfstudy.logic
 import android.os.Build
 import android.util.Log
 import com.example.ysuselfstudy.YsuSelfStudyApplication
-import com.example.ysuselfstudy.data.Course
-import com.example.ysuselfstudy.data.EmptyRoom
-import com.example.ysuselfstudy.data.QQ
-import com.example.ysuselfstudy.data.User
+import com.example.ysuselfstudy.data.*
 import org.litepal.LitePal
 import org.litepal.LitePal.findBySQL
 
@@ -35,6 +32,18 @@ object Dao {
      * 获取唯一的用户
      */
     fun getStu(): User = LitePal.findFirst(User::class.java)
+
+
+    /**
+     * 返回必应首页
+     */
+    fun getBiying(): String = LitePal.findFirst(BiyingPic::class.java).url
+
+
+    /**
+     * 删除首页图片
+     */
+    fun deletePic() = LitePal.deleteAll(BiyingPic::class.java)
 
     /**
      * 删除当天所有的空教室
@@ -101,6 +110,8 @@ object Dao {
 
     fun isRoomEmpty(): Boolean = LitePal.count(EmptyRoom::class.java) == 0
 
+    fun isBiying(): Boolean = LitePal.count(BiyingPic::class.java) == 0
+
 
     fun keepQQLogin(): Boolean {
         if (LitePal.count(QQ::class.java) != 0) {
@@ -112,7 +123,8 @@ object Dao {
         return false
     }
 
-    fun getQQ() = if (LitePal.count(QQ::class.java) != 0) LitePal.findFirst(QQ::class.java) else null
+    fun getQQ() =
+        if (LitePal.count(QQ::class.java) != 0) LitePal.findFirst(QQ::class.java) else null
 
 
     fun deleteQQ() {

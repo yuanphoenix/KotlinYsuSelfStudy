@@ -12,6 +12,9 @@ import java.util.ArrayList
 
 class RoomViewModel(var time: MutableLiveData<String>) : ViewModel() {
     private val TAG = "RoomViewModel"
+
+    private var biyingtemp = MutableLiveData<String>()
+
     var hello =
         "https://cn.bing.com/th?id=OHR.UnicornoftheSea_ZH-CN2949385175_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"
 
@@ -35,9 +38,13 @@ class RoomViewModel(var time: MutableLiveData<String>) : ViewModel() {
         Repository.getEmptyRoom()
     }
 
-    fun getConditionRoom(condition: String) {
-        var temp = Dao.getRoom("${time.value},${condition}")
-    }
+    fun getConditionRoom(condition: String) = Dao.getRoom("${time.value},${condition}")
 
+    fun getBiying(){
+        biyingtemp.value=biyingtemp.value
+    }
+    val urlBiying=Transformations.switchMap(biyingtemp){
+        Repository.getBiying()
+    }
 
 }

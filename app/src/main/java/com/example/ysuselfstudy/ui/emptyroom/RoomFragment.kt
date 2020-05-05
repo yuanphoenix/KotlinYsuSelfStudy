@@ -18,6 +18,7 @@ import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.adapter.UltimateAdapter
 import com.example.ysuselfstudy.databinding.RoomFragmentBinding
+import com.example.ysuselfstudy.logic.showToast
 import com.example.ysuselfstudy.ui.TimePopWindow
 import com.example.ysuselfstudy.viewmodelfactory.MyViewModelFactory
 
@@ -38,15 +39,17 @@ class RoomFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // RoomFragmentBinding.inflate(layoutInflater)
         navController = findNavController()
         //初始化ViewModel，里面有本Fragment的所有data
         viewModel = ViewModelProvider(
             requireActivity(),
             MyViewModelFactory()
         ).get(RoomViewModel::class.java)
+        viewModel.getBiying()
         roomDataBing = DataBindingUtil.inflate(inflater, R.layout.room_fragment, container, false)
         roomDataBing.viewmodel = viewModel
+
+        roomDataBing.lifecycleOwner = this
 
         var adapter = UltimateAdapter(
             viewModel.dirs,
@@ -59,7 +62,6 @@ class RoomFragment : Fragment() {
         roomDataBing.swipeRefresh.setColorSchemeColors(resources.getColor(R.color.colorPrimary))
         roomDataBing.swipeRefresh.setOnRefreshListener {
             refreshRoom()
-
         }
         roomDataBing.swipeRefresh
 
@@ -93,11 +95,7 @@ class RoomFragment : Fragment() {
                     //要更新空教室
                     showDialog()
                 } else {
-                    Toast.makeText(
-                        YsuSelfStudyApplication.context,
-                        "空教室由${result}提供",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    "空教室由 ${result} 提供".showToast()
                 }
 
             }

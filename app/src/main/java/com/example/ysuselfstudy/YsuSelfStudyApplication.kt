@@ -22,7 +22,7 @@ class YsuSelfStudyApplication : Application() {
         context = applicationContext
         tencent = Tencent.createInstance("101560830", context)
         LitePal.initialize(context)
-        Bugly.init(context, "ec45c74684", true)
+        Bugly.init(context, "ec45c74684", false)
         Bmob.initialize(this, "95472b5edd3fe00a7bc245de053edb71")
     }
 }

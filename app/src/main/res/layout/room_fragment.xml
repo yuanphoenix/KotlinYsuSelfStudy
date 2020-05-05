@@ -42,7 +42,7 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/standradpicture"
                     android:scaleType="fitCenter"
-                    app:imageFromUrl="@{viewmodel.hello}"
+                    app:imageFromUrl="@{viewmodel.urlBiying}"
                     app:srcCompat="@drawable/ic_error" />
 
             </com.google.android.material.card.MaterialCardView>

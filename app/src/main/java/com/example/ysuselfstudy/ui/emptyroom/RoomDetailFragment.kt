@@ -8,8 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.YsuSelfStudyApplication
+import com.example.ysuselfstudy.adapter.RoomAdapter
+import com.example.ysuselfstudy.data.EmptyRoom
 import com.example.ysuselfstudy.databinding.RoomDetailFragmentBinding
 
 class RoomDetailFragment : Fragment() {
@@ -22,6 +27,7 @@ class RoomDetailFragment : Fragment() {
     private lateinit var viewModel: RoomViewModel
     private lateinit var amount: String
     private lateinit var detailFragmentBinding: RoomDetailFragmentBinding
+    private var mData = ArrayList<EmptyRoom>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +38,6 @@ class RoomDetailFragment : Fragment() {
 
         amount = arguments?.getString("amount")!!
 
-        detailFragmentBinding.textView3.setText("还没开学呢")
         return detailFragmentBinding.root
 
     }
@@ -41,7 +46,11 @@ class RoomDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(RoomViewModel::class.java)
 
-        viewModel.getConditionRoom(amount)
+        mData = viewModel.getConditionRoom(amount)
+        detailFragmentBinding.roomRecycler.adapter = RoomAdapter(mData)
+        detailFragmentBinding.roomRecycler.layoutManager=
+            LinearLayoutManager(YsuSelfStudyApplication.context)
+
 
     }
 

@@ -165,7 +165,7 @@ object UploadRoom {
                 classroom[j].text(),
                 location[j].text(),
                 xiaoqu[j].text(),
-                if (number[j].text().equals("")) number[j].text() else "99",
+                if (!number[j].text().equals("")) number[j].text() else "99",
                 i.toString()
             )
             roomList.add(room)

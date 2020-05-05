@@ -4,6 +4,8 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.logic.Dao
+import com.example.ysuselfstudy.logic.showToast
 
 
 /**
@@ -26,12 +28,16 @@ class UltimateAdapter(
         setmyClickListener(object :
             OnItemClickListener {
             override fun OnParentClickListener(paent: String) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun OnChildClickListenr(child: String) {
-                val msg = bundleOf("amount" to child)
-                navController.navigate(R.id.roomDetailFragment, msg)
+                if (Dao.isRoomEmpty()) {
+                    "请下拉更新教室数据".showToast()
+                } else {
+                    val msg = bundleOf("amount" to child)
+                    navController.navigate(R.id.roomDetailFragment, msg)
+                }
             }
         })
 

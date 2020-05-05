@@ -26,9 +26,6 @@ class MainViewModel : ViewModel() {
         title.value = 0
     }
 
-    fun setTitle(position: Int) {
-        title.value = position
-    }
 
     fun refuseAuthentication() {
         authenticationState.value = AuthenticationState.UNAUTHENTICATED
@@ -49,7 +46,10 @@ class MainViewModel : ViewModel() {
         getLogin(User(number = username, eduPassword = password))
     }
 
-    fun deleteRoom() = Dao.deleteRoom()
+    fun deleteYseterday() {
+        Dao.deleteRoom()
+        Dao.deletePic()
+    }
 
     val headSculpture: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
@@ -64,4 +64,7 @@ class MainViewModel : ViewModel() {
         YsuSelfStudyApplication.tencent.logout(YsuSelfStudyApplication.context)
         headSculpture.value = null
     }
+
+
+
 }

@@ -12,14 +12,13 @@
         <item
             android:id="@+id/campusCardFragment"
             android:icon="@mipmap/ic_card"
-            android:title="@string/school_card" />
+            android:title="@string/school_card"
+            android:visible="false" />
         <item
             android:id="@+id/mySettingsFragment"
             android:icon="@mipmap/ic_setting"
             android:title="@string/setting" />
-        <item
-            android:id="@+id/uploadFragment"
-            android:title="测试" />
+
 
     </group>
 </menu>
