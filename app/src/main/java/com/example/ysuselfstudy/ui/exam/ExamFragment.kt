@@ -26,6 +26,8 @@ class ExamFragment : Fragment() {
         fun newInstance() = ExamFragment()
     }
 
+
+
     private lateinit var viewModel: ExamViewModel
     private lateinit var mainModel: MainViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager

@@ -81,7 +81,7 @@ class LoginFragment : Fragment() {
 
 
     private fun showErrorMessage() {
-        Snackbar.make(this.view!!, "登陆失败", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(this.requireView(), "登陆失败", Snackbar.LENGTH_SHORT).show()
     }
 
     protected fun hideInput() {
@@ -89,7 +89,7 @@ class LoginFragment : Fragment() {
 
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        val v: View = activity!!.window.peekDecorView()
+        val v: View = requireActivity().window.peekDecorView()
         if (null != v) {
             imm!!.hideSoftInputFromWindow(v.windowToken, 0)
         }

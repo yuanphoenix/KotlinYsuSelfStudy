@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.databinding.CourseItemLayoutBinding
+import com.example.ysuselfstudy.logic.getPixelsFromDp
 
 
 /**
@@ -31,7 +32,6 @@ class CourseAdapter(val mData: List<Course>) : RecyclerView.Adapter<RecyclerView
             ViewGroup.LayoutParams.MATCH_PARENT,
             px
         )
-
         val courseViewHolder = CourseViewHolder(binding)
         return courseViewHolder
     }
@@ -44,16 +44,11 @@ class CourseAdapter(val mData: List<Course>) : RecyclerView.Adapter<RecyclerView
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as CourseViewHolder
         if (!mData[position].courseName.equals("")) {
-
             holder.binding.courseText.setBackgroundColor(mData[position].color)
             holder.binding.courseText.background.alpha = 200
         }
         holder.binding.courseText.setText(mData[position].courseName + "\n" + mData[position].position)
     }
 
-    private fun getPixelsFromDp(size: Int): Int {
-        val metrics = YsuSelfStudyApplication.context.getResources().getDisplayMetrics();
-        return size * metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
-    }
 
 }

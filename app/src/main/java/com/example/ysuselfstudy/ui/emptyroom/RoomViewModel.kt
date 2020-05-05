@@ -11,7 +11,7 @@ import com.example.ysuselfstudy.logic.Dao
 import java.util.ArrayList
 
 class RoomViewModel(var time: MutableLiveData<String>) : ViewModel() {
-private val TAG ="RoomViewModel"
+    private val TAG = "RoomViewModel"
     var hello =
         "https://cn.bing.com/th?id=OHR.UnicornoftheSea_ZH-CN2949385175_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"
 
@@ -26,17 +26,17 @@ private val TAG ="RoomViewModel"
 
     val emptyRoom = ArrayList<EmptyRoom>()
 
+    fun getRoom() {
+        getRoomNetAddtion.value = getRoomNetAddtion.value
+    }
+
     //这才是主角
     val emptyRoomLiveData = Transformations.switchMap(getRoomNetAddtion) { query ->
-        Repository.getRoom(query)
+        Repository.getEmptyRoom()
     }
 
     fun getConditionRoom(condition: String) {
         var temp = Dao.getRoom("${time.value},${condition}")
-    }
-
-    fun getRoom(query: String) {
-        getRoomNetAddtion.value = query
     }
 
 

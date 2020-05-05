@@ -1,10 +1,20 @@
 package com.example.ysuselfstudy.network
 
 import android.util.Log
+import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.QueryListener
+import com.example.ysuselfstudy.data.EmptyRoom
+import com.example.ysuselfstudy.data.UploadRoomMsg
+import com.example.ysuselfstudy.logic.Dao
+import com.example.ysuselfstudy.logic.getDate
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 /**
@@ -35,6 +45,33 @@ object EmptyRoomNetWork {
 
             })
 
+        }
+    }
+
+    suspend fun getEmptyRoom(): String {
+        return suspendCoroutine { continuation ->
+            val msg = BmobQuery<UploadRoomMsg>()
+            msg.getObject("fb09497064", object : QueryListener<UploadRoomMsg>() {
+                override fun done(p0: UploadRoomMsg?, p1: BmobException?) = if (p0 != null) {
+                    //成功
+                    if (getDate().substring(0, 10).equals(p0.updatedAt.substring(0, 10))) {
+                        //获取了本周的空教室
+                        var roomList = Gson()
+                        var type = object : TypeToken<ArrayList<EmptyRoom>>() {}.type
+                        var saveList: ArrayList<EmptyRoom> = roomList.fromJson(p0.room_json, type)
+                        Dao.saveRoom(saveList)
+                        continuation.resume(p0.nick_name)
+                    } else {
+                        //日期不对，需要用户上传教室
+                        continuation.resume("false")
+                    }
+
+                } else {
+                    //失败
+                    continuation.resumeWithException(RuntimeException(p1.toString()))
+                }
+
+            })
         }
     }
 

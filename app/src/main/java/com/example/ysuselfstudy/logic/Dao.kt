@@ -17,6 +17,7 @@ import org.litepal.LitePal.findBySQL
  */
 object Dao {
     private val TAG = "Dao"
+
     /**
      * 保存学生的个人信息
      */
@@ -110,6 +111,9 @@ object Dao {
         }
         return false
     }
+
+    fun getQQ() = if (LitePal.count(QQ::class.java) != 0) LitePal.findFirst(QQ::class.java) else null
+
 
     fun deleteQQ() {
         LitePal.deleteAll(QQ::class.java)

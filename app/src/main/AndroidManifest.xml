@@ -59,6 +59,10 @@
             android:required="false" />
 
         <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="com.example.ysuselfstudy.BmobContentProvider" />
+
+        <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"

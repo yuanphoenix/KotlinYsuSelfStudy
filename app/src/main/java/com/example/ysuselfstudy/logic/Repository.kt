@@ -2,6 +2,8 @@ package com.example.ysuselfstudy.logic
 
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.data.Exam
@@ -164,6 +166,29 @@ object Repository {
         } catch (e: Exception) {
             emit(null)
         }
+    }
+
+    /**
+     * 获取余额
+     */
+    fun getCard() = liveData(Dispatchers.IO) {
+        var temp = 1
+
+        emit(temp)
+        temp = 2
+        emit(temp)
+    }
+
+    /**
+     * 测试空教室
+     */
+    fun getEmptyRoom() = liveData(Dispatchers.IO) {
+        if (!Dao.isRoomEmpty()) {
+            emit(null)
+            return@liveData
+        }
+        emit(EmptyRoomNetWork.getEmptyRoom())
+
     }
 
 

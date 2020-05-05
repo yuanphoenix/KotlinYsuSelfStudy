@@ -103,6 +103,7 @@ object OfficeNetWork {
                         } catch (e: Exception) {
                             e.printStackTrace()
                             continuation.resume(false)
+                            return
                         }
 
                         continuation.resume(true)

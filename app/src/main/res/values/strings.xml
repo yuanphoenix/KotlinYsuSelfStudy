@@ -34,5 +34,6 @@
     <string name="exam_num">座位号:</string>
     <string name="vent">兔小巢</string>
     <string name="tip">初次使用务必输入正确\n登陆失败可能是因为验证码不对，再试一次</string>
+    <string name="school_card">校园卡</string>
 
 </resources>

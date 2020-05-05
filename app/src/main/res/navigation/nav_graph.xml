@@ -36,5 +36,15 @@
         android:id="@+id/examFragment"
         android:name="com.example.ysuselfstudy.ui.exam.ExamFragment"
         android:label="@string/exam_time" />
+    <fragment
+        android:id="@+id/campusCardFragment"
+        android:name="com.example.ysuselfstudy.ui.campuscard.CampusCardFragment"
+        android:label="@string/school_card"
+        tools:layout="@layout/campus_card_fragment" />
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.example.ysuselfstudy.ui.uploadroom.UploadFragment"
+        android:label="upload_fragment"
+        tools:layout="@layout/upload_fragment" />
 
 </navigation>

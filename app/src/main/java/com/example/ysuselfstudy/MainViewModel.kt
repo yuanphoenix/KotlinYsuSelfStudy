@@ -18,10 +18,16 @@ class MainViewModel : ViewModel() {
 
     val authenticationState = MutableLiveData<AuthenticationState>()
     var username: String
+    val title = MutableLiveData<Int>()
 
     init {
         authenticationState.value = AuthenticationState.UNAUTHENTICATED //这里需要修改判断验证状态
         username = ""
+        title.value = 0
+    }
+
+    fun setTitle(position: Int) {
+        title.value = position
     }
 
     fun refuseAuthentication() {

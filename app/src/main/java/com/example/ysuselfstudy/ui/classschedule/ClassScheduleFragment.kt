@@ -1,9 +1,7 @@
 package com.example.ysuselfstudy.ui.classschedule
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -57,6 +55,7 @@ class ClassScheduleFragment : Fragment() {
         binding.schedule.layoutManager = layoutManager
         adapter = CourseAdapter(mData)
         binding.schedule.adapter = adapter
+
 
 
         viewModel = ViewModelProvider(this).get(ClassScheduleViewModel::class.java)//本地的ViewModel
@@ -124,7 +123,5 @@ class ClassScheduleFragment : Fragment() {
         binding.classLoginBtn.visibility = View.GONE
         viewModel.getCourse()
     }
-
-
 
 }

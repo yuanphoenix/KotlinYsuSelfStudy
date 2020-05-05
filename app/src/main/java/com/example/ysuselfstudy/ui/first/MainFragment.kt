@@ -2,11 +2,13 @@ package com.example.ysuselfstudy.ui.first
 
 
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat.invalidateOptionsMenu
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -16,7 +18,11 @@ import com.example.ysuselfstudy.MainViewModel
 
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.adapter.ViewPagerAdapter
+import com.example.ysuselfstudy.databinding.AppBarMainBinding
+import com.example.ysuselfstudy.logic.Dao
+import com.example.ysuselfstudy.logic.getWeek
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainFragment : Fragment() {
     lateinit var viewPager: ViewPager2
@@ -26,6 +32,7 @@ class MainFragment : Fragment() {
     lateinit var navController: NavController
     lateinit var toolbar: Toolbar
     private val TAG = "MainFragment"
+    lateinit var barBinding: AppBarMainBinding
 
     companion object {
         fun newInstance() = MainFragment()
@@ -45,7 +52,11 @@ class MainFragment : Fragment() {
         viewPager.adapter = viewPagerAdapter
         viewPager.offscreenPageLimit = 1
         navController = findNavController()
-        toolbar = activity!!.findViewById(R.id.toolbar)
+
+        setHasOptionsMenu(true)
+
+
+        toolbar = requireActivity().findViewById(R.id.toolbar)
 
 
         bottomNav.setOnNavigationItemSelectedListener() {
@@ -62,33 +73,59 @@ class MainFragment : Fragment() {
         }
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
+            override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
+                requireActivity().invalidateOptionsMenu()
             }
 
             override fun onPageSelected(position: Int) {
                 bottomNav.menu.getItem(position).setChecked(true)
+                when (position) {
+                    0 -> {
+                        toolbar.visibility = View.VISIBLE
+                        toolbar.title = "空教室"
+                    }
+                    1 -> {
+                        toolbar.title = "第${getWeek()}周"
+                    }
+                    2 -> {
+                        toolbar.visibility = View.VISIBLE
+                        toolbar.title = "公告"
+                    }
+                }
             }
         })
 
         return view
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.course_menu, menu)
+        if (viewPager.currentItem == 1) {
+            menu.findItem(R.id.course_background).setVisible(true)
+        } else {
+            menu.findItem(R.id.course_background).setVisible(false)
+        }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> return super.onOptionsItemSelected(item)
+            R.id.course_background -> Log.d(TAG, "onOptionsItemSelected:你好 ");
+        }
+        return true
 
+    }
 }

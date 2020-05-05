@@ -1,7 +1,10 @@
 package com.example.ysuselfstudy.logic
 
+import android.util.DisplayMetrics
 import android.util.Log
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import org.jsoup.nodes.Element
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -22,6 +25,9 @@ fun getWeek(): Int {
     return day / 7 + 1
 }
 
+/**
+ * 日志工具
+ */
 fun log(out: String) {
     if (out.length > 4000) {
         var i = 0
@@ -33,4 +39,24 @@ fun log(out: String) {
         }
     } else Log.i("msg", out)
 }
+
+/**
+ * dp转px
+ */
+fun getPixelsFromDp(size: Int): Int {
+    val metrics = YsuSelfStudyApplication.context.getResources().getDisplayMetrics();
+    return size * metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
+}
+
+/**
+ * 空教室日期设置
+ */
+fun getDate(): String {
+    val date = Calendar.getInstance()
+    var dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    var dateString = dateFormat.format(date.time)
+    return dateString
+}
+
+
 
