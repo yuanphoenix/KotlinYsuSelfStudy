@@ -51,7 +51,7 @@ object EmptyRoomNetWork {
     suspend fun getEmptyRoom(): String {
         return suspendCoroutine { continuation ->
             val msg = BmobQuery<UploadRoomMsg>()
-            msg.getObject("fb09497064", object : QueryListener<UploadRoomMsg>() {
+            msg.getObject("2ec49dadea", object : QueryListener<UploadRoomMsg>() {
                 override fun done(p0: UploadRoomMsg?, p1: BmobException?) = if (p0 != null) {
                     //成功
                     if (getDate().substring(0, 10).equals(p0.updatedAt.substring(0, 10))) {
@@ -59,6 +59,7 @@ object EmptyRoomNetWork {
                         var roomList = Gson()
                         var type = object : TypeToken<ArrayList<EmptyRoom>>() {}.type
                         var saveList: ArrayList<EmptyRoom> = roomList.fromJson(p0.room_json, type)
+
                         Dao.saveRoom(saveList)
                         continuation.resume(p0.nick_name)
                     } else {

@@ -17,6 +17,9 @@
             android:id="@+id/mySettingsFragment"
             android:icon="@mipmap/ic_setting"
             android:title="@string/setting" />
+        <item
+            android:id="@+id/uploadFragment"
+            android:title="测试" />
 
     </group>
 </menu>

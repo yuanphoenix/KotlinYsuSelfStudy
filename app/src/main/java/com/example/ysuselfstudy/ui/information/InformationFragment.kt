@@ -19,6 +19,7 @@ import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.adapter.InformationAdapter
 import com.example.ysuselfstudy.data.Information
 import com.example.ysuselfstudy.databinding.InformFragmentBinding
+import com.example.ysuselfstudy.logic.showToast
 
 class InformationFragment : Fragment() {
     companion object {
@@ -60,7 +61,7 @@ class InformationFragment : Fragment() {
         viewModel.getInforList()
         viewModel.listOfInformation.observe(viewLifecycleOwner, Observer {
             if (it == null) {
-                Toast.makeText(YsuSelfStudyApplication.context, "出问题了。。", Toast.LENGTH_SHORT).show()
+                "通知公告出问题了。。".showToast()
             } else {
                 mData.clear()
                 mData.addAll(it)

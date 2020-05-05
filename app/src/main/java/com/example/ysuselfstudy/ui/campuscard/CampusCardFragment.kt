@@ -35,10 +35,6 @@ class CampusCardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CampusCardViewModel::class.java)
-        viewModel.surplus.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "onActivityCreated: " + it);
-        })
-        binding.test.setOnClickListener { viewModel.getCrad() }
     }
 
 }

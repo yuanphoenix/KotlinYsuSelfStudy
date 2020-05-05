@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
-import com.example.ysuselfstudy.data.EmptyRoom
+import cn.bmob.v3.listener.UpdateListener
 import com.example.ysuselfstudy.data.UploadRoomMsg
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
  */
 object UploadRoom {
     private val TAG = "UploadRoom"
-    private val roomList = ArrayList<EmptyRoom>()
+    private val roomList = ArrayList<EmptyRoomMirror>()
     private var gson = Gson()
 
     var schoolBuilding = mutableSetOf<String>()
@@ -80,7 +80,7 @@ object UploadRoom {
                 }
 
                 //这是找每一页中的其余页面
-                var processPlus = 16 / (page - 2)
+                var processPlus = 16 / (page - 1)
                 for (k in 2..page) {
                     tempProces += processPlus
                     process.postValue(tempProces)
@@ -105,32 +105,29 @@ object UploadRoom {
                         }
                     }
                 }
-                tempProces += 16
-                process.postValue(tempProces)
                 i += 2
             }
-            println("Over！！")
+            Log.d(TAG, "SpideSchool:爬取结束，准备上传 ");
         } catch (e: Exception) {
             // 这里填写超时逻辑
             Log.d(TAG, "SpideSchool:失败 " + e.toString());
-            emit(null)
+            process.postValue(-1)
+            return@liveData
         }
         //上传信息
 
-        Log.d(TAG, "SpideSchool: " + roomList);
-
-
-        log(gson.toJson(roomList))
         val msg = UploadRoomMsg(
-            if (Dao.getQQ() != null) Dao.getQQ().nickname else "匿名小可爱",
+            if (Dao.getQQ() != null) Dao.getQQ()!!.nickname else "匿名小可爱",
             gson.toJson(roomList)
         )
-        msg.save(object : SaveListener<String>() {
-            override fun done(msg: String?, p1: BmobException?) {
-                if (msg != null) {
+        msg.update("2ec49dadea", object : UpdateListener() {
+            override fun done(p0: BmobException?) {
+                if (p0 == null) {
                     Log.d(TAG, "done: 上传成功");
+                    process.postValue(100)
                 } else {
-                    Log.d(TAG, "done: 失败" + p1.toString());
+                    Log.d(TAG, "done: 失败" + p0.toString());
+                    process.postValue(-1)
                 }
             }
 
@@ -164,7 +161,7 @@ object UploadRoom {
 
             if (!schoolBuilding.contains(location[j].text())) continue
 
-            val room = EmptyRoom(
+            val room = EmptyRoomMirror(
                 classroom[j].text(),
                 location[j].text(),
                 xiaoqu[j].text(),
@@ -178,4 +175,13 @@ object UploadRoom {
     }
 
 
+}
+
+class EmptyRoomMirror(
+    var room: String,
+    var location: String,
+    var xiaoqu: String = "",
+    var nums: String,
+    var time: String = ""
+) {
 }

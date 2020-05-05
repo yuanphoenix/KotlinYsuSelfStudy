@@ -35,5 +35,6 @@
     <string name="vent">兔小巢</string>
     <string name="tip">初次使用务必输入正确\n登陆失败可能是因为验证码不对，再试一次</string>
     <string name="school_card">校园卡</string>
+    <string name="updateing">正在更新中，大概三分钟……</string>
 
 </resources>

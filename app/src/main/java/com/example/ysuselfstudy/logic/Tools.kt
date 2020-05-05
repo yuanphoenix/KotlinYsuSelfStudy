@@ -2,6 +2,7 @@ package com.example.ysuselfstudy.logic
 
 import android.util.DisplayMetrics
 import android.util.Log
+import android.widget.Toast
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import org.jsoup.nodes.Element
 import java.text.SimpleDateFormat
@@ -56,6 +57,10 @@ fun getDate(): String {
     var dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     var dateString = dateFormat.format(date.time)
     return dateString
+}
+
+fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(YsuSelfStudyApplication.context, this, duration).show()
 }
 
 
