@@ -3,11 +3,14 @@ package com.example.ysuselfstudy.logic
 
 import android.util.Log
 import androidx.lifecycle.liveData
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.data.Exam
 import com.example.ysuselfstudy.data.Grade
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
+import com.tencent.bugly.Bugly
+import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.coroutines.Dispatchers
 import org.jsoup.select.Elements
 
@@ -65,7 +68,12 @@ object Repository {
         }
         if (Dao.isCourseEmpty()) {
             val documnet = OfficeNetWork.getCourse()
-            CourseAnalysis.analysisCourse(documnet)
+            try {
+                CourseAnalysis.analysisCourse(documnet)
+            } catch (thr: Throwable) {
+                Log.d(TAG, "getTimeStable: " + thr.toString());
+                CrashReport.postCatchedException(thr)
+            }
         }
         result = Dao.getWeekClass()
         emit(result)
