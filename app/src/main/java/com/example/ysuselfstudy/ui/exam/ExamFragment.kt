@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ysuselfstudy.MainViewModel
@@ -27,13 +28,15 @@ class ExamFragment : Fragment() {
     }
 
 
-
     private lateinit var viewModel: ExamViewModel
     private lateinit var mainModel: MainViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var mData = ArrayList<Exam>()
     private lateinit var binding: ExamFragmentBinding
+    private lateinit var navController: NavController
     private lateinit var adapter: ExamAdapter
+    private var finishJudge = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +47,8 @@ class ExamFragment : Fragment() {
         binding.examRecycler.layoutManager = linearLayoutManager
         adapter = ExamAdapter(mData)
         binding.examRecycler.adapter = adapter
+        navController = findNavController()
+
         return binding.root
     }
 
@@ -61,7 +66,6 @@ class ExamFragment : Fragment() {
         mainModel.state.observe(
             viewLifecycleOwner,
             Observer { authenticationState ->
-
                 when (authenticationState) {
                     true -> {
                         showUi()
@@ -75,10 +79,17 @@ class ExamFragment : Fragment() {
         binding.progressBar.show()
         viewModel.getExam()
         viewModel.list.observe(viewLifecycleOwner, Observer {
-            mData.clear()
-            binding.progressBar.hide()
-            it?.let { it1 -> mData.addAll(it1) }
-            adapter.notifyDataSetChanged()
+            if (it == null) {
+                if (!finishJudge) {
+                    finishJudge = !finishJudge
+                    navController.navigate(R.id.webFragment)}
+            } else {
+                mData.clear()
+                binding.progressBar.hide()
+                it?.let { it1 -> mData.addAll(it1) }
+                adapter.notifyDataSetChanged()
+            }
+
         })
     }
 

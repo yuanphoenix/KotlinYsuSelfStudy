@@ -1,6 +1,7 @@
 package com.example.ysuselfstudy.ui.classschedule
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -58,7 +59,8 @@ class ClassScheduleFragment : Fragment() {
 
 
 
-        viewModel = ViewModelProvider(requireActivity()).get(ClassScheduleViewModel::class.java)//本地的ViewModel
+        viewModel =
+            ViewModelProvider(requireActivity()).get(ClassScheduleViewModel::class.java)//本地的ViewModel
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
@@ -111,19 +113,24 @@ class ClassScheduleFragment : Fragment() {
 
         //观察课程的返回情况。
         viewModel.nowWeekCourse.observe(this.viewLifecycleOwner, Observer { result ->
-            if (!result.isNullOrEmpty())
-            {
-                mData.clear()
-                mData.addAll(result)
-                adapter.notifyDataSetChanged()
+            if (result != null) {
+                if (result is Int) {
+                    navController.navigate(R.id.webFragment)
+                } else if (result is ArrayList<*>) {
+                    mData.clear()
+                    mData.addAll(result as Collection<Course>)
+                    adapter.notifyDataSetChanged()
+                }
             }
+
+
         })
 
 
     }
 
     private fun showUi() {
-        binding.classLoginBtn.visibility=View.GONE
+        binding.classLoginBtn.visibility = View.GONE
         viewModel.getCourse()
     }
 

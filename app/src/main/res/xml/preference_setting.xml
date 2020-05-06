@@ -8,9 +8,7 @@
         app:key="feedback"
         app:summary="有问题点这里反馈哦"
         app:title="兔小巢">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://support.qq.com/products/115180" />
+
     </Preference>
     <Preference
         app:key="share"

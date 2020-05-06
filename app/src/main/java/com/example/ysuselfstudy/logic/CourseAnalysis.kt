@@ -30,7 +30,7 @@ object CourseAnalysis {
      *
      * @param parse
      */
-    fun analysisCourse(parse: Document?): Boolean {
+    fun analysisCourse(parse: Document?): Boolean? {
         if (parse == null) return false
 
 
@@ -43,6 +43,8 @@ object CourseAnalysis {
             val textNodes = e.textNodes()
             temp.add(textNodes.toTypedArray())
         }
+        //这里如果没有评价，temp会是0。
+        if (temp.size == 0) return null
         var position = 0
         temp.removeAt(0)
         val courseList: MutableList<Course> = ArrayList<Course>()

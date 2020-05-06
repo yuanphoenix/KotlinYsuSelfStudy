@@ -42,7 +42,9 @@ class BaseUiListener : IUiListener {
 
                 val qqUser = p0 as JSONObject
                 val nickname: String = qqUser.getString("nickname")
-                val touxiang: String = qqUser.getString("figureurl_qq_2")
+                var touxiang: String = qqUser.getString("figureurl_qq_2")
+                touxiang = touxiang.replace("http", "https")
+                Log.d(TAG, "onComplete: " + touxiang);
                 QQ(accessToken, openID, expires, touxiang, nickname).save()
                 if (onSuccessListener != null)
                     onSuccessListener.changeImageView()

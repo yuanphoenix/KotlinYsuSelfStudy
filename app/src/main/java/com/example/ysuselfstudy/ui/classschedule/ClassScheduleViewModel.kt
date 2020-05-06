@@ -1,5 +1,6 @@
 package com.example.ysuselfstudy.ui.classschedule
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -32,7 +33,7 @@ class ClassScheduleViewModel : ViewModel() {
     private val course = MutableLiveData<Boolean>()
 
     var nowWeekCourse = Transformations.switchMap(course) {
-        Repository.getTimeStable(course.value)
+        Repository.getTimeStable(it) as LiveData<Any>?
     }
 
     fun getCourse() {
@@ -40,7 +41,7 @@ class ClassScheduleViewModel : ViewModel() {
             course.value = true
     }
 
-    fun clearCourse(login:Boolean){
+    fun clearCourse(login: Boolean) {
         Dao.deleteAllCourse()
         course.value = login
     }

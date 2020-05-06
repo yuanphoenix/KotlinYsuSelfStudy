@@ -46,5 +46,10 @@
         android:name="com.example.ysuselfstudy.ui.uploadroom.UploadFragment"
         android:label="upload_fragment"
         tools:layout="@layout/upload_fragment" />
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
+        android:label="@string/judge"
+        tools:layout="@layout/web_fragment" />
 
 </navigation>

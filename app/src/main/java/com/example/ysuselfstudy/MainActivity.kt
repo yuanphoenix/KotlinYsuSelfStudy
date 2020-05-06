@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 
 import android.os.Bundle
+import android.util.Log
 
 
 import android.view.View
@@ -16,11 +17,13 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.example.ysuselfstudy.data.MipushInfor
 import com.example.ysuselfstudy.databinding.NavHeaderBinding
 import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.tencent.tauth.Tencent
+import org.litepal.LitePal
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -63,7 +66,6 @@ class MainActivity : AppCompatActivity() {
         //少了这一句，就不会更新侧边栏了。
         navBinding.lifecycleOwner = this
 
-
         //控制侧边栏滑动，根据导航的目的地不同来进行操作
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id != R.id.mainFragment) {
@@ -78,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         val data = calendar[Calendar.DATE]
         val storeDate = getSharedPreferences("date", Context.MODE_PRIVATE)
         val old = storeDate.getInt("num", 0)
+        if (old == 0) viewModel.firstdeleteCourse()
         if (old != data) viewModel.deleteYseterday()
 
         val editor = getSharedPreferences("date", Context.MODE_PRIVATE).edit()

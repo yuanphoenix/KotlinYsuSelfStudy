@@ -48,7 +48,7 @@ object Dao {
     /**
      * 删除当天所有的空教室
      */
-    fun deleteRoom() = LitePal.deleteAllAsync(EmptyRoom::class.java)
+    fun deleteRoom() = LitePal.deleteAll(EmptyRoom::class.java)
 
 
     /**

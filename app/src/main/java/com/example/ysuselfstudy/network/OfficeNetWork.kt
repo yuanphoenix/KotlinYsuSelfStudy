@@ -1,6 +1,9 @@
 package com.example.ysuselfstudy.network
 
+import android.content.Context
 import android.util.Log
+import androidx.preference.PreferenceManager
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Information
 import com.example.ysuselfstudy.logic.Dao
 import okhttp3.*
@@ -30,9 +33,33 @@ object OfficeNetWork {
 
     var client = OkHttpClient.Builder().cookieJar(object : CookieJar {
         private val cookieStore = HashMap<String, List<Cookie>>()
-
+        private var LoginCookie = ""
         override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
             cookieStore[url.host()] = cookies
+
+            for (i in 0 until cookies.size) {
+                var temp = cookies[i].toString()
+                temp = temp.substring(0, temp.indexOf(";"))
+                if (i > 0) LoginCookie = LoginCookie + ";" + temp else LoginCookie = temp
+            }
+
+            if (url.host().equals("202.206.243.62")) {
+                /**
+                 * 将cookie保存至本地
+                 */
+                var sharedPreferences =
+                    YsuSelfStudyApplication.context.getSharedPreferences(
+                        "cookiegroup",
+                        Context.MODE_PRIVATE
+                    )
+                        .edit()
+
+                Log.d(TAG, "saveFromResponse:保存Cookie " + LoginCookie);
+                sharedPreferences.putString("cookies", LoginCookie)
+                sharedPreferences.apply()
+            }
+
+
         }
 
         override fun loadForRequest(url: HttpUrl): List<Cookie> {
@@ -159,7 +186,6 @@ object OfficeNetWork {
                 .referrer(referrer)
                 .post()
             continuation.resume(document)
-
         }
 
     }

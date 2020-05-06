@@ -60,7 +60,7 @@ object Repository {
      *如果本地有数据，那么就加载本地数据
      * 否则联网获得数据
      */
-    fun getTimeStable(login: Boolean?) = liveData(Dispatchers.IO) {
+    fun getTimeStable(login: Boolean?): Any? = liveData(Dispatchers.IO) {
         var result = ArrayList<Course>()
         if (login != null && !login) {
             emit(null)
@@ -69,7 +69,8 @@ object Repository {
         if (Dao.isCourseEmpty()) {
             val documnet = OfficeNetWork.getCourse()
             try {
-                CourseAnalysis.analysisCourse(documnet)
+                var isAnalysis = CourseAnalysis.analysisCourse(documnet)
+                if (isAnalysis == null) emit(0)
             } catch (thr: Throwable) {
                 Log.d(TAG, "getTimeStable: " + thr.toString());
                 CrashReport.postCatchedException(thr)
@@ -111,7 +112,10 @@ object Repository {
         //获取了所有爬取的信息。
         val elements: Elements = document.select("td")
         val size = elements.size
-
+        if (size == 0) {
+            emit(null)
+            return@liveData
+        }
         var i = 11
         while (i < size) {
             val time = elements[i].text()

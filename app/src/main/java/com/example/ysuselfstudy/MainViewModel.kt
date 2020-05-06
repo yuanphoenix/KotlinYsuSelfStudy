@@ -46,6 +46,11 @@ class MainViewModel : ViewModel() {
         getLogin(User(number = username, eduPassword = password))
     }
 
+
+    fun firstdeleteCourse(){
+        Dao.deleteAllCourse()
+    }
+
     fun deleteYseterday() {
         Dao.deleteRoom()
         Dao.deletePic()
