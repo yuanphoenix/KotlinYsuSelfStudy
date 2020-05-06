@@ -5,9 +5,9 @@ ___
 **一款帮助燕大同学的APP，由 @Ahyer 独自开发。**
 
 软件采用Kotlin +Jetpack +MVVM 设计，这是重构后的版本。
-
-![YAH0cd.png](https://s1.ax1x.com/2020/05/06/YAH0cd.png)
-
+<p align="center">
+ <img src ="https://s1.ax1x.com/2020/05/06/YALsBR.png"/>
+</p>
 
 
 #### 主要功能
