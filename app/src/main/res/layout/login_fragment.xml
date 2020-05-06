@@ -16,6 +16,7 @@
             android:id="@+id/yui"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="@string/please_num"
             app:counterEnabled="true"
             app:counterMaxLength="12"
             app:hintTextAppearance="@style/hintAppearance"
@@ -29,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
-                android:hint="@string/please_num"
+
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:hint="@string/please_password"
             app:hintTextAppearance="@style/hintAppearance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
-                android:hint="@string/please_password"
+
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,10 +82,10 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:textSize="@dimen/sp15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tip"
+            android:textSize="@dimen/sp15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

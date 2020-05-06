@@ -47,7 +47,6 @@
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
