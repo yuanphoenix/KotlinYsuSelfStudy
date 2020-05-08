@@ -1,16 +1,16 @@
-### 燕习（YsuSelfStudy)
+## 燕习（YsuSelfStudy)
 
 ___
 
 **一款帮助燕大同学的APP，由 @Ahyer 独自开发。**
 
 软件采用Kotlin +Jetpack +MVVM 设计，这是重构后的版本。
+<p align="center">
+ <img src ="https://s1.ax1x.com/2020/05/06/YALsBR.png"/>
+</p>
 
-![YAH0cd.png](https://s1.ax1x.com/2020/05/06/YAH0cd.png)
 
-
-
-#### 主要功能
+### 主要功能
 
 ___
 
@@ -43,7 +43,6 @@ ____
 
 
 ### 编译配置
-
 ___
 
 在build.gradle 中删除
@@ -72,7 +71,6 @@ keystoreProperties.load(new FileInputStream(keystoreProperFile))
 
 
 ### 设计思路
-
 ___
 
 APP采用Kotlin+Jetpack+MVVM模式设计。（部分采用Java）
@@ -84,7 +82,6 @@ APP采用Kotlin+Jetpack+MVVM模式设计。（部分采用Java）
 
 
 ### LICENSE
-
 ______
 
 **Mozilla**
