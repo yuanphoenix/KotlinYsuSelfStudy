@@ -20,6 +20,7 @@ import androidx.navigation.ui.*
 import com.example.ysuselfstudy.data.MipushInfor
 import com.example.ysuselfstudy.databinding.NavHeaderBinding
 import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener
+import com.example.ysuselfstudy.logic.showToast
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.tencent.tauth.Tencent
@@ -109,6 +110,7 @@ class MainActivity : AppCompatActivity() {
      * 登录按钮
      */
     fun loginQQ(view: View) {
+
         if (!YsuSelfStudyApplication.tencent.isSessionValid()) {
             YsuSelfStudyApplication.tencent.login(
                 //这里的this必须是Activity或Fragment，而Viewmodel中不能持有相关视图的引用
@@ -119,6 +121,8 @@ class MainActivity : AppCompatActivity() {
                 baseUiListener
             );
         }
+
+
     }
 
 

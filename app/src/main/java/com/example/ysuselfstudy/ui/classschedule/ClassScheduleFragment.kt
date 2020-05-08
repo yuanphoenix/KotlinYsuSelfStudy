@@ -1,8 +1,12 @@
 package com.example.ysuselfstudy.ui.classschedule
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,6 +16,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.CustomViewTarget
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.YsuSelfStudyApplication
@@ -56,8 +67,6 @@ class ClassScheduleFragment : Fragment() {
         binding.schedule.layoutManager = layoutManager
         adapter = CourseAdapter(mData)
         binding.schedule.adapter = adapter
-
-
 
         viewModel =
             ViewModelProvider(requireActivity()).get(ClassScheduleViewModel::class.java)//本地的ViewModel
@@ -131,6 +140,21 @@ class ClassScheduleFragment : Fragment() {
 
     private fun showUi() {
         binding.classLoginBtn.visibility = View.GONE
+
+        Glide.with(this)
+            .asBitmap()
+            .load(R.drawable.ic_pikaqiu)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.ic_error)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onLoadCleared(placeholder: Drawable?) {
+
+                }
+
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    binding.classLinearLayout.background=BitmapDrawable(resources,resource);
+                }
+            })
         viewModel.getCourse()
     }
 

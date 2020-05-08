@@ -95,13 +95,12 @@ object EmptyRoomNetWork {
                 val sub = temp.indexOf("&") //找到第一次出现的地方
                 temp = temp.substring(0, sub)
                 url += temp
+                val biyingPic = BiyingPic(url)
+                biyingPic.save()
+                continuation.resume(url)
             } catch (e: Exception) {
                 continuation.resumeWithException(e)
             }
-
-            val biyingPic = BiyingPic(url)
-            biyingPic.save()
-            continuation.resume(url)
         }
 
     }
