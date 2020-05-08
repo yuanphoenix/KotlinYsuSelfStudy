@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Information
 import com.example.ysuselfstudy.logic.Dao
+import com.example.ysuselfstudy.logic.log
 import okhttp3.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -26,8 +27,8 @@ import kotlin.coroutines.suspendCoroutine
  */
 object OfficeNetWork {
     private val TAG = "OfficeNetWork"
-    private val OFFICE_URL = "http://202.206.243.62/default2.aspx"
-    private val CODE_URL = "http://202.206.243.62/CheckCode.aspx"
+    private val OFFICE_URL = "http://202.206.243.62/default2.aspx" //教务处的网址
+    private val CODE_URL = "http://202.206.243.62/CheckCode.aspx" //验证码的网址
     private val COOKIE_MAP = mutableMapOf<String, String>()
 
 
@@ -51,10 +52,8 @@ object OfficeNetWork {
                     YsuSelfStudyApplication.context.getSharedPreferences(
                         "cookiegroup",
                         Context.MODE_PRIVATE
-                    )
-                        .edit()
+                    ).edit()
 
-                Log.d(TAG, "saveFromResponse:保存Cookie " + LoginCookie);
                 sharedPreferences.putString("cookies", LoginCookie)
                 sharedPreferences.apply()
             }
@@ -73,8 +72,17 @@ object OfficeNetWork {
      */
     suspend fun login(nums: String, password: String, code: String): Boolean {
         return suspendCoroutine { continuation ->
+            //首先获得 __VIEWSTATE
+
+            var document = Jsoup.connect(OFFICE_URL)
+                .get()
+
+            var viewState = "dDwxNTMxMDk5Mzc0Ozs+cgOhsy/GUNsWPAGh+Vu0SCcW5Hw="
+            var viewStateElements = document.select("input[name=__VIEWSTATE]")
+            if (viewStateElements.size != 0) viewState = viewStateElements[0].attr("value")
+
             val requestBody = FormBody.Builder()
-                .add("__VIEWSTATE", "dDwxNTMxMDk5Mzc0Ozs+cgOhsy/GUNsWPAGh+Vu0SCcW5Hw=")
+                .add("__VIEWSTATE", viewState)
                 .add("txtUserName", nums)
                 .add("Textbox1", "")
                 .add("TextBox2", password)
@@ -198,11 +206,11 @@ object OfficeNetWork {
             val user = Dao.getStu()
             var url =
                 "http://202.206.243.62/mycjcx/xscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121632"
-            val referer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
             var document =
                 Jsoup.connect(url)
                     .cookies(COOKIE_MAP)
-                    .referrer(referer)
+                    .referrer(referrer)
                     .post()
             continuation.resume(document)
         }
@@ -216,10 +224,10 @@ object OfficeNetWork {
             val user = Dao.getStu()
             val url =
                 "http://202.206.243.62/xskscx.aspx?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121604"
-            val referer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
             val document = Jsoup.connect(url)
                 .cookies(COOKIE_MAP)
-                .referrer(referer)
+                .referrer(referrer)
                 .post()
             continuation.resume(document)
         }
