@@ -68,6 +68,16 @@ class ClassScheduleFragment : Fragment() {
         adapter = CourseAdapter(mData)
         binding.schedule.adapter = adapter
 
+
+        adapter.setOnClickListener(object :CourseAdapter.OnclickListener{
+            override fun OnItemClickListener(course: Course) {
+                var temp = CourseDetailDialogFragment(course)
+                temp.show(parentFragmentManager, "hello")
+            }
+
+        })
+
+
         viewModel =
             ViewModelProvider(requireActivity()).get(ClassScheduleViewModel::class.java)//本地的ViewModel
         binding.viewmodel = viewModel

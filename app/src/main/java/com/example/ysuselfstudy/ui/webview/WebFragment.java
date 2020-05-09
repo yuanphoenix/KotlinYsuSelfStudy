@@ -66,14 +66,16 @@ public class WebFragment extends Fragment {
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return false;
             }
-
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                webView.setVisibility(View.GONE);
-                ImageView imageView = getView().findViewById(R.id.error_pic);
-                imageView.setVisibility(View.VISIBLE);
-
-            }
+//太敏感了
+//            @Override
+//            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+//
+//
+//                webView.setVisibility(View.GONE);
+//                ImageView imageView = getView().findViewById(R.id.error_pic);
+//                imageView.setVisibility(View.VISIBLE);
+//
+//            }
         });
 
         webView.setDownloadListener(new DownloadListener() {
