@@ -35,6 +35,31 @@ class CampusCardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CampusCardViewModel::class.java)
+        //如果没有登录，那么先登录
+
+        viewModel.loginRoute()
+
+        viewModel.authenticationState.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                CampusCardViewModel.TodayAuthenticationState.AUTHENTICATED -> showUi()
+            }
+        })
+        viewModel.loginState.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                showUi()
+                Log.d(TAG, "onActivityCreated: " + it.remining);
+            }else{
+                viewModel.authenticationState.value=CampusCardViewModel.TodayAuthenticationState.UNAUTHENTICATED
+            }
+        })
+
+
+    }
+
+    private fun showUi() {
+        binding.loginToday.visibility = View.GONE
+        binding.cardSurplus.visibility = View.VISIBLE
+
     }
 
 }

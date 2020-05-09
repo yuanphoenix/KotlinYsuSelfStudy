@@ -6,12 +6,15 @@ import android.graphics.Color
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 
 
 import android.view.View
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -44,20 +47,23 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = Color.TRANSPARENT
         var te: AppBarLayout = findViewById(R.id.titlebar)
         te.setPadding(0, 60, 0, 0)
-        var navigation: NavigationView = findViewById(R.id.nav_view)
+        var navigationView: NavigationView = findViewById(R.id.nav_view)
 
         var navController = findNavController(R.id.nav_host_fragment)
 
         appBarConfiguration = AppBarConfiguration(setOf(R.id.mainFragment), drawerLayout)
 
+        //要向默认操作栏添加导航支持
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navigation.setupWithNavController(navController)
+
+        //将DrawerLayout 连接到您的导航图
+        navigationView.setupWithNavController(navController)
 
         //初始化全局ViewModel
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         //获得加载的侧边栏布局
-        val inflateHeaderView = navigation.getHeaderView(0)
+        val inflateHeaderView = navigationView.getHeaderView(0)
         val navBinding = NavHeaderBinding.bind(inflateHeaderView)
 
         //侧边栏绑定ViewModel
@@ -67,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         //少了这一句，就不会更新侧边栏了。
         navBinding.lifecycleOwner = this
 
+
         //控制侧边栏滑动，根据导航的目的地不同来进行操作
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id != R.id.mainFragment) {
@@ -74,6 +81,10 @@ class MainActivity : AppCompatActivity() {
             } else {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
+//            when (destination.id) {
+//                R.id.librarySearch->
+//            }
+
 
         }
 
@@ -96,6 +107,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * 处理向上导航
+     */
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -105,6 +119,9 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         Tencent.onActivityResultData(requestCode, resultCode, data, baseUiListener)
     }
+
+
+
 
     /**
      * 登录按钮

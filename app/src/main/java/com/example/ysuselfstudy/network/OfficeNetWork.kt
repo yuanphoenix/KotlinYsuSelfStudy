@@ -1,10 +1,11 @@
 package com.example.ysuselfstudy.network
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
-import androidx.preference.PreferenceManager
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Information
+import com.example.ysuselfstudy.data.User
 import com.example.ysuselfstudy.logic.Dao
 import com.example.ysuselfstudy.logic.log
 import okhttp3.*
@@ -183,6 +184,9 @@ object OfficeNetWork {
         }
     }
 
+    /**
+     * 获得本学期课程表
+     */
     suspend fun getCourse(): Document {
         return suspendCoroutine { continuation ->
             val user = Dao.getStu()
@@ -193,6 +197,7 @@ object OfficeNetWork {
                 .cookies(COOKIE_MAP)
                 .referrer(referrer)
                 .post()
+            log(document.html().toString())
             continuation.resume(document)
         }
 
@@ -207,8 +212,15 @@ object OfficeNetWork {
             var url =
                 "http://202.206.243.62/mycjcx/xscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121632"
             val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            val pref: SharedPreferences = YsuSelfStudyApplication.context.getSharedPreferences(
+                "cookiegroup",
+                Context.MODE_PRIVATE
+            )
+            val cookies = pref.getString("cookies", "0")
+
             var document =
                 Jsoup.connect(url)
+
                     .cookies(COOKIE_MAP)
                     .referrer(referrer)
                     .post()
@@ -270,6 +282,38 @@ object OfficeNetWork {
             val m2_f = document.getElementsByClass("m2_f")
             val div: Element = m2_f.select("div")[1]
             continuation.resume(div.html())
+        }
+    }
+
+    /**
+     * 返回卡内余额
+     */
+    suspend fun getCardSurplus(user: User): String? {
+        return suspendCoroutine { continuation ->
+            val execute =
+                Jsoup.connect("http://ehall.ysu.edu.cn/publicapp/sys/myyktzd/mySmartCard/loadSmartCardBillMain.do")
+                    .execute()
+            val cookies: Map<String, String> = execute.cookies()
+            val parse: Document = execute.parse()
+
+            val lt = parse.select("input[name=lt]")
+            val execution = parse.select("input[name=execution]")
+            val rmShown = parse.select("input[name=rmShown]")
+            val dllt = parse.select("input[name=dllt]")
+            val _eventId = parse.select("input[name=_eventId]")
+
+            val document = Jsoup.connect(execute.url().toString())
+                .ignoreContentType(true)
+                .data("username", user.number)
+                .data("password", user.todaySchoolPassword)
+                .data("lt", lt.attr("value"))
+                .data("execution", execution.attr("value"))
+                .data("dllt", "userNamePasswordLogin")
+                .data("_eventId", "submit")
+                .data("rmShown", "1")
+                .cookies(cookies)
+                .post()
+            continuation.resume(document.body().text())
         }
     }
 

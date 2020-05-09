@@ -21,9 +21,18 @@ object Dao {
     fun saveStu(num: String, password: String, gbkName: String) {
         val user = User(number = num, eduPassword = password, gbkName = gbkName)
         if (LitePal.count(User::class.java) > 0) {
-            if (!LitePal.findFirst(User::class.java).number.equals(num)) {
+            //如果不相等
+            if (!getStu().number.equals(num)) {
                 LitePal.deleteAll(User::class.java)
-            } else return
+            } else {
+                //相等,更新
+                var savedUser = getStu()
+                savedUser.eduPassword = password
+                savedUser.number = num
+                savedUser.gbkName = gbkName
+                savedUser.update(0)
+                return
+            }
         }
         user.save()
     }
@@ -32,6 +41,12 @@ object Dao {
      * 获取唯一的用户
      */
     fun getStu(): User = LitePal.findFirst(User::class.java)
+
+
+    /**
+     *返回用户是否为空
+     */
+    fun isStuEmpty() = LitePal.count(User::class.java) == 0
 
 
     /**
@@ -61,7 +76,6 @@ object Dao {
      * 获取符合条件的教室
      */
     fun getRoom(conditon: String): ArrayList<EmptyRoom> {
-        Log.d(TAG, "getRoom: " + conditon);
         val split = conditon.split(",")
         //前面为时间，后面为地址
         var time = RoomAnalysis.obj(split[0])//切割时间，找的是起始和终点
@@ -127,9 +141,9 @@ object Dao {
         if (LitePal.count(QQ::class.java) != 0) LitePal.findFirst(QQ::class.java) else null
 
 
-    fun deleteQQ() {
+    fun deleteQQ() =
         LitePal.deleteAll(QQ::class.java)
-    }
+
 
     /**
      * 返回本周的课程

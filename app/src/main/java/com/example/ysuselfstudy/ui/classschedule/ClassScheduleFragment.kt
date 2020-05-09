@@ -140,21 +140,14 @@ class ClassScheduleFragment : Fragment() {
 
     private fun showUi() {
         binding.classLoginBtn.visibility = View.GONE
+        binding.classBackground.visibility = View.VISIBLE
 
         Glide.with(this)
             .asBitmap()
             .load(R.drawable.ic_pikaqiu)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_error)
-            .into(object : CustomTarget<Bitmap>() {
-                override fun onLoadCleared(placeholder: Drawable?) {
-
-                }
-
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    binding.classLinearLayout.background=BitmapDrawable(resources,resource);
-                }
-            })
+            .into(binding.classBackground)
         viewModel.getCourse()
     }
 

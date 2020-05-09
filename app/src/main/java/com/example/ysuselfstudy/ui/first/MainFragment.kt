@@ -121,8 +121,7 @@ class MainFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> return super.onOptionsItemSelected(item)
-            R.id.refresh_course -> courseViewModel.clearCourse(
-                mainViewModel.authenticationState == MainViewModel.AuthenticationState.AUTHENTICATED)
+            R.id.refresh_course -> courseViewModel.clearCourse(mainViewModel.authenticationState == MainViewModel.AuthenticationState.AUTHENTICATED)
         }
         return true
 

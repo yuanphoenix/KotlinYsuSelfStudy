@@ -4,11 +4,11 @@ package com.example.ysuselfstudy.logic
 import android.util.Log
 import androidx.lifecycle.liveData
 import com.example.ysuselfstudy.YsuSelfStudyApplication
-import com.example.ysuselfstudy.data.Course
-import com.example.ysuselfstudy.data.Exam
-import com.example.ysuselfstudy.data.Grade
+import com.example.ysuselfstudy.data.*
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.coroutines.Dispatchers
@@ -197,12 +197,25 @@ object Repository {
     /**
      * 获取余额
      */
-    fun getCard() = liveData(Dispatchers.IO) {
-        var temp = 1
+    fun getCardSurplus(user: User) = liveData(Dispatchers.IO) {
+        var surplus: Root
 
-        emit(temp)
-        temp = 2
-        emit(temp)
+        var json = OfficeNetWork.getCardSurplus(user)
+
+        var type = object : TypeToken<Root>() {}.type
+        try {
+            surplus = Gson().fromJson(json, type)
+        } catch (e: Exception) {
+            emit(null)//密码不对
+            return@liveData
+        }
+
+        if (Dao.isStuEmpty()) user.save() else {
+            var savedUser = Dao.getStu()
+            savedUser.todaySchoolPassword = user.todaySchoolPassword
+            savedUser.update(0)
+        }
+        emit(surplus)
     }
 
 

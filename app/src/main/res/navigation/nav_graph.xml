@@ -52,4 +52,16 @@
         android:label="@string/judge"
         tools:layout="@layout/web_fragment" />
 
+    <fragment
+        android:id="@+id/librarySearch"
+        android:label="@string/library"
+        android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
+        tools:layout="@layout/web_fragment" />
+
+    <fragment
+        android:id="@+id/seat"
+        android:label="@string/seat"
+        android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
+        tools:layout="@layout/web_fragment" />
+
 </navigation>

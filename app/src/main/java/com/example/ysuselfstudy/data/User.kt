@@ -7,11 +7,10 @@ import org.litepal.crud.LitePalSupport
  * @date  2020/4/10 10:35
  * @version 1.0
  */
-data class User(
-    var number: String,
-    var eduPassword: String = "",
-    var gbkName: String = "",
-    var libraryPassword: String = "",
-    var todaySchoolPassword: String = ""
-) : LitePalSupport() {
+data class User( var number: String="",
+                 var eduPassword: String = "",
+                 var gbkName: String = "",
+                 var libraryPassword: String = "",
+                 var todaySchoolPassword: String = "") : LitePalSupport() {
+
 }

@@ -56,7 +56,6 @@ class GradeFragment : Fragment() {
         binding.lifecycleOwner = this
         val navController = findNavController()
         binding.classLoginBtn.setOnClickListener { navController.navigate(R.id.loginFragment) }
-
         mainModel.state.observe(
             viewLifecycleOwner,
             Observer { authenticationState ->
@@ -74,6 +73,7 @@ class GradeFragment : Fragment() {
         binding.progressBar.show()
         viewModel.getGrade()
         viewModel.list.observe(viewLifecycleOwner, Observer {
+
             mData.clear()
             binding.progressBar.hide()
             mData.addAll(it)

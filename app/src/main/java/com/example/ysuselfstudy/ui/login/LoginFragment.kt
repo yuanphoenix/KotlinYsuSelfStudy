@@ -2,6 +2,7 @@ package com.example.ysuselfstudy.ui.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.data.User
 import com.example.ysuselfstudy.databinding.LoginFragmentBinding
+import com.example.ysuselfstudy.logic.Dao
 import com.google.android.material.snackbar.Snackbar
 import org.litepal.LitePal
 
@@ -72,7 +74,7 @@ class LoginFragment : Fragment() {
 
 
         //登录界面自动填充
-        if (LitePal.count(User::class.java) > 0) {
+        if (!Dao.isStuEmpty()) {
             val user = LitePal.findFirst(User::class.java)
             binding.userNumber.setText(user.number)
             binding.officePassword.setText(user.eduPassword)

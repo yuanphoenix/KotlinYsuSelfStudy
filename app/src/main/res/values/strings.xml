@@ -37,5 +37,7 @@
     <string name="school_card">校园卡</string>
     <string name="updateing">正在更新中，大概三分钟……</string>
     <string name="judge">请进行课程评价</string>
+    <string name="library">图书查询</string>
+    <string name="seat">座位预约</string>
 
 </resources>
