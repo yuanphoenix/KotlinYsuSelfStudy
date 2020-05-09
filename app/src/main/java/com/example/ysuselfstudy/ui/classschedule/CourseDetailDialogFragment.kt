@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.databinding.CourseDetailPopLayoutBinding
+import com.example.ysuselfstudy.logic.getPixelsFromDp
 
 
 /**
@@ -45,6 +46,7 @@ class CourseDetailDialogFragment(val course: Course) : DialogFragment() {
     override fun onResume() {
         val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
         params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = getPixelsFromDp(300)
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
         super.onResume()
     }

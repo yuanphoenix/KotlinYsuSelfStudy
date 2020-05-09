@@ -213,8 +213,14 @@ object Repository {
 
         if (Dao.isStuEmpty()) user.save() else {
             var savedUser = Dao.getStu()
-            savedUser.todaySchoolPassword = user.todaySchoolPassword
-            savedUser.save()
+            if (savedUser.number == user.number) {
+                savedUser.todaySchoolPassword = user.todaySchoolPassword
+                savedUser.save()
+            }else{
+                savedUser.delete()
+                user.save()
+            }
+
         }
         emit(surplus)
     }

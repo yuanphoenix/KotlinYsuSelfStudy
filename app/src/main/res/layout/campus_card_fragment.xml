@@ -20,7 +20,8 @@
             android:id="@+id/login_today"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+           >
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/yui"
@@ -49,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/please_password"
+                android:hint="@string/please_password2"
                 app:hintTextAppearance="@style/hintAppearance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +95,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tip"
+                android:text="@string/tip2"
                 android:textSize="@dimen/sp15"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,8 +107,22 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_surplus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:layout_margin="@dimen/dp10"
+            android:backgroundTint="#39DFD1"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <TextView
+                android:id="@+id/text_surplus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="￥---.--"
+                android:textColor="@color/white"
+                android:textSize="70dp"></TextView>
+        </com.google.android.material.card.MaterialCardView>
 
     </FrameLayout>
 </layout>

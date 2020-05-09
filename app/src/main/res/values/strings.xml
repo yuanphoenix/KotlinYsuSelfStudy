@@ -9,6 +9,7 @@
     <string name="standradpicture">图片</string>
     <string name="certain">确定</string>
     <string name="please_password">请输入密码</string>
+    <string name="please_password2">请输入今日校园密码</string>
     <string name="please_num">请输入学号</string>
     <string name="login">登录</string>
     <string name="Monday">周一</string>
@@ -34,6 +35,7 @@
     <string name="exam_num">座位号:</string>
     <string name="vent">兔小巢</string>
     <string name="tip">初次使用务必输入正确\n登陆失败可能是因为验证码不对，再试一次</string>
+    <string name="tip2">这是今日校园的登录入口</string>
     <string name="school_card">校园卡</string>
     <string name="updateing">正在更新中，大概三分钟……</string>
     <string name="judge">请进行课程评价</string>

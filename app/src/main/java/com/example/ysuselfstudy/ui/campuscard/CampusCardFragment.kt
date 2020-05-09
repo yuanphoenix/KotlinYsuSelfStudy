@@ -54,9 +54,10 @@ class CampusCardFragment : Fragment() {
         viewModel.loginState.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 showUi()
-                Log.d(TAG, "onActivityCreated: " + it.remining);
-            }else{
-                viewModel.authenticationState.value=CampusCardViewModel.TodayAuthenticationState.UNAUTHENTICATED
+                binding.textSurplus.text = "￥${it.remining}"
+            } else {
+                viewModel.authenticationState.value =
+                    CampusCardViewModel.TodayAuthenticationState.UNAUTHENTICATED
             }
         })
 

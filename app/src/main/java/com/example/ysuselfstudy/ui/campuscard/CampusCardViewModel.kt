@@ -36,6 +36,7 @@ class CampusCardViewModel : ViewModel() {
 
 
     fun login(number: String, password: String) {
+        Log.d(TAG, "login: " + number + password);
         templogin.value = User(number = number, todaySchoolPassword = password)
     }
 
