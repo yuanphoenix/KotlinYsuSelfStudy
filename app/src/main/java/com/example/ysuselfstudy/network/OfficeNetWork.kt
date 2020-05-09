@@ -17,6 +17,7 @@ import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 
@@ -290,30 +291,38 @@ object OfficeNetWork {
      */
     suspend fun getCardSurplus(user: User): String? {
         return suspendCoroutine { continuation ->
-            val execute =
-                Jsoup.connect("http://ehall.ysu.edu.cn/publicapp/sys/myyktzd/mySmartCard/loadSmartCardBillMain.do")
-                    .execute()
-            val cookies: Map<String, String> = execute.cookies()
-            val parse: Document = execute.parse()
 
-            val lt = parse.select("input[name=lt]")
-            val execution = parse.select("input[name=execution]")
-            val rmShown = parse.select("input[name=rmShown]")
-            val dllt = parse.select("input[name=dllt]")
-            val _eventId = parse.select("input[name=_eventId]")
+            try {
+                val execute =
+                    Jsoup.connect("http://ehall.ysu.edu.cn/publicapp/sys/myyktzd/mySmartCard/loadSmartCardBillMain.do")
+                        .execute()
+                val cookies: Map<String, String> = execute.cookies()
+                val parse: Document = execute.parse()
 
-            val document = Jsoup.connect(execute.url().toString())
-                .ignoreContentType(true)
-                .data("username", user.number)
-                .data("password", user.todaySchoolPassword)
-                .data("lt", lt.attr("value"))
-                .data("execution", execution.attr("value"))
-                .data("dllt", "userNamePasswordLogin")
-                .data("_eventId", "submit")
-                .data("rmShown", "1")
-                .cookies(cookies)
-                .post()
-            continuation.resume(document.body().text())
+                val lt = parse.select("input[name=lt]")
+                val execution = parse.select("input[name=execution]")
+                val rmShown = parse.select("input[name=rmShown]")
+                val dllt = parse.select("input[name=dllt]")
+                val _eventId = parse.select("input[name=_eventId]")
+
+                val document = Jsoup.connect(execute.url().toString())
+                    .ignoreContentType(true)
+                    .data("username", user.number)
+                    .data("password", user.todaySchoolPassword)
+                    .data("lt", lt.attr("value"))
+                    .data("execution", execution.attr("value"))
+                    .data("dllt", "userNamePasswordLogin")
+                    .data("_eventId", "submit")
+                    .data("rmShown", "1")
+                    .cookies(cookies)
+                    .post()
+
+                continuation.resume(document.body().text())
+            } catch (e: Exception) {
+                Log.d(TAG, "getCardSurplus: " + e);
+
+                continuation.resumeWithException(e)
+            }
         }
     }
 

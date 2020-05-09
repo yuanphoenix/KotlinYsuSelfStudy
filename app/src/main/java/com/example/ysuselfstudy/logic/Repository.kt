@@ -60,7 +60,7 @@ object Repository {
      *如果本地有数据，那么就加载本地数据
      * 否则联网获得数据
      */
-    fun getTimeStable(login: Boolean?,week: Int = -1): Any? = liveData(Dispatchers.IO) {
+    fun getTimeStable(login: Boolean?, week: Int = -1): Any? = liveData(Dispatchers.IO) {
 
         var result = ArrayList<Course>()
         if (login != null && !login) {
@@ -199,30 +199,38 @@ object Repository {
      * 获取余额
      */
     fun getCardSurplus(user: User) = liveData(Dispatchers.IO) {
-        var surplus: Root
 
-        var json = OfficeNetWork.getCardSurplus(user)
-
-        var type = object : TypeToken<Root>() {}.type
         try {
-            surplus = Gson().fromJson(json, type)
-        } catch (e: Exception) {
-            emit(null)//密码不对
-            return@liveData
-        }
 
-        if (Dao.isStuEmpty()) user.save() else {
-            var savedUser = Dao.getStu()
-            if (savedUser.number == user.number) {
-                savedUser.todaySchoolPassword = user.todaySchoolPassword
-                savedUser.save()
-            }else{
-                savedUser.delete()
-                user.save()
+            var surplus: Root
+
+            var json = OfficeNetWork.getCardSurplus(user)
+
+            Log.d(TAG, "getCardSurplus: " + json);
+
+            var type = object : TypeToken<Root>() {}.type
+            try {
+                surplus = Gson().fromJson(json, type)
+            } catch (e: Exception) {
+                emit(null)//密码不对
+                return@liveData
             }
 
+            if (Dao.isStuEmpty()) user.save() else {
+                var savedUser = Dao.getStu()
+                if (savedUser.number == user.number) {
+                    savedUser.todaySchoolPassword = user.todaySchoolPassword
+                    savedUser.save()
+                } else {
+                    savedUser.delete()
+                    user.save()
+                }
+
+            }
+            emit(surplus)
+        } catch (e: Exception) {
+            emit(null)
         }
-        emit(surplus)
     }
 
 

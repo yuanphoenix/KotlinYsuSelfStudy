@@ -16,6 +16,7 @@ class CampusCardViewModel : ViewModel() {
     enum class TodayAuthenticationState {
         UNAUTHENTICATED,        // Initial state, the user needs to authenticate
         AUTHENTICATED,        // The user has authenticated successfully
+        INVALID_AUTHENTICATION
     }
 
     val authenticationState = MutableLiveData<TodayAuthenticationState>()
