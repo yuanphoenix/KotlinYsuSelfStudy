@@ -25,6 +25,11 @@
             android:title="座位预约" />
 
         <item
+            android:id="@+id/school_calendar"
+            android:icon="@mipmap/ic_calendar"
+            android:title="@string/school_calendar" />
+
+        <item
             android:id="@+id/mySettingsFragment"
             android:icon="@mipmap/ic_setting"
             android:title="@string/setting" />

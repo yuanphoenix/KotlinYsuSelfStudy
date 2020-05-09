@@ -39,5 +39,6 @@
     <string name="judge">请进行课程评价</string>
     <string name="library">图书查询</string>
     <string name="seat">座位预约</string>
+    <string name="school_calendar">校历</string>
 
 </resources>

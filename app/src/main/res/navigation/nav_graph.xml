@@ -54,14 +54,20 @@
 
     <fragment
         android:id="@+id/librarySearch"
-        android:label="@string/library"
         android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
+        android:label="@string/library"
         tools:layout="@layout/web_fragment" />
 
     <fragment
         android:id="@+id/seat"
-        android:label="@string/seat"
         android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
+        android:label="@string/seat"
+        tools:layout="@layout/web_fragment" />
+
+    <fragment
+        android:id="@+id/school_calendar"
+        android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
+        android:label="@string/school_calendar"
         tools:layout="@layout/web_fragment" />
 
 </navigation>

@@ -92,6 +92,9 @@ public class WebFragment extends Fragment {
             case R.id.librarySearch:
                 webView.loadUrl("http://opac.ysu.edu.cn/m/weixin/wsearch.action");
                 break;
+            case R.id.school_calendar:
+                webView.loadUrl("http://202.206.243.9/xiaoli.asp");
+                break;
             default:
                 synCookies("202.206.243.62");
                 String number = Dao.INSTANCE.getStu().getNumber();
