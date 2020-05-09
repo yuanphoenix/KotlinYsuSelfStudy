@@ -1,16 +1,11 @@
 package com.example.ysuselfstudy.ui.emptyroom
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.adapter.RoomAdapter
@@ -25,6 +20,7 @@ class RoomDetailFragment : Fragment() {
     }
 
     private lateinit var viewModel: RoomViewModel
+    private lateinit var adapter: RoomAdapter
     private lateinit var amount: String
     private lateinit var detailFragmentBinding: RoomDetailFragmentBinding
     private var mData = ArrayList<EmptyRoom>()
@@ -35,6 +31,8 @@ class RoomDetailFragment : Fragment() {
     ): View? {
         detailFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.room_detail_fragment, container, false)
+
+        setHasOptionsMenu(true)
 
         amount = arguments?.getString("amount")!!
 
@@ -47,11 +45,43 @@ class RoomDetailFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(RoomViewModel::class.java)
 
         mData = viewModel.getConditionRoom(amount)
-        detailFragmentBinding.roomRecycler.adapter = RoomAdapter(mData)
-        detailFragmentBinding.roomRecycler.layoutManager=
+        adapter = RoomAdapter(mData)
+        detailFragmentBinding.roomRecycler.adapter = adapter
+        detailFragmentBinding.roomRecycler.layoutManager =
             LinearLayoutManager(YsuSelfStudyApplication.context)
-
-
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        if (amount.contains("里仁")) {
+            inflater.inflate(R.menu.liren_menu, menu)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> return super.onOptionsItemSelected(item)
+            R.id.id_liren_a -> changeCondition("A")
+            R.id.id_liren_b -> changeCondition("B")
+            R.id.id_liren_c -> changeCondition("C")
+            R.id.id_liren_d -> changeCondition("D")
+        }
+
+
+        return true
+    }
+
+
+    private fun changeCondition(contidion: String) {
+        viewModel.emptyRoom.clear()
+        viewModel.emptyRoom.addAll(viewModel.getConditionRoom(amount))
+        mData.clear()
+        adapter.notifyDataSetChanged()
+        for (e in viewModel.emptyRoom) {
+            if (e.room.contains(contidion)) {
+                mData.add(e)
+            }
+        }
+        adapter.notifyDataSetChanged()
+    }
 }
