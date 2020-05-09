@@ -37,13 +37,10 @@ class CampusCardViewModel : ViewModel() {
 
 
     fun login(number: String, password: String) {
-        Log.d(TAG, "login: " + number + password);
         templogin.value = User(number = number, todaySchoolPassword = password)
     }
 
     fun loginRoute() {
-        Log.d(TAG, "loginRoute: " + isLogined());
-
         if (isLogined()) {
             authenticationState.value = TodayAuthenticationState.AUTHENTICATED
             login(Dao.getStu().number, Dao.getStu().todaySchoolPassword)

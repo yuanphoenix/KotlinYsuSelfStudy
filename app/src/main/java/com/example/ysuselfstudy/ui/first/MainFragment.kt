@@ -138,10 +138,10 @@ class MainFragment : Fragment() {
 
     private fun showDialog() {
         val list = ArrayList<String>()
-        for (i in 1..19) {
+        for (i in 1..25) {
             list.add("第" + i + "周")
         }
-        val items = arrayOfNulls<String>(19)
+        val items = arrayOfNulls<String>(25)
         list.toArray(items)
         val singleChoiceDialog =
             AlertDialog.Builder(requireActivity())

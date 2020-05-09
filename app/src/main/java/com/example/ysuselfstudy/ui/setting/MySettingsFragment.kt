@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.Preference
@@ -12,7 +13,9 @@ import androidx.preference.PreferenceFragmentCompat
 import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.logic.Dao
+import com.example.ysuselfstudy.logic.getWeek
 import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener
+import com.example.ysuselfstudy.logic.showToast
 
 /**
  * A simple [Fragment] subclass.
@@ -24,6 +27,15 @@ class MySettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.preference_setting, rootKey)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
+        mainViewModel.correct.observe(requireActivity(), Observer {
+            if (it.isNullOrEmpty()) {
+                "矫正失败".showToast()
+            } else {
+                "矫正成功，第${getWeek()}周".showToast()
+
+            }
+        })
+
         val logout: Preference? = findPreference("logout")
         logout?.setOnPreferenceClickListener {
             mainViewModel.logoutQQ()
@@ -33,6 +45,16 @@ class MySettingsFragment : PreferenceFragmentCompat() {
         val share: Preference? = findPreference("share")
         share?.setOnPreferenceClickListener {
             BaseUiListener().onClickAppShare(requireActivity())
+            true
+        }
+
+        val makeCorrection: Preference? = findPreference("makeCorrection")
+        makeCorrection?.setOnPreferenceClickListener {
+            if (Dao.isStuEmpty() || Dao.getStu().todaySchoolPassword.equals("")) {
+                "请先查一次一卡通余额".showToast()
+            } else {
+                mainViewModel.makeCorrect()
+            }
             true
         }
 

@@ -43,7 +43,6 @@ class RoomDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(RoomViewModel::class.java)
-
         mData = viewModel.getConditionRoom(amount)
         adapter = RoomAdapter(mData)
         detailFragmentBinding.roomRecycler.adapter = adapter
@@ -58,6 +57,9 @@ class RoomDetailFragment : Fragment() {
         }
     }
 
+    /**
+     * 在里仁界面加载
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> return super.onOptionsItemSelected(item)
@@ -66,8 +68,6 @@ class RoomDetailFragment : Fragment() {
             R.id.id_liren_c -> changeCondition("C")
             R.id.id_liren_d -> changeCondition("D")
         }
-
-
         return true
     }
 

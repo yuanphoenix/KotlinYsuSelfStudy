@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <Preference
-        app:key="logout"
-        app:title="退出QQ登录" />
+
     <Preference
         app:key="feedback"
         app:summary="有问题点这里反馈哦"
@@ -14,4 +12,12 @@
         app:key="share"
         app:summary="把燕习分享给小伙伴"
         app:title="分享" />
+    <Preference
+        app:key="makeCorrection"
+        app:summary="矫正周数"
+        app:title="需要先登录今日校园" />
+
+    <Preference
+        app:key="logout"
+        app:title="退出QQ登录" />
 </PreferenceScreen>

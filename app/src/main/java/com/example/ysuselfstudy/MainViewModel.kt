@@ -1,5 +1,6 @@
 package com.example.ysuselfstudy
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.ysuselfstudy.data.QQ
 import com.example.ysuselfstudy.data.User
@@ -19,6 +20,7 @@ class MainViewModel : ViewModel() {
     val authenticationState = MutableLiveData<AuthenticationState>()
     var username: String
     val title = MutableLiveData<Int>()
+    val makeCorrect = MutableLiveData<Int>()
 
     init {
         authenticationState.value = AuthenticationState.UNAUTHENTICATED //这里需要修改判断验证状态
@@ -47,7 +49,7 @@ class MainViewModel : ViewModel() {
     }
 
 
-    fun firstdeleteCourse(){
+    fun firstdeleteCourse() {
         Dao.deleteAllCourse()
     }
 
@@ -70,6 +72,13 @@ class MainViewModel : ViewModel() {
         headSculpture.value = null
     }
 
+    fun makeCorrect() {
+        makeCorrect.value = 1
+    }
+
+    var correct = Transformations.switchMap(makeCorrect) {
+        Repository.makeCorrect()
+    }
 
 
 }

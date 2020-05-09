@@ -51,6 +51,21 @@ object Repository {
             return@liveData
         }
         emit(EmptyRoomNetWork.getEmptyRoom())
+    }
+
+    fun makeCorrect() = liveData(Dispatchers.IO) {
+        var makecorrect = MakeCorrectWeek()
+        try {
+            val json = OfficeNetWork.makeCorrectWeek()
+            var type = object : TypeToken<MakeCorrectWeek>() {}.type
+
+            makecorrect = Gson().fromJson(json, type)
+            getBeginDate(makecorrect.weekOfTerm.toInt() - 1)
+            emit("Hello")
+        } catch (e: Exception) {
+            emit(null)
+            return@liveData
+        }
 
     }
 
@@ -205,8 +220,6 @@ object Repository {
             var surplus: Root
 
             var json = OfficeNetWork.getCardSurplus(user)
-
-            Log.d(TAG, "getCardSurplus: " + json);
 
             var type = object : TypeToken<Root>() {}.type
             try {

@@ -1,10 +1,10 @@
 package com.example.ysuselfstudy.logic
 
+import android.content.Context
 import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.Toast
 import com.example.ysuselfstudy.YsuSelfStudyApplication
-import org.jsoup.nodes.Element
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,11 +19,41 @@ import java.util.*
  */
 fun getWeek(): Int {
     var calendar = Calendar.getInstance()
-    calendar.set(2020, Calendar.FEBRUARY, 24, 0, 0, 0)
+    val prefs =
+        YsuSelfStudyApplication.context.getSharedPreferences("date", Context.MODE_PRIVATE)
+    val longtime = prefs.getLong("begin", 1582473600000)
+
+    calendar.timeInMillis = longtime
+
     val now = Calendar.getInstance()
     val day =
-        ((now.timeInMillis - calendar.getTimeInMillis()) / (1000 * 3600 * 24)).toInt()
+        ((now.timeInMillis - calendar.timeInMillis) / (1000 * 3600 * 24)).toInt()
+    calendar.firstDayOfWeek
+
     return day / 7 + 1
+}
+
+fun getBeginDate(week: Int) {
+    val calendar = Calendar.getInstance()
+    calendar[Calendar.MILLISECOND] = 0
+    calendar[Calendar.SECOND] = 0
+    calendar[Calendar.MINUTE] = 0
+    calendar[Calendar.HOUR_OF_DAY] = 0
+
+    val thisWeek = ((calendar[Calendar.DAY_OF_WEEK] - 2) * 1000 * 3600 * 24).toLong()
+    val two = Calendar.getInstance()
+
+    two.timeInMillis = calendar.timeInMillis - thisWeek
+
+    val ha = two.timeInMillis - week.toLong() * 7 * 1000 * 3600 * 24
+
+    val beginWeek = Calendar.getInstance()
+    beginWeek.timeInMillis = ha
+
+    val editor =
+        YsuSelfStudyApplication.context.getSharedPreferences("date", Context.MODE_PRIVATE).edit()
+    editor.putLong("begin", beginWeek.timeInMillis)
+    editor.apply()
 }
 
 /**
@@ -62,6 +92,8 @@ fun getDate(): String {
 fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(YsuSelfStudyApplication.context, this, duration).show()
 }
+
+
 
 
 
