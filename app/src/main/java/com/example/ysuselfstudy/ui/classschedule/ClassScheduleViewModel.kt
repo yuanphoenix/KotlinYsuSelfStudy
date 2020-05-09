@@ -12,7 +12,7 @@ import com.example.ysuselfstudy.logic.log
 
 class ClassScheduleViewModel : ViewModel() {
     val timeNode = ArrayList<String>()
-    lateinit var week: String
+    var week = MutableLiveData<String>()
 
     init {
         timeNode.add("1")
@@ -27,19 +27,29 @@ class ClassScheduleViewModel : ViewModel() {
         timeNode.add("10")
         timeNode.add("11")
         timeNode.add("12")
-        week = "${getWeek()}周"
+        week.value = "${getWeek()}周"
     }
 
     private val course = MutableLiveData<Boolean>()
+    private var choiceweek = -1
+
 
     var nowWeekCourse = Transformations.switchMap(course) {
-        Repository.getTimeStable(it) as LiveData<Any>?
+        Repository.getTimeStable(it, choiceweek) as LiveData<Any>?
     }
 
     fun getCourse() {
+        //如果nowWeekCourse已经有数据了，那么就不改变数据
         if (nowWeekCourse.value == null)
             course.value = true
     }
+
+    fun getCourse(int: Int) {
+        choiceweek = int
+        week.value = "${choiceweek}周"
+        course.value = course.value
+    }
+
 
     fun clearCourse(login: Boolean) {
         Dao.deleteAllCourse()

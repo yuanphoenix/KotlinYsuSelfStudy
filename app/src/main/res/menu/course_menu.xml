@@ -3,4 +3,7 @@
     <item
         android:id="@+id/refresh_course"
         android:title="重新加载" />
+    <item
+        android:id="@+id/choose_week"
+        android:title="查看其它周" />
 </menu>

@@ -148,11 +148,12 @@ object Dao {
     /**
      * 返回本周的课程
      */
-    fun getWeekClass(): ArrayList<Course> {
+    fun getWeekClass(week:Int=-1): ArrayList<Course> {
         val list = ArrayList<Course>()//声明一个样表
         repeat(84) { list.add(Course()) }
         //这一步有问题，不会是这样的。
-        val nowWeek = getWeek()
+        val nowWeek = if (week==-1) getWeek() else week
+
         val weekList = ArrayList<Course>()
         var findAll = LitePal.findAll(Course::class.java)
         //如果不是本周的，就取消

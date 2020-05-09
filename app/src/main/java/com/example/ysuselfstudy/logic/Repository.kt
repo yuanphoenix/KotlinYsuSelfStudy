@@ -60,7 +60,8 @@ object Repository {
      *如果本地有数据，那么就加载本地数据
      * 否则联网获得数据
      */
-    fun getTimeStable(login: Boolean?): Any? = liveData(Dispatchers.IO) {
+    fun getTimeStable(login: Boolean?,week: Int = -1): Any? = liveData(Dispatchers.IO) {
+
         var result = ArrayList<Course>()
         if (login != null && !login) {
             emit(null)
@@ -76,7 +77,7 @@ object Repository {
                 CrashReport.postCatchedException(thr)
             }
         }
-        result = Dao.getWeekClass()
+        result = Dao.getWeekClass(week)
         emit(result)
     }
 
