@@ -213,7 +213,7 @@ object Repository {
         if (Dao.isStuEmpty()) user.save() else {
             var savedUser = Dao.getStu()
             savedUser.todaySchoolPassword = user.todaySchoolPassword
-            savedUser.update(0)
+            savedUser.save()
         }
         emit(surplus)
     }

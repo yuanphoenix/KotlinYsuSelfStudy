@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.util.Log
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Course
+import com.example.ysuselfstudy.data.User
 import com.tencent.bugly.crashreport.CrashReport
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.TextNode
+import org.litepal.LitePal
 import java.util.*
 
 /**
@@ -33,10 +35,10 @@ object CourseAnalysis {
     fun analysisCourse(parse: Document?): Boolean? {
         if (parse == null) return false
 
-
         val temp: MutableList<Array<TextNode>> =
             ArrayList()
         val select = parse.select("td:contains(第)")
+
 
 
         for (e in select) {

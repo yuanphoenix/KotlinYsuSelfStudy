@@ -56,6 +56,7 @@ class LoginFragment : Fragment() {
             )
         }
 
+
         mainViewModel.state.observe(viewLifecycleOwner, Observer {
             if (it) {
                 mainViewModel.authenticationState.value =
@@ -75,6 +76,8 @@ class LoginFragment : Fragment() {
 
         //登录界面自动填充
         if (!Dao.isStuEmpty()) {
+        //    Log.d(TAG, "onViewCreated: " + LitePal.count(User::class.java));
+
             val user = LitePal.findFirst(User::class.java)
             binding.userNumber.setText(user.number)
             binding.officePassword.setText(user.eduPassword)

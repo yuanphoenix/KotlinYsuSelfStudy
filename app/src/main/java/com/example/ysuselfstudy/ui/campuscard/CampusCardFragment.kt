@@ -37,6 +37,13 @@ class CampusCardFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(CampusCardViewModel::class.java)
         //如果没有登录，那么先登录
 
+        binding.btnLogin.setOnClickListener {
+            viewModel.login(
+                binding.userNumber.text.toString(),
+                binding.officePassword.text.toString()
+            )
+        }
+
         viewModel.loginRoute()
 
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer {

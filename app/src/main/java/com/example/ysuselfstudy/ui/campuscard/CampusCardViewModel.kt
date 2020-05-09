@@ -1,5 +1,6 @@
 package com.example.ysuselfstudy.ui.campuscard
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.example.ysuselfstudy.logic.Repository
 
 
 class CampusCardViewModel : ViewModel() {
+    private val TAG = "CampusCardViewModel"
 
     enum class TodayAuthenticationState {
         UNAUTHENTICATED,        // Initial state, the user needs to authenticate
@@ -25,7 +27,7 @@ class CampusCardViewModel : ViewModel() {
     private var templogin = MutableLiveData<User>()
 
     private fun isLogined(): Boolean =
-        !(!Dao.isStuEmpty() && Dao.getStu().todaySchoolPassword.equals(""))
+        !Dao.isStuEmpty() && !Dao.getStu().todaySchoolPassword.equals("")
 
 
     var loginState = Transformations.switchMap(templogin) {
@@ -33,11 +35,13 @@ class CampusCardViewModel : ViewModel() {
     }
 
 
-    private fun login(number: String, password: String) {
+    fun login(number: String, password: String) {
         templogin.value = User(number = number, todaySchoolPassword = password)
     }
 
     fun loginRoute() {
+        Log.d(TAG, "loginRoute: " + isLogined());
+
         if (isLogined()) {
             authenticationState.value = TodayAuthenticationState.AUTHENTICATED
             login(Dao.getStu().number, Dao.getStu().todaySchoolPassword)

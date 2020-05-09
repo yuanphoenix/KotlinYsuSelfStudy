@@ -30,7 +30,7 @@ object Dao {
                 savedUser.eduPassword = password
                 savedUser.number = num
                 savedUser.gbkName = gbkName
-                savedUser.update(0)
+                savedUser.save()
                 return
             }
         }
