@@ -6,4 +6,7 @@
     <item
         android:id="@+id/choose_week"
         android:title="查看其它周" />
+    <item
+        android:id="@+id/change_background"
+        android:title="背景图" />
 </menu>

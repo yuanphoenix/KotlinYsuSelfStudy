@@ -1,5 +1,6 @@
 package com.example.ysuselfstudy
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -26,6 +27,9 @@ import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener
 import com.example.ysuselfstudy.logic.showToast
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
+import com.luck.picture.lib.PictureSelector
+import com.luck.picture.lib.config.PictureConfig
+import com.tencent.connect.common.Constants
 import com.tencent.tauth.Tencent
 import org.litepal.LitePal
 import java.util.*
@@ -81,11 +85,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
-//            when (destination.id) {
-//                R.id.librarySearch->
-//            }
-
-
         }
 
         val calendar = Calendar.getInstance()
@@ -117,10 +116,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Tencent.onActivityResultData(requestCode, resultCode, data, baseUiListener)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                Constants.REQUEST_LOGIN, Constants.REQUEST_APPBAR -> Tencent.onActivityResultData(
+                    requestCode,
+                    resultCode,
+                    data,
+                    baseUiListener
+                )
+            }
+        }
+
     }
-
-
 
 
     /**

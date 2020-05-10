@@ -31,8 +31,7 @@ class MySettingsFragment : PreferenceFragmentCompat() {
             if (it.isNullOrEmpty()) {
                 "矫正失败".showToast()
             } else {
-                "矫正成功，第${getWeek()}周".showToast()
-
+                "矫正成功，第${getWeek()}周,重启软件生效".showToast()
             }
         })
 

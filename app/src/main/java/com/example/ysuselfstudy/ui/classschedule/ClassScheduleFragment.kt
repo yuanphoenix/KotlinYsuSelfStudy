@@ -69,7 +69,7 @@ class ClassScheduleFragment : Fragment() {
         binding.schedule.adapter = adapter
 
 
-        adapter.setOnClickListener(object :CourseAdapter.OnclickListener{
+        adapter.setOnClickListener(object : CourseAdapter.OnclickListener {
             override fun OnItemClickListener(course: Course) {
                 var temp = CourseDetailDialogFragment(course)
                 temp.show(parentFragmentManager, "hello")
@@ -115,14 +115,9 @@ class ClassScheduleFragment : Fragment() {
             mainViewModel.state.observe(
                 viewLifecycleOwner,
                 Observer { authenticationState ->
-
                     when (authenticationState) {
-                        false -> {
-                            binding.classLoginBtn.visibility = View.VISIBLE
-                        }
-                        true -> {
-                            showUi()
-                        }
+                        false -> binding.classLoginBtn.visibility = View.VISIBLE
+                        true -> showUi()
                     }
                 })
         } else {
@@ -141,8 +136,6 @@ class ClassScheduleFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             }
-
-
         })
 
 
@@ -151,13 +144,6 @@ class ClassScheduleFragment : Fragment() {
     private fun showUi() {
         binding.classLoginBtn.visibility = View.GONE
         binding.classBackground.visibility = View.VISIBLE
-
-        Glide.with(this)
-            .asBitmap()
-            .load(R.drawable.ic_pikaqiu)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.ic_error)
-            .into(binding.classBackground)
         viewModel.getCourse()
     }
 

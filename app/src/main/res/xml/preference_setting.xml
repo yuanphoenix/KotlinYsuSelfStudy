@@ -14,8 +14,8 @@
         app:title="分享" />
     <Preference
         app:key="makeCorrection"
-        app:summary="矫正周数"
-        app:title="需要先登录今日校园" />
+        app:summary="需要先登录今日校园"
+        app:title="矫正周数" />
 
     <Preference
         app:key="logout"

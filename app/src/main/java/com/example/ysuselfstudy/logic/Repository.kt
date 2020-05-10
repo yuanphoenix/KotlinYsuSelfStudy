@@ -60,7 +60,7 @@ object Repository {
             var type = object : TypeToken<MakeCorrectWeek>() {}.type
 
             makecorrect = Gson().fromJson(json, type)
-            getBeginDate(makecorrect.weekOfTerm.toInt() - 1)
+            getBeginDate(makecorrect.weekOfTerm.toInt())
             emit("Hello")
         } catch (e: Exception) {
             emit(null)

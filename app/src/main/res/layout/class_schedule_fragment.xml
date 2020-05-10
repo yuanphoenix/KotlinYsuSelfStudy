@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:visibility="@{viewmodel.nowWeekCourse!=null ? View.VISIBLE :View.GONE}" />
+            android:visibility="@{viewmodel.nowWeekCourse!=null ? View.VISIBLE :View.GONE}"
+            app:imageBackGround="@{viewmodel.picPath}" />
 
         <LinearLayout
             android:id="@+id/class_linear_layout"

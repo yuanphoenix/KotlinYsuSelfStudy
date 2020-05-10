@@ -1,5 +1,6 @@
 package com.example.ysuselfstudy.adapter
 
+import android.content.Context
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,6 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.logic.getWeek
 import jp.wasabeef.glide.transformations.BlurTransformation
 import razerdp.blur.BlurImageView
@@ -52,5 +54,32 @@ fun bindImageBlur(view: ImageView, imageUrl: String?) {
         .apply(bitmapTransform(BlurTransformation(25, 3)))
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view)
+
+}
+
+@BindingAdapter("imageBackGround")
+fun bindImageBackGroundFromUrl(view: ImageView, imageUrl: String?) {
+
+    val pref = YsuSelfStudyApplication.context.getSharedPreferences("data", Context.MODE_PRIVATE)
+
+    val savedPath = pref.getString("picpath", "0")
+    var realPath =
+        if (!imageUrl.isNullOrEmpty())
+            imageUrl
+        else if (savedPath == null || savedPath == "0")
+            R.drawable.ic_pikaqiu
+        else if (savedPath != "0")
+            savedPath
+        else
+            R.drawable.ic_pikaqiu
+
+
+
+    Glide.with(view.context)
+        .asBitmap()
+        .load(realPath)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .placeholder(R.drawable.ic_pikaqiu)
+        .into(view);
 
 }

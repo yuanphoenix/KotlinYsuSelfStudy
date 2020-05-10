@@ -56,5 +56,12 @@ class ClassScheduleViewModel : ViewModel() {
         course.value = login
     }
 
+    val picPath = MutableLiveData<String>()
+
+
+    fun setPath(path:String){
+        picPath.value=path
+    }
+
 
 }
