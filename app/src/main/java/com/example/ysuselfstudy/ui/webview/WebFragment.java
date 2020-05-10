@@ -55,6 +55,8 @@ public class WebFragment extends Fragment {
         NavController navController = NavHostFragment.findNavController(this);
         int id = navController.getCurrentDestination().getId();
 
+        //var amount: String? = arguments?.getString("amount")
+
 
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -96,6 +98,10 @@ public class WebFragment extends Fragment {
                 break;
             case R.id.school_calendar:
                 webView.loadUrl("http://202.206.243.9/xiaoli.asp");
+                break;
+            case R.id.informationDetailFragment:
+                String amount = getArguments().getString("amount");
+                if (amount != null) webView.loadUrl(amount);
                 break;
             default:
                 synCookies("202.206.243.62");

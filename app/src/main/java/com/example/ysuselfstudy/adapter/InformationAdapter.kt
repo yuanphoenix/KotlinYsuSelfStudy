@@ -1,5 +1,6 @@
 package com.example.ysuselfstudy.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.TextureView
 import android.view.View
@@ -21,7 +22,7 @@ import com.google.android.material.button.MaterialButton
  */
 class InformationAdapter(val mData: ArrayList<Information>, var navController: NavController) :
     RecyclerView.Adapter<InformationAdapter.ViewHolder>() {
-
+    private val TAG = "InformationAdapter"
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         lateinit var textView: TextView

@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.databinding.InformationDetailFragmentBinding
 
+@Deprecated("被webview取代")
 class InformationDetailFragment : Fragment() {
 
     companion object {

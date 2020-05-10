@@ -22,7 +22,7 @@
         android:label="@string/login" />
     <fragment
         android:id="@+id/informationDetailFragment"
-        android:name="com.example.ysuselfstudy.ui.information.InformationDetailFragment"
+        android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
         android:label="@string/detail_inform" />
     <fragment
         android:id="@+id/gradeFragment"

@@ -270,7 +270,6 @@ object OfficeNetWork {
                 infoList.add(Information(title, href, time))
             }
             continuation.resume(infoList)
-
         }
     }
 
@@ -313,7 +312,7 @@ object OfficeNetWork {
                     .data("execution", execution.attr("value"))
                     .data("dllt", "userNamePasswordLogin")
                     .data("_eventId", "submit")
-                    .data("rmShown", "1")
+                    .data("rmShown", rmShown.attr("value"))
                     .cookies(cookies)
                     .post()
 
@@ -326,6 +325,10 @@ object OfficeNetWork {
         }
     }
 
+
+    /**
+     * 矫正周数
+     */
     suspend fun makeCorrectWeek(): String {
         return suspendCoroutine { continuation ->
             val user = Dao.getStu()
@@ -351,7 +354,7 @@ object OfficeNetWork {
                     .data("execution", execution.attr("value"))
                     .data("dllt", "userNamePasswordLogin")
                     .data("_eventId", "submit")
-                    .data("rmShown", "1")
+                    .data("rmShown", rmShown.attr("value"))
                     .cookies(cookies)
                     .post()
 

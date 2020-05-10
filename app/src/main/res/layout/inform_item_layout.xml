@@ -19,6 +19,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/time_btn"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_gravity="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
