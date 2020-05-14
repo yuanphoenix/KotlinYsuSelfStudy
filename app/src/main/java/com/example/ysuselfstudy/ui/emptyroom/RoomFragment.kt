@@ -63,13 +63,10 @@ class RoomFragment : Fragment() {
         roomDataBing.swipeRefresh.setOnRefreshListener {
             refreshRoom()
         }
-        roomDataBing.swipeRefresh
-
         return roomDataBing.root
     }
 
     fun refreshRoom() {
-
         roomDataBing.swipeRefresh.isRefreshing = true;
         isAgree = !isAgree
         viewModel.getRoom()

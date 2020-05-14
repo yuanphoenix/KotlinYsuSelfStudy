@@ -19,13 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
-import android.webkit.WebResourceError;
+
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 import com.example.ysuselfstudy.R;
 import com.example.ysuselfstudy.logic.Dao;
 

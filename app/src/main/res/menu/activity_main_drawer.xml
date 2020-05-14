@@ -28,6 +28,10 @@
             android:id="@+id/school_calendar"
             android:icon="@mipmap/ic_calendar"
             android:title="@string/school_calendar" />
+        <item
+            android:id="@+id/Innovation_credit"
+            android:icon="@color/cardview_dark_background"
+            android:title="创新学分" />
 
         <item
             android:id="@+id/mySettingsFragment"

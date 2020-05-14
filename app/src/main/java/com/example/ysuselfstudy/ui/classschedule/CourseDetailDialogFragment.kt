@@ -33,9 +33,7 @@ class CourseDetailDialogFragment(val course: Course) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.titleText.text = course.courseName
-        binding.teacherText.text = course.teacher
-        binding.locationText.text = course.position
+        binding.course = course
         binding.weekText.text = "第${course.startWeek}-${course.endWeek}周"
         binding.nodeText.text =
             "周${course.dayOfWeek} 第${course.beginNode}-${course.beginNode + course.continued - 1}节"

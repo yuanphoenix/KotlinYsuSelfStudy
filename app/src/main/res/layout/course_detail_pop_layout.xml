@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="course"
+            type="com.example.ysuselfstudy.data.Course" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +30,7 @@
             android:id="@+id/location_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{course.position}"
             android:textColor="@color/black"
             android:textSize="@dimen/pop_size"
             app:layout_constraintBottom_toBottomOf="@+id/location"
@@ -39,7 +42,7 @@
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{course.courseName}"
             android:textColor="@color/black"
             android:textSize="@dimen/pop_size"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -61,8 +64,7 @@
             android:id="@+id/week_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="@color/black"
+               android:textColor="@color/black"
             android:textSize="@dimen/pop_size"
             app:layout_constraintBottom_toBottomOf="@+id/week_num"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +75,7 @@
             android:id="@+id/teacher_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{course.teacher}"
             android:textColor="@color/black"
             android:textSize="@dimen/pop_size"
             app:layout_constraintBottom_toBottomOf="@+id/teacher"
@@ -113,8 +115,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toEndOf="@+id/node_image"
-            app:layout_constraintTop_toTopOf="@+id/node_image"
-            tools:text="弄好發順豐所發生的" />
+            app:layout_constraintTop_toTopOf="@+id/node_image" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"

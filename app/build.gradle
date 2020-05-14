@@ -76,7 +76,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     implementation 'org.litepal.android:kotlin:3.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation "io.reactivex.rxjava2:rxjava:2.2.8"
     implementation 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'

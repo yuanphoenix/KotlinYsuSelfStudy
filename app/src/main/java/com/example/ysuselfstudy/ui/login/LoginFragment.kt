@@ -50,9 +50,10 @@ class LoginFragment : Fragment() {
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         binding.btnLogin.setOnClickListener {
             hideInput()
+            binding.progressBar.show()
+            binding.btnLogin.isClickable=false
             mainViewModel.authenticate(
                 binding.userNumber.text.toString(), binding.officePassword.text.toString()
-
             )
         }
 
@@ -61,9 +62,12 @@ class LoginFragment : Fragment() {
             if (it) {
                 mainViewModel.authenticationState.value =
                     MainViewModel.AuthenticationState.AUTHENTICATED
+                binding.progressBar.hide()
                 navController.popBackStack()
             } else {
+                binding.btnLogin.isClickable = true
                 showErrorMessage()
+                binding.progressBar.hide()
             }
         })
 

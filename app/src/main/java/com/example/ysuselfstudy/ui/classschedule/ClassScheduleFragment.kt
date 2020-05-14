@@ -31,6 +31,7 @@ import com.example.ysuselfstudy.adapter.WeekAdapter
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.databinding.ClassScheduleFragmentBinding
 import com.example.ysuselfstudy.logic.Dao
+import com.luck.picture.lib.compress.Luban
 
 
 class ClassScheduleFragment : Fragment() {
@@ -63,8 +64,9 @@ class ClassScheduleFragment : Fragment() {
         binding.classLoginBtn.setOnClickListener {
             navController.navigate(R.id.loginFragment)
         }
-        var layoutManager = StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL)
-        binding.schedule.layoutManager = layoutManager
+
+        binding.schedule.layoutManager =
+            StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL)
         adapter = CourseAdapter(mData)
         binding.schedule.adapter = adapter
 
@@ -80,6 +82,7 @@ class ClassScheduleFragment : Fragment() {
 
         viewModel =
             ViewModelProvider(requireActivity()).get(ClassScheduleViewModel::class.java)//本地的ViewModel
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
@@ -105,11 +108,12 @@ class ClassScheduleFragment : Fragment() {
                 binding.schedule.addOnScrollListener(scrollListeners[0]!!)
             }
         }
+        
         binding.schedule.addOnScrollListener(scrollListeners[0]!!)
         binding.nodeRecy.addOnScrollListener(scrollListeners[1]!!)
 
 
-        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
 
         if (Dao.isCourseEmpty()) {
             mainViewModel.state.observe(
@@ -128,6 +132,7 @@ class ClassScheduleFragment : Fragment() {
         //观察课程的返回情况。
         viewModel.nowWeekCourse.observe(this.viewLifecycleOwner, Observer { result ->
             if (result != null) {
+                //如果回评价信息
                 if (result is Int) {
                     navController.navigate(R.id.webFragment)
                 } else if (result is ArrayList<*>) {

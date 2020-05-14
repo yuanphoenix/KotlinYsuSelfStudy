@@ -33,6 +33,10 @@ fun getWeek(): Int {
     return day / 7 + 1
 }
 
+
+/**
+ * 确定开始的周数
+ */
 fun getBeginDate(week: Int) {
     val calendar = Calendar.getInstance()
     calendar[Calendar.MILLISECOND] = 0

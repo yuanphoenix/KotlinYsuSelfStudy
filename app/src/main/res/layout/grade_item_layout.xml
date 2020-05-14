@@ -89,7 +89,7 @@
                 android:backgroundTint="@color/white"
                 android:gravity="center"
                 android:text="@{gradeBean.grade}"
-                android:textColor="@color/black"
+                android:textColor='@{gradeBean.grade.contains("A") ? @color/shaddow_green :@color/black}'
                 android:textSize="@dimen/sp20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

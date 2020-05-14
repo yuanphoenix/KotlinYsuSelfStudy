@@ -59,7 +59,6 @@ class GradeFragment : Fragment() {
         mainModel.state.observe(
             viewLifecycleOwner,
             Observer { authenticationState ->
-
                 when (authenticationState) {
                     true -> {
                         showUi()
