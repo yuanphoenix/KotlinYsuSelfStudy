@@ -4,6 +4,13 @@ package com.example.ysuselfstudy.data
  * @author  Ahyer
  * @date  2020/4/20 10:01
  * @version 1.0
+ *
+ *
+ * project  科目
+ * date 第几学期
+ *
+ *
+ *
  */
 
 data class Grade(

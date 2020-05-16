@@ -127,15 +127,13 @@ object Dao {
     fun isBiying(): Boolean = LitePal.count(BiyingPic::class.java) == 0
 
 
-    fun keepQQLogin(): Boolean {
-        if (LitePal.count(QQ::class.java) != 0) {
-            val qqUser = LitePal.findFirst(QQ::class.java)
-            YsuSelfStudyApplication.tencent.setAccessToken(qqUser.accessToken, qqUser.expires)
-            YsuSelfStudyApplication.tencent.openId = qqUser.openID
-            return true
-        }
-        return false
-    }
+    fun keepQQLogin(): Boolean = if (LitePal.count(QQ::class.java) != 0) {
+        val qqUser = LitePal.findFirst(QQ::class.java)
+        YsuSelfStudyApplication.tencent.setAccessToken(qqUser.accessToken, qqUser.expires)
+        YsuSelfStudyApplication.tencent.openId = qqUser.openID
+        true
+    } else false
+
 
     fun getQQ() =
         if (LitePal.count(QQ::class.java) != 0) LitePal.findFirst(QQ::class.java) else null
@@ -148,11 +146,11 @@ object Dao {
     /**
      * 返回本周的课程
      */
-    fun getWeekClass(week:Int=-1): ArrayList<Course> {
+    fun getWeekClass(week: Int = -1): ArrayList<Course> {
         val list = ArrayList<Course>()//声明一个样表
         repeat(84) { list.add(Course()) }
         //这一步有问题，不会是这样的。
-        val nowWeek = if (week==-1) getWeek() else week
+        val nowWeek = if (week == -1) getWeek() else week
 
         val weekList = ArrayList<Course>()
         var findAll = LitePal.findAll(Course::class.java)
@@ -174,8 +172,7 @@ object Dao {
         for (course in weekList) {
             var temp = 1
             while (temp <= course.continued) {
-                list[(course.beginNode - 1) * 7 + course.dayOfWeek - 1 + (temp - 1) * 7] =
-                    course.clone()
+                list[(course.beginNode - 1) * 7 + course.dayOfWeek - 1 + (temp - 1) * 7] = course.clone()
                 temp++
             }
         }

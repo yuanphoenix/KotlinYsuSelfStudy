@@ -24,7 +24,6 @@ fun getWeek(): Int {
     val longtime = prefs.getLong("begin", 1582473600000)
 
     calendar.timeInMillis = longtime
-
     val now = Calendar.getInstance()
     val day =
         ((now.timeInMillis - calendar.timeInMillis) / (1000 * 3600 * 24)).toInt()
@@ -43,13 +42,12 @@ fun getBeginDate(week: Int) {
     calendar[Calendar.SECOND] = 0
     calendar[Calendar.MINUTE] = 0
     calendar[Calendar.HOUR_OF_DAY] = 0
-
     val thisWeek = ((calendar[Calendar.DAY_OF_WEEK] - 2) * 1000 * 3600 * 24).toLong()
     val two = Calendar.getInstance()
 
     two.timeInMillis = calendar.timeInMillis - thisWeek
 
-    val ha = two.timeInMillis - week.toLong() * 7 * 1000 * 3600 * 24
+    val ha = two.timeInMillis - (week.toLong() - 1) * 7 * 1000 * 3600 * 24
 
     val beginWeek = Calendar.getInstance()
     beginWeek.timeInMillis = ha

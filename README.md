@@ -2,7 +2,7 @@
 
 ___
 
-**一款帮助燕大同学的APP，由 @Ahyer 独自开发。**
+**一款帮助燕大同学的APP。**
 
 软件采用Kotlin +Jetpack +MVVM 设计，这是重构后的版本。
 <p align="center">

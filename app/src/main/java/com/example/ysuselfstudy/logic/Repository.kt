@@ -53,6 +53,9 @@ object Repository {
         emit(EmptyRoomNetWork.getEmptyRoom())
     }
 
+    /**
+     * 矫正周数
+     */
     fun makeCorrect() = liveData(Dispatchers.IO) {
         var makecorrect = MakeCorrectWeek()
         try {
