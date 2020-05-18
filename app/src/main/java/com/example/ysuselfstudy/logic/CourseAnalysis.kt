@@ -58,8 +58,8 @@ object CourseAnalysis {
                 var store = temp[i][j].text()
                 when (swicthInt % 5) {
                     0 -> if (isCourseTime(temp[i][j].text())) { //课程设计时间
-                        timeSpacialAnalsis(course, store)
-                        swicthInt += 3
+                                timeSpacialAnalsis(course, store)
+                                 swicthInt += 3
                     } else {
                         if (store.contains("（")) {
                             val pos = store.indexOf("（")

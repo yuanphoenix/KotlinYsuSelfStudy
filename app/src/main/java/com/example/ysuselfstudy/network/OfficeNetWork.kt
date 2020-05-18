@@ -176,20 +176,20 @@ object OfficeNetWork {
      */
     suspend fun postCode(byte: ByteArray): String {
         return suspendCoroutine { continuation ->
-            Log.d(TAG, "postCode:开始  ");
-            var bitmap = BitmapFactory.decodeByteArray(byte, 0, byte.size)
-            val text = CrackCode.getAllOcr(bitmap)
-
-            Log.d(TAG, "postCode: " + text);
-//            val body = RequestBody.create(MediaType.parse("image/jpg"), byte)
-//            var resquest = Request.Builder()
-//                .post(body)
-//                .url("http://39.96.163.218:8080/SelfStudy/HengServlet?method=CrackCode")
-//                .build()
-//            val newCall = client.newCall(resquest)
-//            val execute = newCall.execute()
-//            val temp = execute.body()!!.string().trim()
-            continuation.resume(text!!.trim())
+//            Log.d(TAG, "postCode:开始  ");
+//            var bitmap = BitmapFactory.decodeByteArray(byte, 0, byte.size)
+//            val text = CrackCode.getAllOcr(bitmap)
+//
+//            Log.d(TAG, "postCode: " + text);
+            val body = RequestBody.create(MediaType.parse("image/jpg"), byte)
+            var resquest = Request.Builder()
+                .post(body)
+                .url("http://39.96.163.218:8080/SelfStudy/HengServlet?method=CrackCode")
+                .build()
+            val newCall = client.newCall(resquest)
+            val execute = newCall.execute()
+            val temp = execute.body()!!.string().trim()
+            continuation.resume(temp!!)
         }
     }
 
