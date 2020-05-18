@@ -139,6 +139,8 @@ class ClassScheduleFragment : Fragment() {
                     mData.clear()
                     mData.addAll(result as Collection<Course>)
                     adapter.notifyDataSetChanged()
+                    binding.schedule.smoothScrollToPosition(0)
+                    binding.nodeRecy.smoothScrollToPosition(0)
                 }
             }
         })
