@@ -101,7 +101,14 @@ public class WebFragment extends Fragment {
 
         switch (id) {
             case R.id.seat:
+              //  String js = "javascript:var x=document.getElementById('username').value = 160120010208;var y=document.getElementById('password').value=111;";
                 binding.webview.loadUrl("http://202.206.242.87/ClientWeb/m/ic2/Default.aspx");
+//                binding.webview.setWebViewClient(new WebViewClient() {
+//                    @Override
+//                    public void onPageFinished(WebView webView, String s) {
+//                        binding.webview.loadUrl(js);
+//                    }
+//                });
                 break;
             case R.id.librarySearch:
                 binding.webview.loadUrl("http://opac.ysu.edu.cn/m/weixin/wsearch.action");

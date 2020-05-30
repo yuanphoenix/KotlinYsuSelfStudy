@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
 import com.example.ysuselfstudy.data.UploadRoomMsg
 import com.google.gson.Gson
@@ -116,11 +115,32 @@ object UploadRoom {
         }
         //上传信息
 
-        val msg = UploadRoomMsg(
+
+        var prefList = roomList.subList(0, roomList.size / 2)
+        var lastList = roomList.subList(roomList.size / 2, roomList.size)
+
+
+        val prefUpLoadMsg = UploadRoomMsg(
             if (Dao.getQQ() != null) Dao.getQQ()!!.nickname else "匿名小可爱",
-            gson.toJson(roomList)
+            gson.toJson(prefList)
         )
-        msg.update("2ec49dadea", object : UpdateListener() {
+        prefUpLoadMsg.update("2ec49dadea", object : UpdateListener() {
+            override fun done(p0: BmobException?) {
+                if (p0 == null) {
+                    Log.d(TAG, "done: 上传成功");
+                    process.postValue(99)
+                } else {
+                    Log.d(TAG, "done: 失败" + p0.toString());
+                    process.postValue(-1)
+                }
+            }
+
+        })
+        val lastUpLoadMsg = UploadRoomMsg(
+            if (Dao.getQQ() != null) Dao.getQQ()!!.nickname else "匿名小可爱",
+            gson.toJson(lastList)
+        )
+        lastUpLoadMsg.update("lTM53338", object : UpdateListener() {
             override fun done(p0: BmobException?) {
                 if (p0 == null) {
                     Log.d(TAG, "done: 上传成功");

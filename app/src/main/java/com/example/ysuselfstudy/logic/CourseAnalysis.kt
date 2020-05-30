@@ -1,14 +1,11 @@
 package com.example.ysuselfstudy.logic
 
 import android.graphics.Color
-import android.util.Log
-import com.example.ysuselfstudy.YsuSelfStudyApplication
+
 import com.example.ysuselfstudy.data.Course
-import com.example.ysuselfstudy.data.User
-import com.tencent.bugly.crashreport.CrashReport
+
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.TextNode
-import org.litepal.LitePal
 import java.util.*
 
 /**
