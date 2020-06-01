@@ -3,13 +3,11 @@ package com.example.ysuselfstudy.logic
 
 import android.util.Log
 import androidx.lifecycle.liveData
-import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.*
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.tencent.bugly.Bugly
 import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.coroutines.Dispatchers
 import org.jsoup.select.Elements
@@ -249,6 +247,24 @@ object Repository {
         }
     }
 
+    fun getGPA()= liveData(Dispatchers.IO) {
+        val document = OfficeNetWork.getGPA()
+        var info = document.select("tr[bgcolor=#D0E8FF]")
+        if (info.size>2){
+            info.removeAt(0)
+        }
+        info = info.select("td")
+        val averageGPANormal = info[3].text().toDouble() //必修课平均绩点（正考）
+
+        val averageGPAMost = info[4].text().toDouble() //必修课平均绩点（最高）
+
+        val averageGPAIncludeOptional = info[5].text().toDouble() //必修课平均绩点（最高含选修）
+
+        val degreeCourseGPA = info[10].text().toDouble() //学位课绩点
+
+        val gpa = GPA(averageGPANormal, averageGPAMost, averageGPAIncludeOptional, degreeCourseGPA)
+        emit(gpa)
+    }
 
     /**
      * 返回必应首页

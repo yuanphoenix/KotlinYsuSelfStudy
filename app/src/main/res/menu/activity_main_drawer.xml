@@ -31,7 +31,8 @@
         <item
             android:id="@+id/Innovation_credit"
             android:icon="@color/cardview_dark_background"
-            android:title="创新学分" />
+            android:title="创新学分"
+            android:visible="false" />
 
         <item
             android:id="@+id/mySettingsFragment"

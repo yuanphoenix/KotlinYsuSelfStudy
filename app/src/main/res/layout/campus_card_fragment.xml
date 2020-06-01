@@ -20,11 +20,11 @@
             android:id="@+id/login_today"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-           >
+            android:layout_gravity="center">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/yui"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/please_num"
@@ -41,12 +41,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:ems="12"
-
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/pass_text"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -63,16 +63,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:ems="12"
-
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:text="@string/login"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pass_text" />
@@ -108,9 +108,9 @@
             android:id="@+id/card_surplus"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:visibility="gone"
             android:layout_margin="@dimen/dp10"
             android:backgroundTint="#39DFD1"
+            android:visibility="gone"
             app:cardCornerRadius="5dp"
             app:cardElevation="5dp">
 

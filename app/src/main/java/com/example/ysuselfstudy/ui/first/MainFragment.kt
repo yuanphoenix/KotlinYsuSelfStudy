@@ -12,13 +12,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
-import com.example.ysuselfstudy.YsuSelfStudyApplication
-import com.example.ysuselfstudy.adapter.ViewPagerAdapter
-import com.example.ysuselfstudy.databinding.AppBarMainBinding
+import com.example.ysuselfstudy.adapter.FirstVPAdapter
 import com.example.ysuselfstudy.logic.getWeek
 import com.example.ysuselfstudy.ui.classschedule.ClassScheduleViewModel
 import com.example.ysuselfstudy.ui.classschedule.GlideEngine
@@ -40,7 +36,6 @@ class MainFragment : Fragment() {
     lateinit var courseViewModel: ClassScheduleViewModel
     lateinit var toolbar: Toolbar
     private val TAG = "MainFragment"
-    lateinit var barBinding: AppBarMainBinding
     private var week = getWeek()
 
 
@@ -58,7 +53,7 @@ class MainFragment : Fragment() {
 
         viewPager = view.findViewById(R.id.viewpager)
         bottomNav = view.findViewById(R.id.bottom_nav)
-        viewPagerAdapter = ViewPagerAdapter(this)
+        viewPagerAdapter = FirstVPAdapter(this)
         viewPager.adapter = viewPagerAdapter
         viewPager.offscreenPageLimit = 1
         navController = findNavController()

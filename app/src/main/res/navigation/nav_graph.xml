@@ -26,7 +26,7 @@
         android:label="@string/detail_inform" />
     <fragment
         android:id="@+id/gradeFragment"
-        android:name="com.example.ysuselfstudy.ui.grade.GradeFragment"
+        android:name="com.example.ysuselfstudy.ui.grade.GradeHostFragment"
         android:label="@string/grade" />
     <fragment
         android:id="@+id/mySettingsFragment"

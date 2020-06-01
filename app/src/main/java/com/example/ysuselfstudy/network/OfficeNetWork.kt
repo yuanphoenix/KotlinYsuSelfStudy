@@ -1,16 +1,11 @@
 package com.example.ysuselfstudy.network
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Information
 import com.example.ysuselfstudy.data.User
-import com.example.ysuselfstudy.logic.CrackCode
 import com.example.ysuselfstudy.logic.Dao
-import com.example.ysuselfstudy.logic.log
 import okhttp3.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -220,11 +215,11 @@ object OfficeNetWork {
             var url =
                 "http://202.206.243.62/mycjcx/xscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121632"
             val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
-            val pref: SharedPreferences = YsuSelfStudyApplication.context.getSharedPreferences(
-                "cookiegroup",
-                Context.MODE_PRIVATE
-            )
-            val cookies = pref.getString("cookies", "0")
+//            val pref: SharedPreferences = YsuSelfStudyApplication.context.getSharedPreferences(
+//                "cookiegroup",
+//                Context.MODE_PRIVATE
+//            )
+//            val cookies = pref.getString("cookies", "0")
 
             var document =
                 Jsoup.connect(url)
@@ -232,6 +227,23 @@ object OfficeNetWork {
                     .cookies(COOKIE_MAP)
                     .referrer(referrer)
                     .post()
+            continuation.resume(document)
+        }
+    }
+
+    /**
+     * 获取GPA信息
+     */
+    suspend fun getGPA():Document{
+        return suspendCoroutine { continuation ->
+            val user = Dao.getStu()
+            val url=
+                "http://202.206.243.62/mycjcx/bscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121820"
+            val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+            val document = Jsoup.connect(url)
+                .cookies(COOKIE_MAP)
+                .referrer(referrer)
+                .post()
             continuation.resume(document)
         }
     }
