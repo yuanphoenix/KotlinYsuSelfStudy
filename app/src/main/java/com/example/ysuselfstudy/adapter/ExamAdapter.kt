@@ -1,13 +1,13 @@
 package com.example.ysuselfstudy.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.data.Exam
 import com.example.ysuselfstudy.databinding.ExamItemLayoutBinding
+import com.example.ysuselfstudy.logic.setClockDate
 
 /**
  * @author  Ahyer
@@ -16,6 +16,17 @@ import com.example.ysuselfstudy.databinding.ExamItemLayoutBinding
  */
 
 class ExamAdapter(var mData: ArrayList<Exam>) : RecyclerView.Adapter<ExamAdapter.ViewHolder>() {
+    private val TAG = "ExamAdapter"
+    private lateinit var clickListener: examClickListener
+
+    interface examClickListener {
+         fun onClickListener(time: Long,description:String)
+    }
+
+    fun setExamOnclickListener(clickListener: examClickListener) {
+        this.clickListener = clickListener
+    }
+
     inner class ViewHolder(var binding: ExamItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -34,5 +45,12 @@ class ExamAdapter(var mData: ArrayList<Exam>) : RecyclerView.Adapter<ExamAdapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var bean = mData[position]
         holder.binding.bean = bean
+        var temp = bean.time.substringAfter("(")
+        temp = temp.substringBefore(")")
+        holder.binding.root.setOnClickListener {
+            val time = setClockDate(temp)
+            clickListener.onClickListener(time,bean.name)
+        }
     }
+
 }

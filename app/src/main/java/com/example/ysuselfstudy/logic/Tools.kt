@@ -95,6 +95,19 @@ fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(YsuSelfStudyApplication.context, this, duration).show()
 }
 
+fun setClockDate(date: String): Long {
+    val split = date.split("-")
+
+    val resultDate = Calendar.getInstance()
+    resultDate[Calendar.MONTH] = split[1].toInt() - 1
+    resultDate[Calendar.DATE] = split[2].toInt()
+    resultDate[Calendar.MILLISECOND] = 0
+    resultDate[Calendar.SECOND] = 0
+    resultDate[Calendar.MINUTE] = 0
+    resultDate[Calendar.HOUR_OF_DAY] = 7
+    return resultDate.timeInMillis
+}
+
 
 
 

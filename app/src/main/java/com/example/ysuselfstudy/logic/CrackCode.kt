@@ -84,7 +84,7 @@ object CrackCode {
                     .open("training/$picpath")
                 bitmap = BitmapFactory.decodeStream(inputStream)
                 if (bitmap != null) {
-                    trainMap.put(bitmap, picpath[0].toString() + "")
+                    trainMap.put(bitmap, picpath[0].toString())
                 }
             }
         } catch (e: IOException) {
