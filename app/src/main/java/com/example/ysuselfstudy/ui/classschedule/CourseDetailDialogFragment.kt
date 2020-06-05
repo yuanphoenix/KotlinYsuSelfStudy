@@ -1,10 +1,7 @@
 package com.example.ysuselfstudy.ui.classschedule
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.example.ysuselfstudy.R
@@ -28,6 +25,7 @@ class CourseDetailDialogFragment(val course: Course) : DialogFragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.course_detail_pop_layout, container, false)
+        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         return binding.root
     }
 
@@ -42,6 +40,7 @@ class CourseDetailDialogFragment(val course: Course) : DialogFragment() {
     }
 
     override fun onResume() {
+
         val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
         params.width = WindowManager.LayoutParams.MATCH_PARENT
         params.height = getPixelsFromDp(300)
