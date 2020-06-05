@@ -27,8 +27,9 @@ import kotlin.coroutines.suspendCoroutine
  */
 object OfficeNetWork {
     private val TAG = "OfficeNetWork"
-    private val OFFICE_URL = "http://202.206.243.62/default2.aspx" //教务处的网址
-    private val CODE_URL = "http://202.206.243.62/CheckCode.aspx" //验证码的网址
+    private var baseUrl = "202.206.243.62"
+    private val OFFICE_URL = "http://${baseUrl}/default2.aspx" //教务处的网址
+    private val CODE_URL = "http://${baseUrl}/CheckCode.aspx" //验证码的网址
     private val COOKIE_MAP = mutableMapOf<String, String>()
 
 
@@ -44,7 +45,7 @@ object OfficeNetWork {
                 if (i > 0) LoginCookie = LoginCookie + ";" + temp else LoginCookie = temp
             }
 
-            if (url.host().equals("202.206.243.62")) {
+            if (url.host().equals("${baseUrl}")) {
                 /**
                  * 将cookie保存至本地
                  */
@@ -195,8 +196,8 @@ object OfficeNetWork {
         return suspendCoroutine { continuation ->
             val user = Dao.getStu()
             val url =
-                "http://202.206.243.62/xskbcx.aspx?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121603"
-            val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+                "http://${baseUrl}/xskbcx.aspx?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121603"
+            val referrer = "http://${baseUrl}/xs_main.aspx?xh=${user.number}"
             val document = Jsoup.connect(url)
                 .cookies(COOKIE_MAP)
                 .referrer(referrer)
@@ -213,8 +214,8 @@ object OfficeNetWork {
         return suspendCoroutine { continuation ->
             val user = Dao.getStu()
             var url =
-                "http://202.206.243.62/mycjcx/xscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121632"
-            val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+                "http://${baseUrl}/mycjcx/xscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121632"
+            val referrer = "http://${baseUrl}/xs_main.aspx?xh=${user.number}"
 //            val pref: SharedPreferences = YsuSelfStudyApplication.context.getSharedPreferences(
 //                "cookiegroup",
 //                Context.MODE_PRIVATE
@@ -238,8 +239,8 @@ object OfficeNetWork {
         return suspendCoroutine { continuation ->
             val user = Dao.getStu()
             val url=
-                "http://202.206.243.62/mycjcx/bscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121820"
-            val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+                "http://${baseUrl}/mycjcx/bscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121820"
+            val referrer = "http://${baseUrl}/xs_main.aspx?xh=${user.number}"
             val document = Jsoup.connect(url)
                 .cookies(COOKIE_MAP)
                 .referrer(referrer)
@@ -255,8 +256,8 @@ object OfficeNetWork {
         return suspendCoroutine { continuation ->
             val user = Dao.getStu()
             val url =
-                "http://202.206.243.62/xskscx.aspx?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121604"
-            val referrer = "http://202.206.243.62/xs_main.aspx?xh=${user.number}"
+                "http://${baseUrl}/xskscx.aspx?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121604"
+            val referrer = "http://${baseUrl}/xs_main.aspx?xh=${user.number}"
             val document = Jsoup.connect(url)
                 .cookies(COOKIE_MAP)
                 .referrer(referrer)

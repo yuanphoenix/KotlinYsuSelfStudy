@@ -36,8 +36,8 @@ android {
         applicationId "com.example.ysuselfstudy"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 17
-        versionName "2.01"
+        versionCode 18
+        versionName "2.02"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -78,7 +78,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     implementation 'org.litepal.android:kotlin:3.0.0'
     implementation 'com.tencent.tbs.tbssdk:sdk:43903'
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation "io.reactivex.rxjava2:rxjava:2.2.8"
     implementation 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'

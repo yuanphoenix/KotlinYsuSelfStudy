@@ -18,7 +18,7 @@ class UploadViewModel : ViewModel() {
 
     var process = Transformations.switchMap(card) {
         UploadRoom.SpideSchool(
-            "http://202.206.243.9/zjdxgc/mycjcx/kjscx.asp" //燕大地址
+            "http://202.206.243.9/zjdxgc/mycjcx/kjscx.asp" //燕大空教室地址
         )
 
     }

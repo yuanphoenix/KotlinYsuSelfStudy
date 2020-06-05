@@ -114,7 +114,8 @@ public class WebFragment extends Fragment {
                 binding.webview.loadUrl("http://opac.ysu.edu.cn/m/weixin/wsearch.action");
                 break;
             case R.id.school_calendar:
-                binding.webview.loadUrl("http://202.206.243.9/xiaoli.asp");
+             binding.webview.loadUrl("http://202.206.243.9/xiaoli.asp");
+                //binding.webview.loadUrl("http://debugx5.qq.com");
                 break;
             case R.id.informationDetailFragment:
                 String amount = getArguments().getString("amount");

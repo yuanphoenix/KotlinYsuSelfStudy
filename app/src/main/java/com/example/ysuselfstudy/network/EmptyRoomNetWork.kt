@@ -60,14 +60,15 @@ object EmptyRoomNetWork {
                     //成功
                     if (getDate().substring(0, 10).equals(p0.updatedAt.substring(0, 10))) {
                         //获取了本周的空教室
+                        getOtherRoom()
                         var roomList = Gson()
                         var type = object : TypeToken<ArrayList<EmptyRoom>>() {}.type
                         var saveList: ArrayList<EmptyRoom> = roomList.fromJson(p0.room_json, type)
 
                         Dao.saveRoom(saveList)
+                        continuation.resume(p0.nick_name)
                     } else {
                         //日期不对，需要用户上传教室
-                        shouldUpload = true
                         continuation.resume("false")
                     }
                 } else {
@@ -78,33 +79,30 @@ object EmptyRoomNetWork {
             })
 
             if (!shouldUpload) {
-                msg.getObject("2ec49dadea", object : QueryListener<UploadRoomMsg>() {
-                    override fun done(p0: UploadRoomMsg?, p1: BmobException?) = if (p0 != null) {
-                        //成功
-                        if (getDate().substring(0, 10).equals(p0.updatedAt.substring(0, 10))) {
-                            //获取了本周的空教室
-                            var roomList = Gson()
-                            var type = object : TypeToken<ArrayList<EmptyRoom>>() {}.type
-                            var saveList: ArrayList<EmptyRoom> =
-                                roomList.fromJson(p0.room_json, type)
 
-                            Dao.saveRoom(saveList)
-                            continuation.resume(p0.nick_name)
-                        } else {
-                            //日期不对，需要用户上传教室
-                            continuation.resume("false")
-                        }
-
-                    } else {
-                        //失败
-                        continuation.resumeWithException(RuntimeException(p1.toString()))
-                    }
-
-                })
             }
 
 
         }
+    }
+
+    fun getOtherRoom() {
+        val msg = BmobQuery<UploadRoomMsg>()
+        msg.getObject("2ec49dadea", object : QueryListener<UploadRoomMsg>() {
+            override fun done(p0: UploadRoomMsg?, p1: BmobException?) = if (p0 != null) {
+                //获取了本周的空教室
+                var roomList = Gson()
+                Log.d(TAG, "done: 新教室")
+                var type = object : TypeToken<ArrayList<EmptyRoom>>() {}.type
+                var saveList: ArrayList<EmptyRoom> = roomList.fromJson(p0.room_json, type)
+                Dao.saveRoom(saveList)
+
+            } else {
+                //失败
+
+            }
+
+        })
     }
 
     /**
@@ -113,7 +111,7 @@ object EmptyRoomNetWork {
     suspend fun SearchForBiYing(): String {
         return suspendCoroutine { continuation ->
             var element: Elements? = null
-            var url: String = "https://cn.bing.com/"
+            var url = "https://cn.bing.com/"
             try {
                 val document = Jsoup.connect(url).get()
                 element = document.select("link[id=bgLink]")

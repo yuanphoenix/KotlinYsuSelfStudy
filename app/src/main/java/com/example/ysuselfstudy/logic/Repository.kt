@@ -247,10 +247,10 @@ object Repository {
         }
     }
 
-    fun getGPA()= liveData(Dispatchers.IO) {
+    fun getGPA() = liveData(Dispatchers.IO) {
         val document = OfficeNetWork.getGPA()
         var info = document.select("tr[bgcolor=#D0E8FF]")
-        if (info.size>2){
+        if (info.size > 2) {
             info.removeAt(0)
         }
         info = info.select("td")
@@ -270,10 +270,17 @@ object Repository {
      * 返回必应首页
      */
     fun getBiying() = liveData(Dispatchers.IO) {
-        if (Dao.isBiying())
-            emit(EmptyRoomNetWork.SearchForBiYing())
-        else
+        if (Dao.isBiying()) {
+            try {
+                val temp = EmptyRoomNetWork.SearchForBiYing()
+                emit(temp)
+            } catch (e: Exception) {
+                emit("")
+            }
+        } else {
             emit(Dao.getBiying())
+        }
+
     }
 
 }

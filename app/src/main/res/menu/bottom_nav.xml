@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/empty_room"
+        android:icon="@mipmap/ic_course"
         android:title="@string/empty_room" />
     <item
         android:id="@+id/class_schedule"
+        android:icon="@mipmap/ic_course"
         android:title="@string/class_schedule" />
     <item
         android:id="@+id/user_info"
+        android:icon="@mipmap/ic_inform"
         android:title="@string/inform" />
 </menu>
