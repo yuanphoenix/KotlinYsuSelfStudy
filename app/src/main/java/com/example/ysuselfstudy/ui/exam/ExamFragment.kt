@@ -2,6 +2,7 @@ package com.example.ysuselfstudy.ui.exam
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,9 +20,11 @@ import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.adapter.ExamAdapter
 import com.example.ysuselfstudy.data.Exam
 import com.example.ysuselfstudy.databinding.ExamFragmentBinding
+import com.example.ysuselfstudy.databinding.ExamItemLayoutBinding
 import com.example.ysuselfstudy.logic.Clock
 import com.example.ysuselfstudy.logic.showToast
 import com.permissionx.guolindev.PermissionX
+import com.tencent.bugly.crashreport.crash.CrashDetailBean
 
 class ExamFragment : Fragment() {
 
@@ -49,7 +52,8 @@ class ExamFragment : Fragment() {
         binding.examRecycler.layoutManager = linearLayoutManager
         adapter = ExamAdapter(mData)
         adapter.setExamOnclickListener(object : ExamAdapter.examClickListener {
-            override fun onClickListener(time: Long, description: String) {
+            override fun onClickListener(time: Long, examBinding: ExamItemLayoutBinding) {
+                if (examBinding.bean!!.schedule) return
                 PermissionX.init(requireActivity())
                     .permissions(
                         Manifest.permission.READ_CALENDAR,
@@ -59,12 +63,14 @@ class ExamFragment : Fragment() {
                         if (allGranted) {
                             Clock.addCalendarEvent(
                                 YsuSelfStudyApplication.context,
+                                examBinding.bean?.name,
                                 "考试",
-                                description,
                                 time,
                                 0
                             )
                             "添加成功".showToast()
+                            examBinding.bean?.schedule = true
+                            examBinding.examClock.visibility = View.VISIBLE
                         } else {
                             "拒绝授权".showToast()
                         }

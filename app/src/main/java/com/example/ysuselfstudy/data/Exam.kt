@@ -7,5 +7,11 @@ import org.litepal.crud.LitePalSupport
  * @date  2020/4/12 15:53
  * @version 1.0
  */
-data class Exam(val name: String, val time: String, val local: String, val number: String):LitePalSupport() {
+data class Exam(
+    val name: String,
+    val time: String,
+    val local: String,
+    var schedule: Boolean,
+    val number: String
+) : LitePalSupport() {
 }

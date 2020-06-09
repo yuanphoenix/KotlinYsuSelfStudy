@@ -8,6 +8,8 @@
         <variable
             name="bean"
             type="com.example.ysuselfstudy.data.Exam" />
+
+        <import type="android.view.View" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -17,49 +19,64 @@
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
-            <!--考试名称-->
-            <TextView
-                android:id="@+id/exam_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text='@{@string/exam_project+bean.name}'
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/sp19"
-                tools:text="设计考试" />
-            <!--考试时间-->
-            <TextView
-                android:id="@+id/exam_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text='@{@string/exam_item_time+bean.time}'
-                android:textColor="#8BC34A"
-                android:textSize="@dimen/sp19"
-                tools:text="2020年十月" />
-            <!--考试地点-->
-            <TextView
-                android:id="@+id/exam_positon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text='@{@string/exam_location+bean.local}'
-                android:textColor="#00BCD4"
-                android:textSize="@dimen/sp19"
-                tools:text="西区第五教学楼" />
-            <!--座位号-->
-            <TextView
-                android:id="@+id/exam_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text='@{@string/exam_num+bean.number}'
-                android:textColor="#9C27B0"
-                android:textSize="@dimen/sp19"
-                tools:text="20" />
+            android:layout_height="match_parent">
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <!--考试名称-->
+
+                <TextView
+                    android:id="@+id/exam_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{@string/exam_project+bean.name}'
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/sp19"
+                    tools:text="设计考试" />
+                <!--考试时间-->
+                <TextView
+                    android:id="@+id/exam_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{@string/exam_item_time+bean.time}'
+                    android:textColor="#8BC34A"
+                    android:textSize="@dimen/sp19"
+                    tools:text="2020年十月" />
+                <!--考试地点-->
+                <TextView
+                    android:id="@+id/exam_positon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{@string/exam_location+bean.local}'
+                    android:textColor="#00BCD4"
+                    android:textSize="@dimen/sp19"
+                    tools:text="西区第五教学楼" />
+
+                <TextView
+                    android:id="@+id/exam_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text='@{@string/exam_num+bean.number}'
+                    android:textColor="#9C27B0"
+                    android:textSize="@dimen/sp19"
+                    tools:text="20" />
+                <!--座位号-->
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/exam_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:src="@drawable/ic_exam_clock"
+                android:visibility="gone" />
+        </FrameLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </layout>

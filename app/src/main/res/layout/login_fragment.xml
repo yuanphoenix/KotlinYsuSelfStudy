@@ -67,7 +67,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="12"
-
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 

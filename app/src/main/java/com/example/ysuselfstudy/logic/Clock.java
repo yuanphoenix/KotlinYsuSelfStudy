@@ -28,9 +28,9 @@ public class Clock {
      */
     private static int checkAndAddCalendarAccount(Context context) {
         int oldId = checkCalendarAccount(context);
-        if( oldId >= 0 ){
+        if (oldId >= 0) {
             return oldId;
-        }else{
+        } else {
             long addId = addCalendarAccount(context);
             if (addId >= 0) {
                 return checkCalendarAccount(context);
@@ -117,7 +117,7 @@ public class Clock {
         event.put("calendar_id", calId); //插入账户的id
         event.put(CalendarContract.Events.DTSTART, start);
         event.put(CalendarContract.Events.DTEND, end);
-        event.put(CalendarContract.Events.HAS_ALARM,1);//设置有闹钟提醒
+        event.put(CalendarContract.Events.HAS_ALARM, 1);//设置有闹钟提醒
         event.put(CalendarContract.Events.EVENT_TIMEZONE, "Asia/Shanghai");//这个是时区，必须有
         Uri newEvent = context.getContentResolver().insert(Uri.parse(CALENDER_EVENT_URL), event); //添加事件
         if (newEvent == null) { //添加日历事件失败直接返回
@@ -130,7 +130,7 @@ public class Clock {
         values.put(CalendarContract.Reminders.MINUTES, previousDate * 24 * 60);// 提前previousDate天有提醒
         values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
         Uri uri = context.getContentResolver().insert(Uri.parse(CALENDER_REMINDER_URL), values);
-        if(uri == null) { //添加事件提醒失败直接返回
+        if (uri == null) { //添加事件提醒失败直接返回
             return;
         }
     }
@@ -138,33 +138,39 @@ public class Clock {
     /**
      * 删除日历事件
      */
-    public static void deleteCalendarEvent(Context context,String title) {
+    public static boolean isExistEvent(Context context, String title) {
         if (context == null) {
-            return;
+            return false;
         }
-        Cursor eventCursor = context.getContentResolver().query(Uri.parse(CALENDER_EVENT_URL), null, null, null, null);
+        Cursor eventCursor = null;
         try {
+            eventCursor = context.getContentResolver().query(Uri.parse(CALENDER_EVENT_URL), null, null, null, null);
+
             if (eventCursor == null) { //查询返回空值
-                return;
+                return false;
             }
             if (eventCursor.getCount() > 0) {
                 //遍历所有事件，找到title跟需要查询的title一样的项
                 for (eventCursor.moveToFirst(); !eventCursor.isAfterLast(); eventCursor.moveToNext()) {
                     String eventTitle = eventCursor.getString(eventCursor.getColumnIndex("title"));
                     if (!TextUtils.isEmpty(title) && title.equals(eventTitle)) {
-                        int id = eventCursor.getInt(eventCursor.getColumnIndex(CalendarContract.Calendars._ID));//取得id
-                        Uri deleteUri = ContentUris.withAppendedId(Uri.parse(CALENDER_EVENT_URL), id);
-                        int rows = context.getContentResolver().delete(deleteUri, null, null);
-                        if (rows == -1) { //事件删除失败
-                            return;
-                        }
+                        return true;
+//                        int id = eventCursor.getInt(eventCursor.getColumnIndex(CalendarContract.Calendars._ID));//取得id
+//                        Uri deleteUri = ContentUris.withAppendedId(Uri.parse(CALENDER_EVENT_URL), id);
+//                        int rows = context.getContentResolver().delete(deleteUri, null, null);
+//                        if (rows == -1) { //事件删除失败
+//                            return;
+//                        }
                     }
                 }
             }
+        } catch (Exception e) {
+            return false;
         } finally {
             if (eventCursor != null) {
                 eventCursor.close();
             }
         }
+        return false;
     }
 }

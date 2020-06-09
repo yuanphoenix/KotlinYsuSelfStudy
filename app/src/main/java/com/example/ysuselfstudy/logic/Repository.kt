@@ -3,6 +3,7 @@ package com.example.ysuselfstudy.logic
 
 import android.util.Log
 import androidx.lifecycle.liveData
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.*
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
@@ -140,7 +141,13 @@ object Repository {
                 val examName = elements[i - 2].text()
                 val location = elements[i + 1].text()
                 val number = elements[i + 3].text()
-                val examBean = Exam(examName, time, location, number)
+                val examBean = Exam(
+                    examName,
+                    time,
+                    location,
+                    Clock.isExistEvent(YsuSelfStudyApplication.context, examName) ,
+                    number
+                )
                 examList.add(examBean)
             } else {
                 //出考试时间的一定在最前面，一旦没有发现考试时间，那么就停止。

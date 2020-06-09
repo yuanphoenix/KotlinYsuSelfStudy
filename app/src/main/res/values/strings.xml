@@ -46,5 +46,7 @@
     <string name="library">图书查询</string>
     <string name="seat">座位预约</string>
     <string name="school_calendar">校历</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

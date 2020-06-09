@@ -1,10 +1,13 @@
 package com.example.ysuselfstudy.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Exam
 import com.example.ysuselfstudy.databinding.ExamItemLayoutBinding
 import com.example.ysuselfstudy.logic.setClockDate
@@ -20,7 +23,7 @@ class ExamAdapter(var mData: ArrayList<Exam>) : RecyclerView.Adapter<ExamAdapter
     private lateinit var clickListener: examClickListener
 
     interface examClickListener {
-         fun onClickListener(time: Long,description:String)
+        fun onClickListener(time: Long, binding: ExamItemLayoutBinding)
     }
 
     fun setExamOnclickListener(clickListener: examClickListener) {
@@ -49,7 +52,7 @@ class ExamAdapter(var mData: ArrayList<Exam>) : RecyclerView.Adapter<ExamAdapter
         temp = temp.substringBefore(")")
         holder.binding.root.setOnClickListener {
             val time = setClockDate(temp)
-            clickListener.onClickListener(time,bean.name)
+            clickListener.onClickListener(time,holder.binding)
         }
     }
 
