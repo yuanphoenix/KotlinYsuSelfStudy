@@ -4,7 +4,9 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -93,15 +95,18 @@ public class WebFragment extends Fragment {
         binding.webview.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                //确实可以下载
-
+                //使用浏览器下载
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
             }
         });
 
 
         switch (id) {
             case R.id.seat:
-              //  String js = "javascript:var x=document.getElementById('username').value = 160120010208;var y=document.getElementById('password').value=111;";
+                //  String js = "javascript:var x=document.getElementById('username').value = 160120010208;var y=document.getElementById('password').value=111;";
                 binding.webview.loadUrl("http://202.206.242.87/ClientWeb/m/ic2/Default.aspx");
 //                binding.webview.setWebViewClient(new WebViewClient() {
 //                    @Override
@@ -114,7 +119,7 @@ public class WebFragment extends Fragment {
                 binding.webview.loadUrl("http://opac.ysu.edu.cn/m/weixin/wsearch.action");
                 break;
             case R.id.school_calendar:
-             binding.webview.loadUrl("http://202.206.243.9/xiaoli.asp");
+                binding.webview.loadUrl("http://202.206.243.9/xiaoli.asp");
                 break;
             case R.id.informationDetailFragment:
                 String amount = getArguments().getString("amount");
