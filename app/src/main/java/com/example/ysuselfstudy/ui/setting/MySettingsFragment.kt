@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 
@@ -23,10 +25,11 @@ import com.example.ysuselfstudy.logic.showToast
 class MySettingsFragment : PreferenceFragmentCompat() {
     lateinit var mainViewModel: MainViewModel
     private val TAG = "MySettingsFragment"
+    lateinit var navController: NavController
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_setting, rootKey)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-
+        navController = findNavController()
         mainViewModel.correct.observe(requireActivity(), Observer {
             if (it.isNullOrEmpty()) {
                 "矫正失败".showToast()
@@ -59,22 +62,7 @@ class MySettingsFragment : PreferenceFragmentCompat() {
 
         val feedback: Preference? = findPreference("feedback")
         feedback?.setOnPreferenceClickListener {
-
-            var intent = Intent()
-            intent.setAction(Intent.ACTION_VIEW)
-
-            var user = Dao.getQQ()
-            var uri: Uri
-            if (user != null) {
-                var tempurl = user.image.replace("&", "%26")
-                uri =
-                    Uri.parse("https://support.qq.com/product/115180?avatar=${tempurl}&nickname=${user.nickname}&openid=${user.openID}")
-            } else
-                uri = Uri.parse("https://support.qq.com/product/115180?")
-
-            intent.setData(uri)
-
-            startActivity(intent)
+            navController.navigate(R.id.feedBack)
             true
         }
     }

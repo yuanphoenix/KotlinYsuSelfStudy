@@ -16,13 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.CustomViewTarget
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.YsuSelfStudyApplication
@@ -31,7 +24,6 @@ import com.example.ysuselfstudy.adapter.WeekAdapter
 import com.example.ysuselfstudy.data.Course
 import com.example.ysuselfstudy.databinding.ClassScheduleFragmentBinding
 import com.example.ysuselfstudy.logic.Dao
-import com.luck.picture.lib.compress.Luban
 
 
 class ClassScheduleFragment : Fragment() {

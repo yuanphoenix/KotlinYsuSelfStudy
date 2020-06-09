@@ -58,6 +58,12 @@
         android:label="@string/library"
         tools:layout="@layout/web_fragment" />
 
+
+    <fragment
+        android:id="@+id/feedBack"
+        android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
+        android:label="@string/vent"
+        tools:layout="@layout/web_fragment" />
     <fragment
         android:id="@+id/seat"
         android:name="com.example.ysuselfstudy.ui.webview.WebFragment"

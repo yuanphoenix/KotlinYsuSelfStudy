@@ -27,7 +27,7 @@ class YsuSelfStudyApplication : Application() {
         tencent = Tencent.createInstance("101560830", context)
         QbSdk.initX5Environment(context, null)
         LitePal.initialize(context)
-        Bugly.init(context, "ec45c74684", false)
+        Bugly.init(context, "ec45c74684", true)
         Bmob.initialize(this, "95472b5edd3fe00a7bc245de053edb71")
     }
 }

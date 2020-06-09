@@ -116,6 +116,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.d(TAG, "onActivityResult: " + requestCode)
+        Log.d(TAG, "onActivityResult: " + resultCode)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 Constants.REQUEST_LOGIN, Constants.REQUEST_APPBAR -> Tencent.onActivityResultData(
@@ -124,7 +126,10 @@ class MainActivity : AppCompatActivity() {
                     data,
                     baseUiListener
                 )
+
             }
+        }else{
+
         }
 
     }
