@@ -47,7 +47,7 @@ class InformationAdapter(val mData: ArrayList<Information>, var navController: N
         holder.textView.text = mData[position].title
         holder.btn.text = mData[position].time
         holder.itemView.setOnClickListener {
-            val msg = bundleOf("amount" to mData[position].url)
+            val msg = bundleOf("amount" to mData[position])
             navController.navigate(R.id.informationDetailFragment, msg)
         }
     }

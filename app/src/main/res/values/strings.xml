@@ -51,5 +51,7 @@
     <string name="edu_password">教务密码</string>
     <string name="today_edit_password">今日校园密码</string>
     <string name="library_edit_password">图书馆密码</string>
+    <string name="collect">收藏</string>
+    <string name="share">分享</string>
 
 </resources>

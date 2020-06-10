@@ -21,22 +21,21 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
 
 import com.example.ysuselfstudy.R;
-import com.example.ysuselfstudy.YsuSelfStudyApplication;
+import com.example.ysuselfstudy.data.Information;
 import com.example.ysuselfstudy.data.QQ;
 import com.example.ysuselfstudy.data.User;
 import com.example.ysuselfstudy.databinding.WebFragmentBinding;
 import com.example.ysuselfstudy.logic.Dao;
-import com.luck.picture.lib.compress.CompressionPredicate;
-import com.luck.picture.lib.compress.Luban;
-import com.luck.picture.lib.compress.OnCompressListener;
-import com.luck.picture.lib.compress.OnRenameListener;
-import com.luck.picture.lib.entity.LocalMedia;
+import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.DownloadListener;
@@ -44,10 +43,6 @@ import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
-
-import java.io.File;
-import java.util.List;
-
 
 /**
  * 这个页面发生了内存泄漏
@@ -58,8 +53,9 @@ public class WebFragment extends Fragment {
     private WebFragmentBinding binding;
     private ValueCallback<Uri> uploadFile;
     private ValueCallback<Uri[]> uploadFiles;
-    public final static String SDCARD_MNT = "/mnt/sdcard";
-    public final static String SDCARD = Environment.getExternalStorageDirectory().getPath();
+    private NavController navController;
+    private static int id = 0;
+    private Information information;
 
     public static WebFragment newInstance() {
         return new WebFragment();
@@ -68,6 +64,10 @@ public class WebFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        navController = NavHostFragment.findNavController(this);
+        id = navController.getCurrentDestination().getId();
+        setHasOptionsMenu(true);
         binding = DataBindingUtil.inflate(inflater, R.layout.web_fragment, container, false);
         return binding.getRoot();
     }
@@ -78,12 +78,6 @@ public class WebFragment extends Fragment {
 
         binding.webview.getSettings().setJavaScriptEnabled(true);
         binding.webview.getSettings().setDomStorageEnabled(true);
-        NavController navController = NavHostFragment.findNavController(this);
-        int id = navController.getCurrentDestination().getId();
-
-        //var amount: String? = arguments?.getString("amount")
-
-
         binding.webview.getSettings().setSupportZoom(true);
         binding.webview.getSettings().setBuiltInZoomControls(true);
         binding.webview.getSettings().setUseWideViewPort(true);
@@ -142,10 +136,7 @@ public class WebFragment extends Fragment {
         switch (id) {
             case R.id.seat:
                 User stu = Dao.INSTANCE.getStu();
-                Log.d(TAG, "onActivityCreated: " + stu.toString());
                 String js = "javascript:var x=document.getElementById('username').value ='" + stu.getNumber() + "';var y=document.getElementById('password').value='" + stu.getLibraryPassword() + "';";
-                Log.d(TAG, "onActivityCreated: " + js);
-                // String js = "javascript:var x=document.getElementById('username').value = " + stu.getNumber() + ";var y=document.getElementById('password').value=" + stu.getLibraryPassword() + ";";
                 binding.webview.loadUrl("http://202.206.242.87/ClientWeb/m/ic2/Default.aspx");
                 binding.webview.setWebViewClient(new WebViewClient() {
                     @Override
@@ -161,18 +152,16 @@ public class WebFragment extends Fragment {
                 binding.webview.loadUrl("http://202.206.243.9/xiaoli.asp");
                 break;
             case R.id.informationDetailFragment:
-                String amount = getArguments().getString("amount");
-                if (amount != null) binding.webview.loadUrl(amount);
+                information = (Information) getArguments().get("amount");
+                if (information != null) binding.webview.loadUrl(information.getUrl());
                 break;
             case R.id.feedBack:
                 QQ qq = Dao.INSTANCE.getQQ();
-                String url = "https://support.qq.com/product/115180?d-wx-push=1"; // 把1221数字换成你的产品ID，否则会不成功
+                String url = "https://support.qq.com/product/115180?d-wx-push=1";
                 if (qq != null) {
                     String openid = qq.getOpenID(); // 用户的openid
                     String nickname = qq.getNickname(); // 用户的nickname
                     String headimgurl = qq.getImage();
-                    /* 准备post参数 */
-                    //        v  var tempurl = user.image.replace("&", "%26")
                     headimgurl = headimgurl.replace("&", "%26");
                     String postData = "nickname=" + nickname + "&avatar=" + headimgurl + "&openid=" + openid;
                     binding.webview.postUrl(url, postData.getBytes());
@@ -271,5 +260,31 @@ public class WebFragment extends Fragment {
             }
 
         }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if (id == R.id.informationDetailFragment) {
+            inflater.inflate(R.menu.inform, menu);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.inform_share:
+                //通过QQ分享
+                new BaseUiListener().shareInformation(requireActivity(), information);
+                break;
+            case R.id.inform_collect:
+                break;
+            case android.R.id.home:
+                return super.onOptionsItemSelected(item);
+            default:
+                break;
+        }
+        return true;
     }
 }

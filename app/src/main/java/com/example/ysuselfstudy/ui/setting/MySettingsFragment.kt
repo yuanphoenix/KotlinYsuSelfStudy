@@ -69,7 +69,6 @@ class MySettingsFragment : PreferenceFragmentCompat() {
         val password: Preference? = findPreference("charge_password")
         password?.setOnPreferenceClickListener {
             PasswordChangeFragment().show(getParentFragmentManager(), "Hello")
-
             true
         }
 

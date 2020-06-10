@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import com.example.ysuselfstudy.YsuSelfStudyApplication
+import com.example.ysuselfstudy.data.Information
 import com.example.ysuselfstudy.data.QQ
 import com.tencent.connect.UserInfo
 import com.tencent.connect.auth.QQToken
@@ -100,6 +101,22 @@ class BaseUiListener : IUiListener {
             "https://pp.myapp.com/ma_icon/0/icon_53284916_1559117854/96"
         )
         params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "燕习")
+        YsuSelfStudyApplication.tencent.shareToQQ(context, params, BaseUiListener())
+    }
+
+    fun shareInformation(context: Activity?, information: Information) {
+        val params = Bundle()
+        params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT)
+        params.putString(QQShare.SHARE_TO_QQ_TITLE, information.title)
+        params.putString(QQShare.SHARE_TO_QQ_SUMMARY, "这个通知很重要！")
+        params.putString(
+            QQShare.SHARE_TO_QQ_TARGET_URL,
+            information.url
+        )
+        params.putString(
+            QQShare.SHARE_TO_QQ_IMAGE_URL,
+            "https://pp.myapp.com/ma_icon/0/icon_53284916_1559117854/96"
+        )
         YsuSelfStudyApplication.tencent.shareToQQ(context, params, BaseUiListener())
     }
 
