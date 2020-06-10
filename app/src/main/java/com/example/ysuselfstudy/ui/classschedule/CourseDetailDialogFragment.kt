@@ -25,7 +25,7 @@ class CourseDetailDialogFragment(val course: Course) : DialogFragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.course_detail_pop_layout, container, false)
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)//去除标题
         return binding.root
     }
 

@@ -65,5 +65,13 @@ class MySettingsFragment : PreferenceFragmentCompat() {
             navController.navigate(R.id.feedBack)
             true
         }
+
+        val password: Preference? = findPreference("charge_password")
+        password?.setOnPreferenceClickListener {
+            PasswordChangeFragment().show(getParentFragmentManager(), "Hello")
+
+            true
+        }
+
     }
 }

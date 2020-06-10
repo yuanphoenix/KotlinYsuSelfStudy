@@ -29,6 +29,7 @@ import android.view.ViewParent;
 import com.example.ysuselfstudy.R;
 import com.example.ysuselfstudy.YsuSelfStudyApplication;
 import com.example.ysuselfstudy.data.QQ;
+import com.example.ysuselfstudy.data.User;
 import com.example.ysuselfstudy.databinding.WebFragmentBinding;
 import com.example.ysuselfstudy.logic.Dao;
 import com.luck.picture.lib.compress.CompressionPredicate;
@@ -75,9 +76,6 @@ public class WebFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (binding.webview.getX5WebViewExtension() != null) {
-            Log.d(TAG, "onActivityCreated: 已经加载内核");
-        }
         binding.webview.getSettings().setJavaScriptEnabled(true);
         binding.webview.getSettings().setDomStorageEnabled(true);
         NavController navController = NavHostFragment.findNavController(this);
@@ -114,7 +112,7 @@ public class WebFragment extends Fragment {
             public boolean shouldOverrideUrlLoading(WebView webView, WebResourceRequest webResourceRequest) {
                 String url = webResourceRequest.getUrl().toString();
                 if (url == null) {
-                    return  false;
+                    return false;
                 }
                 try {
                     if (url.startsWith("weixin://")) {
@@ -143,14 +141,18 @@ public class WebFragment extends Fragment {
 
         switch (id) {
             case R.id.seat:
-                //  String js = "javascript:var x=document.getElementById('username').value = 160120010208;var y=document.getElementById('password').value=111;";
+                User stu = Dao.INSTANCE.getStu();
+                Log.d(TAG, "onActivityCreated: " + stu.toString());
+                String js = "javascript:var x=document.getElementById('username').value ='" + stu.getNumber() + "';var y=document.getElementById('password').value='" + stu.getLibraryPassword() + "';";
+                Log.d(TAG, "onActivityCreated: " + js);
+                // String js = "javascript:var x=document.getElementById('username').value = " + stu.getNumber() + ";var y=document.getElementById('password').value=" + stu.getLibraryPassword() + ";";
                 binding.webview.loadUrl("http://202.206.242.87/ClientWeb/m/ic2/Default.aspx");
-//                binding.webview.setWebViewClient(new WebViewClient() {
-//                    @Override
-//                    public void onPageFinished(WebView webView, String s) {
-//                        binding.webview.loadUrl(js);
-//                    }
-//                });
+                binding.webview.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageFinished(WebView webView, String s) {
+                        binding.webview.loadUrl(js);
+                    }
+                });
                 break;
             case R.id.librarySearch:
                 binding.webview.loadUrl("http://opac.ysu.edu.cn/m/weixin/wsearch.action");
@@ -170,7 +172,7 @@ public class WebFragment extends Fragment {
                     String nickname = qq.getNickname(); // 用户的nickname
                     String headimgurl = qq.getImage();
                     /* 准备post参数 */
-            //        v  var tempurl = user.image.replace("&", "%26")
+                    //        v  var tempurl = user.image.replace("&", "%26")
                     headimgurl = headimgurl.replace("&", "%26");
                     String postData = "nickname=" + nickname + "&avatar=" + headimgurl + "&openid=" + openid;
                     binding.webview.postUrl(url, postData.getBytes());
