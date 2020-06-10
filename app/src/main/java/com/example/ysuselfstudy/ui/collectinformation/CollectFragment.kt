@@ -18,13 +18,13 @@ import com.example.ysuselfstudy.adapter.InformationAdapter
 import com.example.ysuselfstudy.data.Information
 
 class CollectFragment : Fragment() {
-
     companion object {
         fun newInstance() = CollectFragment()
     }
 
     private lateinit var viewModel: CollectViewModel
     private lateinit var recyclerView: RecyclerView
+    private var isFirst = true
     private var mData = ArrayList<Information>()
     private lateinit var adapter: InformationAdapter
     override fun onCreateView(
@@ -39,7 +39,7 @@ class CollectFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CollectViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(CollectViewModel::class.java)
 
         adapter = InformationAdapter(mData, findNavController())
         recyclerView.adapter = adapter
@@ -57,6 +57,11 @@ class CollectFragment : Fragment() {
                 for (a in it) {
                     mData.add(Information(a.title, a.url, a.time))
                 }
+                if (isFirst) {
+                    isFirst = false
+                    YsuSelfStudyApplication.myinform.addAll(it)
+                }
+
                 adapter.notifyDataSetChanged()
             }
         })

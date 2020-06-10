@@ -13,9 +13,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -33,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.ysuselfstudy.R;
 import com.example.ysuselfstudy.YsuSelfStudyApplication;
+import com.example.ysuselfstudy.data.InformCollect;
 import com.example.ysuselfstudy.data.Information;
 import com.example.ysuselfstudy.data.QQ;
 import com.example.ysuselfstudy.data.User;
@@ -47,6 +46,10 @@ import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
+import java.util.Iterator;
+
+import cn.bmob.v3.http.I;
+
 /**
  * 这个页面发生了内存泄漏
  */
@@ -60,6 +63,8 @@ public class WebFragment extends Fragment {
     private WebViewModel viewModel;
     private static int id = 0;
     private Information information;
+    private Menu menu;
+    private static String objectId = "";
 
     public static WebFragment newInstance() {
         return new WebFragment();
@@ -193,8 +198,6 @@ public class WebFragment extends Fragment {
                 }
             }
         });
-
-
     }
 
 
@@ -272,6 +275,29 @@ public class WebFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         if (id == R.id.informationDetailFragment) {
             inflater.inflate(R.menu.inform, menu);
+            this.menu = menu;
+            refreshMenuState(menu, information.getUrl());
+        }
+    }
+
+    private void refreshMenuState(Menu menu, String url) {
+        Iterator it = YsuSelfStudyApplication.myinform.iterator();
+        if (!it.hasNext()) {
+            menu.getItem(1).setVisible(true);
+            menu.getItem(2).setVisible(false);
+            objectId = "";
+        }
+        while (it.hasNext()) {
+            InformCollect next = (InformCollect) it.next();
+            if (next.getUrl().equals(url)) {
+                menu.getItem(1).setVisible(false);
+                menu.getItem(2).setVisible(true);
+                objectId = next.getObjectId();
+                break;
+            } else {
+                menu.getItem(1).setVisible(true);
+                menu.getItem(2).setVisible(false);
+            }
         }
     }
 
@@ -283,18 +309,19 @@ public class WebFragment extends Fragment {
                 new BaseUiListener().shareInformation(requireActivity(), information);
                 break;
             case R.id.inform_collect:
-                //验证登录状态
                 viewModel.getUpResult().observe(this, new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean aBoolean) {
                         if (aBoolean) {
+                            refreshMenuState(menu,information.getUrl());
                             Toast.makeText(YsuSelfStudyApplication.context, "添加成功", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(YsuSelfStudyApplication.context, "添加失败", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-                if (Dao.INSTANCE.getQQ() != null) {
+                //验证登录状态
+                if (YsuSelfStudyApplication.tencent.isSessionValid()) {
                     viewModel.upload(information);
                 } else {
                     Toast.makeText(YsuSelfStudyApplication.context, "请登录QQ", Toast.LENGTH_SHORT).show();
@@ -304,6 +331,29 @@ public class WebFragment extends Fragment {
                 break;
             case android.R.id.home:
                 return super.onOptionsItemSelected(item);
+            case R.id.cancel_collect:
+                viewModel.cancel(objectId);
+                viewModel.getCancelResult().observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        if (aBoolean) {
+                            item.setVisible(false);
+                            Iterator it = YsuSelfStudyApplication.myinform.iterator();
+                            while (it.hasNext()) {
+                                InformCollect informCollect = (InformCollect) it.next();
+                                if (informCollect.getObjectId().equals(objectId)) {
+                                    it.remove();
+                                    break;
+                                }
+                            }
+                            refreshMenuState(menu, "");
+                            Toast.makeText(YsuSelfStudyApplication.context, "删除成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(YsuSelfStudyApplication.context, "删除失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                break;
             default:
                 break;
         }

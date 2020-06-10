@@ -11,7 +11,8 @@ class CollectViewModel : ViewModel() {
     fun getInformationList() {
         infortemp.value = infortemp.value
     }
-    var inforList=Transformations.switchMap(infortemp){
+
+    var inforList = Transformations.switchMap(infortemp) {
         Repository.getCollectInform()
     }
 }

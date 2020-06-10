@@ -50,7 +50,6 @@ class MainFragment : Fragment() {
     ): View? {
 
         var view: View = inflater.inflate(R.layout.main_fragment, container, false)
-
         viewPager = view.findViewById(R.id.viewpager)
         bottomNav = view.findViewById(R.id.bottom_nav)
         viewPagerAdapter = FirstVPAdapter(this)

@@ -298,11 +298,22 @@ object Repository {
         val qq = Dao.getQQ()
         val informCollect =
             InformCollect(information.url, information.title, qq!!.openID, information.time)
+
         emit(CollectNetWork.uploadInform(informCollect))
     }
 
     /**
      * 获取收藏列表
      */
-    fun getCollectInform() = liveData(Dispatchers.IO) { emit(CollectNetWork.getInform()) }
+    fun getCollectInform() = liveData(Dispatchers.IO) {
+        emit(CollectNetWork.getInform())
+    }
+
+    /**
+     * 取消收藏
+     */
+    fun deleteinformCollect(openid: String) = liveData(Dispatchers.IO) {
+        emit(CollectNetWork.deleteinformCollect(openid))
+    }
+
 }

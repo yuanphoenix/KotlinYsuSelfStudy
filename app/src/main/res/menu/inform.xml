@@ -6,4 +6,8 @@
     <item
         android:id="@+id/inform_collect"
         android:title="@string/collect" />
+    <item
+        android:id="@+id/cancel_collect"
+        android:visible="false"
+        android:title="@string/cancel_collect" />
 </menu>

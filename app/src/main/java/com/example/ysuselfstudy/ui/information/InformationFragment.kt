@@ -1,6 +1,7 @@
 package com.example.ysuselfstudy.ui.information
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,9 @@ import com.example.ysuselfstudy.databinding.InformFragmentBinding
 import com.example.ysuselfstudy.logic.showToast
 
 class InformationFragment : Fragment() {
+    private val TAG = "InformationFragment"
+    protected var isFirst = true
+
     companion object {
         fun newInstance() = InformationFragment()
     }
@@ -52,7 +56,7 @@ class InformationFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(InformationViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(InformationViewModel::class.java)
         viewModel.getInforList()
         viewModel.listOfInformation.observe(viewLifecycleOwner, Observer {
             if (it == null) {
@@ -62,6 +66,14 @@ class InformationFragment : Fragment() {
                 mData.addAll(it)
                 adapter.notifyDataSetChanged()
             }
+        })
+
+        viewModel.myListInfor.observe(viewLifecycleOwner, Observer {
+            if (it != null && isFirst) {
+                isFirst = false
+                YsuSelfStudyApplication.myinform.addAll(it)
+            }
+
         })
 
     }

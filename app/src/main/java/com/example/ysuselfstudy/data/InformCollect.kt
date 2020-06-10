@@ -7,5 +7,4 @@ data class InformCollect(
     val title: String,
     val openID: String,
     val time: String
-) : BmobObject() {
-}
+) : BmobObject() {}
