@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -16,7 +17,7 @@ public class Clock {
     private static String CALENDER_URL = "content://com.android.calendar/calendars";
     private static String CALENDER_EVENT_URL = "content://com.android.calendar/events";
     private static String CALENDER_REMINDER_URL = "content://com.android.calendar/reminders";
-
+    private static final String TAG = "Clock";
     private static String CALENDARS_NAME = "boohee";
     private static String CALENDARS_ACCOUNT_NAME = "BOOHEE@boohee.com";
     private static String CALENDARS_ACCOUNT_TYPE = "com.android.boohee";

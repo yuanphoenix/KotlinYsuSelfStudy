@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
                 android:src="@drawable/ic_exam_clock"
-                android:visibility="gone" />
+                android:visibility="@{bean.schedule?View.VISIBLE:View.GONE}" />
         </FrameLayout>
     </com.google.android.material.card.MaterialCardView>
 

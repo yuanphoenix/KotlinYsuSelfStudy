@@ -282,10 +282,11 @@ public class WebFragment extends Fragment {
 
     private void refreshMenuState(Menu menu, String url) {
         Iterator it = YsuSelfStudyApplication.myinform.iterator();
-        if (!it.hasNext()) {
+        if (!it.hasNext() || Dao.INSTANCE.getQQ() == null) {
             menu.getItem(1).setVisible(true);
             menu.getItem(2).setVisible(false);
             objectId = "";
+            return;
         }
         while (it.hasNext()) {
             InformCollect next = (InformCollect) it.next();
@@ -313,7 +314,7 @@ public class WebFragment extends Fragment {
                     @Override
                     public void onChanged(Boolean aBoolean) {
                         if (aBoolean) {
-                            refreshMenuState(menu,information.getUrl());
+                            refreshMenuState(menu, information.getUrl());
                             Toast.makeText(YsuSelfStudyApplication.context, "添加成功", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(YsuSelfStudyApplication.context, "添加失败", Toast.LENGTH_SHORT).show();

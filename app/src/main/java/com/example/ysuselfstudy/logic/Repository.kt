@@ -149,6 +149,7 @@ object Repository {
                     Clock.isExistEvent(YsuSelfStudyApplication.context, examName),
                     number
                 )
+                Log.d(TAG, "getExam: " + examBean)
                 examList.add(examBean)
             } else {
                 //出考试时间的一定在最前面，一旦没有发现考试时间，那么就停止。

@@ -14,6 +14,7 @@ import androidx.preference.PreferenceFragmentCompat
 
 import com.example.ysuselfstudy.MainViewModel
 import com.example.ysuselfstudy.R
+import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.logic.Dao
 import com.example.ysuselfstudy.logic.getWeek
 import com.example.ysuselfstudy.logic.qqlogin.BaseUiListener
@@ -41,6 +42,7 @@ class MySettingsFragment : PreferenceFragmentCompat() {
         val logout: Preference? = findPreference("logout")
         logout?.setOnPreferenceClickListener {
             mainViewModel.logoutQQ()
+            YsuSelfStudyApplication.myinform.clear()
             true
         }
 
