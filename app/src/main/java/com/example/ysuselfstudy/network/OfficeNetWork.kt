@@ -1,10 +1,12 @@
 package com.example.ysuselfstudy.network
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.util.Log
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.Information
 import com.example.ysuselfstudy.data.User
+import com.example.ysuselfstudy.logic.CrackCode
 import com.example.ysuselfstudy.logic.Dao
 import okhttp3.*
 import org.jsoup.Jsoup
@@ -172,20 +174,20 @@ object OfficeNetWork {
      */
     suspend fun postCode(byte: ByteArray): String {
         return suspendCoroutine { continuation ->
-//            Log.d(TAG, "postCode:开始  ");
-//            var bitmap = BitmapFactory.decodeByteArray(byte, 0, byte.size)
-//            val text = CrackCode.getAllOcr(bitmap)
-//
-//            Log.d(TAG, "postCode: " + text);
-            val body = RequestBody.create(MediaType.parse("image/jpg"), byte)
-            var resquest = Request.Builder()
-                .post(body)
-                .url("http://39.96.163.218:8080/SelfStudy/HengServlet?method=CrackCode")
-                .build()
-            val newCall = client.newCall(resquest)
-            val execute = newCall.execute()
-            val temp = execute.body()!!.string().trim()
-            continuation.resume(temp!!)
+            Log.d(TAG, "postCode:开始  ");
+            var bitmap = BitmapFactory.decodeByteArray(byte, 0, byte.size)
+            val text = CrackCode.getAllOcr(bitmap)
+
+            Log.d(TAG, "postCode: " + text);
+//            val body = RequestBody.create(MediaType.parse("image/jpg"), byte)
+//            var resquest = Request.Builder()
+//                .post(body)
+//                .url("http://39.96.163.218:8080/SelfStudy/HengServlet?method=CrackCode")
+//                .build()
+//            val newCall = client.newCall(resquest)
+//            val execute = newCall.execute()
+//            val temp = execute.body()!!.string().trim()
+            continuation.resume(text!!)
         }
     }
 
@@ -235,10 +237,10 @@ object OfficeNetWork {
     /**
      * 获取GPA信息
      */
-    suspend fun getGPA():Document{
+    suspend fun getGPA(): Document {
         return suspendCoroutine { continuation ->
             val user = Dao.getStu()
-            val url=
+            val url =
                 "http://${baseUrl}/mycjcx/bscjcx.asp?xh=${user.number}&xm=${user.gbkName}&gnmkdm=N121820"
             val referrer = "http://${baseUrl}/xs_main.aspx?xh=${user.number}"
             val document = Jsoup.connect(url)

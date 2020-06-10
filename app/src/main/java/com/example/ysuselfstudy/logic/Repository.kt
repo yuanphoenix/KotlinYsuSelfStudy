@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.liveData
 import com.example.ysuselfstudy.YsuSelfStudyApplication
 import com.example.ysuselfstudy.data.*
+import com.example.ysuselfstudy.network.CollectNetWork
 import com.example.ysuselfstudy.network.EmptyRoomNetWork
 import com.example.ysuselfstudy.network.OfficeNetWork
 import com.google.gson.Gson
@@ -145,7 +146,7 @@ object Repository {
                     examName,
                     time,
                     location,
-                    Clock.isExistEvent(YsuSelfStudyApplication.context, examName) ,
+                    Clock.isExistEvent(YsuSelfStudyApplication.context, examName),
                     number
                 )
                 examList.add(examBean)
@@ -290,4 +291,18 @@ object Repository {
 
     }
 
+    /**
+     * 获取上传收藏的结果
+     */
+    fun uploadCollectInfor(information: Information) = liveData(Dispatchers.IO) {
+        val qq = Dao.getQQ()
+        val informCollect =
+            InformCollect(information.url, information.title, qq!!.openID, information.time)
+        emit(CollectNetWork.uploadInform(informCollect))
+    }
+
+    /**
+     * 获取收藏列表
+     */
+    fun getCollectInform() = liveData(Dispatchers.IO) { emit(CollectNetWork.getInform()) }
 }

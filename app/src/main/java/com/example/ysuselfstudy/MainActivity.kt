@@ -19,6 +19,7 @@ import androidx.core.os.bundleOf
 
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.example.ysuselfstudy.data.MipushInfor
@@ -38,7 +39,8 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var baseUiListener = BaseUiListener()
-    lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: MainViewModel
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         te.setPadding(0, 60, 0, 0)
         var navigationView: NavigationView = findViewById(R.id.nav_view)
 
-        var navController = findNavController(R.id.nav_host_fragment)
+        navController = findNavController(R.id.nav_host_fragment)
 
         appBarConfiguration = AppBarConfiguration(setOf(R.id.mainFragment), drawerLayout)
 
@@ -116,8 +118,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d(TAG, "onActivityResult: " + requestCode)
-        Log.d(TAG, "onActivityResult: " + resultCode)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 Constants.REQUEST_LOGIN, Constants.REQUEST_APPBAR -> Tencent.onActivityResultData(
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                 )
 
             }
-        }else{
+        } else {
 
         }
 
@@ -149,6 +149,8 @@ class MainActivity : AppCompatActivity() {
                 "all",
                 baseUiListener
             );
+        } else {
+            navController.navigate(R.id.collectFragment)
         }
 
 

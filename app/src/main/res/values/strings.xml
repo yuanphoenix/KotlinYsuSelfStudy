@@ -53,5 +53,6 @@
     <string name="library_edit_password">图书馆密码</string>
     <string name="collect">收藏</string>
     <string name="share">分享</string>
+    <string name="mycollect">我的收藏</string>
 
 </resources>

@@ -13,13 +13,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.os.Environment;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,9 +28,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Toast;
 
 
 import com.example.ysuselfstudy.R;
+import com.example.ysuselfstudy.YsuSelfStudyApplication;
 import com.example.ysuselfstudy.data.Information;
 import com.example.ysuselfstudy.data.QQ;
 import com.example.ysuselfstudy.data.User;
@@ -54,6 +57,7 @@ public class WebFragment extends Fragment {
     private ValueCallback<Uri> uploadFile;
     private ValueCallback<Uri[]> uploadFiles;
     private NavController navController;
+    private WebViewModel viewModel;
     private static int id = 0;
     private Information information;
 
@@ -66,6 +70,7 @@ public class WebFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         navController = NavHostFragment.findNavController(this);
+        viewModel = new ViewModelProvider(this).get(WebViewModel.class);
         id = navController.getCurrentDestination().getId();
         setHasOptionsMenu(true);
         binding = DataBindingUtil.inflate(inflater, R.layout.web_fragment, container, false);
@@ -174,7 +179,6 @@ public class WebFragment extends Fragment {
                 String number = Dao.INSTANCE.getStu().getNumber();
                 binding.webview.loadUrl("http://202.206.243.62/xs_main.aspx?xh=" + number);
                 break;
-
         }
 
 
@@ -279,6 +283,24 @@ public class WebFragment extends Fragment {
                 new BaseUiListener().shareInformation(requireActivity(), information);
                 break;
             case R.id.inform_collect:
+                //验证登录状态
+                viewModel.getUpResult().observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        if (aBoolean) {
+                            Toast.makeText(YsuSelfStudyApplication.context, "添加成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(YsuSelfStudyApplication.context, "添加失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                if (Dao.INSTANCE.getQQ() != null) {
+                    viewModel.upload(information);
+                } else {
+                    Toast.makeText(YsuSelfStudyApplication.context, "请登录QQ", Toast.LENGTH_SHORT).show();
+                }
+
+                //登录成功后，使用
                 break;
             case android.R.id.home:
                 return super.onOptionsItemSelected(item);

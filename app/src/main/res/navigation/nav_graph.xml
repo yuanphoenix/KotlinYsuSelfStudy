@@ -75,5 +75,10 @@
         android:name="com.example.ysuselfstudy.ui.webview.WebFragment"
         android:label="@string/school_calendar"
         tools:layout="@layout/web_fragment" />
+    <fragment
+        android:id="@+id/collectFragment"
+        android:name="com.example.ysuselfstudy.ui.collectinformation.CollectFragment"
+        android:label="@string/mycollect"
+        tools:layout="@layout/collect_fragment" />
 
 </navigation>
