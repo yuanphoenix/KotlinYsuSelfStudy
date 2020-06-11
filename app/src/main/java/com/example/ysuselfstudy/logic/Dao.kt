@@ -20,17 +20,17 @@ object Dao {
      */
     fun saveStu(num: String, password: String, gbkName: String) {
         val user = User(number = num, eduPassword = password, gbkName = gbkName)
-        if (LitePal.count(User::class.java) > 0) {
+        if (!isStuEmpty()) {
             //如果不相等
-            if (!getStu().number.equals(num)) {
+            val savedStu = getStu()
+            if (savedStu.number == num) {
                 LitePal.deleteAll(User::class.java)
             } else {
                 //相等,更新
-                var savedUser = getStu()
-                savedUser.eduPassword = password
-                savedUser.number = num
-                savedUser.gbkName = gbkName
-                savedUser.save()
+                savedStu.eduPassword = password
+                savedStu.number = num
+                savedStu.gbkName = gbkName
+                savedStu.save()
                 return
             }
         }
@@ -128,15 +128,14 @@ object Dao {
 
 
     fun keepQQLogin(): Boolean = if (LitePal.count(QQ::class.java) != 0) {
-        val qqUser = LitePal.findFirst(QQ::class.java)
+        val qqUser = getQQ()
         YsuSelfStudyApplication.tencent.setAccessToken(qqUser.accessToken, qqUser.expires)
         YsuSelfStudyApplication.tencent.openId = qqUser.openID
         true
     } else false
 
 
-    fun getQQ() =
-        if (LitePal.count(QQ::class.java) != 0) LitePal.findFirst(QQ::class.java) else null
+    fun getQQ() = LitePal.findFirst(QQ::class.java)
 
 
     fun deleteQQ() =
@@ -172,7 +171,8 @@ object Dao {
         for (course in weekList) {
             var temp = 1
             while (temp <= course.continued) {
-                list[(course.beginNode - 1) * 7 + course.dayOfWeek - 1 + (temp - 1) * 7] = course.clone()
+                list[(course.beginNode - 1) * 7 + course.dayOfWeek - 1 + (temp - 1) * 7] =
+                    course.clone()
                 temp++
             }
         }

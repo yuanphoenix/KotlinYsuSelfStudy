@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.databinding.CampusCardFragmentBinding
+import com.example.ysuselfstudy.logic.Dao
 import com.google.android.material.snackbar.Snackbar
 
 class CampusCardFragment : Fragment() {
@@ -39,7 +40,9 @@ class CampusCardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CampusCardViewModel::class.java)
         //如果没有登录，那么先登录
-
+        if (!Dao.isStuEmpty()) {
+            binding.userNumber.setText(Dao.getStu().number)
+        }
         binding.btnLogin.setOnClickListener {
             viewModel.login(
                 binding.userNumber.text.toString(),

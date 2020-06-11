@@ -2,7 +2,9 @@ package com.example.ysuselfstudy.ui
 
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup.FOCUS_BLOCK_DESCENDANTS
 import android.widget.Button
+import android.widget.TimePicker
 import android.widget.TimePicker.OnTimeChangedListener
 import com.example.ysuselfstudy.R
 import com.example.ysuselfstudy.ui.emptyroom.RoomFragment
@@ -20,6 +22,8 @@ class TimePopWindow(var fragment: RoomFragment) :
         var certifyBtn: Button = findViewById(R.id.certify_btn)
         var beginTime: MyTimePicker = findViewById(R.id.begin_time)
         var endTime: MyTimePicker = findViewById(R.id.end_ime)
+        beginTime.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
+        endTime.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
         popupGravity = Gravity.BOTTOM
         bindEvent(beginTime, endTime)
 

@@ -70,7 +70,12 @@ class MySettingsFragment : PreferenceFragmentCompat() {
 
         val password: Preference? = findPreference("charge_password")
         password?.setOnPreferenceClickListener {
-            PasswordChangeFragment().show(getParentFragmentManager(), "Hello")
+            if (!Dao.isStuEmpty()) {
+                PasswordChangeFragment().show(getParentFragmentManager(), "Hello")
+            } else {
+                "没有密码".showToast()
+            }
+
             true
         }
 

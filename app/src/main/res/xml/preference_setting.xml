@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <Preference
-        app:key="charge_password"
-        app:title="管理密码" />
 
     <Preference
         app:key="feedback"
@@ -23,4 +20,7 @@
     <Preference
         app:key="logout"
         app:title="退出QQ登录" />
+    <Preference
+        app:key="charge_password"
+        app:title="管理密码" />
 </PreferenceScreen>

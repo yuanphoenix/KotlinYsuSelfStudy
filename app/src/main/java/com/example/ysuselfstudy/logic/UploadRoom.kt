@@ -127,10 +127,8 @@ object UploadRoom {
         prefUpLoadMsg.update("2ec49dadea", object : UpdateListener() {
             override fun done(p0: BmobException?) {
                 if (p0 == null) {
-                    Log.d(TAG, "done: 上传成功");
                     process.postValue(99)
                 } else {
-                    Log.d(TAG, "done: 失败" + p0.toString());
                     process.postValue(-1)
                 }
             }
@@ -143,10 +141,8 @@ object UploadRoom {
         lastUpLoadMsg.update("lTM53338", object : UpdateListener() {
             override fun done(p0: BmobException?) {
                 if (p0 == null) {
-                    Log.d(TAG, "done: 上传成功");
                     process.postValue(100)
                 } else {
-                    Log.d(TAG, "done: 失败" + p0.toString());
                     process.postValue(-1)
                 }
             }

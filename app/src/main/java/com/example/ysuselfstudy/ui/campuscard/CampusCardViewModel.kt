@@ -43,7 +43,7 @@ class CampusCardViewModel : ViewModel() {
     fun loginRoute() {
         if (isLogined()) {
             authenticationState.value = TodayAuthenticationState.AUTHENTICATED
-            login(Dao.getStu().number, Dao.getStu().todaySchoolPassword)
+            login(Dao.getStu()!!.number, Dao.getStu().todaySchoolPassword)
         }
 
     }
